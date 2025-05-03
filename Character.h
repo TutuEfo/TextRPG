@@ -16,7 +16,10 @@ private:
 
 public:
     Character(const string& nickname);  // Constructor
+    string getNickName();
+    int getStrength();
     void displayCharacter();
+    int attack();
 };
 
 #endif // CHARACTER_H
