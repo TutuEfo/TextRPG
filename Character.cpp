@@ -18,11 +18,23 @@ string Character::getNickName(){
 	return nickName;
 }
 
+int Character::getHealth() {
+	return health;
+}
+
 int Character::getStrength() {
 	return strength;
 }
 
-void Character::displayCharacter(){
+int Character::getDefence() {
+	return defence;
+}
+
+int Character::getLevel() {
+	return level;
+}
+
+void Character::displayCharacter() const{
 
 	cout << "\n=== Character Stats ===\n";
 	cout << "Name:     " << nickName << endl;
@@ -35,6 +47,6 @@ void Character::displayCharacter(){
 int Character::attack(){
 	int damage = strength + (rand() % strength);
 
-	cout << nickName << " attacks, and deals: " << damage << " damage to the enemy" << endl;
+	cout << nickName << " attacks, and deals: " << damage << " damage to the enemy!" << endl;
 	return damage;
 }

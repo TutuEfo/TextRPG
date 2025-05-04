@@ -11,6 +11,7 @@ private:
 public:
 	Mage(const string& name);
 	int castSpell();
+	void displayCharacter() const override;
 };
 
 
