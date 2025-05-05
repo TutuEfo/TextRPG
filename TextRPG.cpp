@@ -12,13 +12,13 @@ int main()
     srand(static_cast<unsigned int>(time(0)));
 
     // Testing the Classes:
-    //Mage myCharMage("Gandalf");
-    //myCharMage.displayCharacter();
-    //myCharMage.castSpell();
+    Mage myCharMage("Gandalf");
+    myCharMage.displayCharacter();
+    myCharMage.castSpell();
 
-    //Character myCharDefault("TutuEfo");
-    //myCharDefault.displayCharacter();
-    //myCharDefault.attack();
+    Character myCharDefault("TutuEfo");
+    myCharDefault.displayCharacter();
+    myCharDefault.attack();
         
     return 0;
 }

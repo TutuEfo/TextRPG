@@ -3,12 +3,15 @@
 #include "Character.h"
 #include "Mage.h"
 
+using namespace std;
+
 Mage::Mage(const string& name) : Character(name), mana(100){
 	
 }
 
 int Mage::castSpell(){
-	int damage;
+	
+	int damage = 0;
 
 	if (mana >= 10)
 	{
