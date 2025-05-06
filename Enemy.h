@@ -13,7 +13,11 @@ private:
 	int defence;
 	int strength;
 public:
-	Enemy(string name, int health, int defence, int strength);
+	Enemy(const string& name, int health, int defence, int strength);
+	string getEnemyName();
+	int getEnemyHealth();
+	int getEnemyDefence();
+	int getEnemyStrength();
 	void takeDamage(int damage);
 	void displayStatus() const;
 	bool isAlive() const;
