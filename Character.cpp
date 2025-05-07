@@ -29,7 +29,6 @@ int Character::attack()
 {
 	int damage = strength + (rand() % strength);
 
-	cout << nickName << " attacks, and deals: " << damage << " damage to the enemy!" << endl;
 	return damage;
 }
 
@@ -56,4 +55,14 @@ int Character::getDefence()
 int Character::getLevel()
 {
 	return level;
+}
+
+void Character::takeDamage(int damage)
+{
+	this->health = this->health - damage;
+
+	if (this->health < 0)
+	{
+		this->health = 0;
+	}
 }

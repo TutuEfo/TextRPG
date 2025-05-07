@@ -4,7 +4,7 @@
 
 using namespace std;
 
-Enemy::Enemy(const string& name, int health, int defence, int strength) : enemyName(name), health(health), defence(defence), strength(strength) {}
+Enemy::Enemy(const string& name, int health, int defence, int strength, int level) : enemyName(name), health(health), defence(defence), strength(strength), level(level) {}
 
 string Enemy::getEnemyName()
 {
@@ -18,6 +18,7 @@ void Enemy::displayStatus() const
 	cout << "Health:   " << health << endl;
 	cout << "Strength: " << strength << endl;
 	cout << "Defence:  " << defence << endl;
+	cout << "Level:    " << level << endl;
 }
 
 bool Enemy::isAlive() const
@@ -30,6 +31,11 @@ bool Enemy::isAlive() const
 	{
 		return 0;
 	}
+}
+
+int Enemy::attackCharacter()
+{
+	return (strength + (rand() % strength));
 }
 
 int Enemy::getEnemyHealth()
@@ -45,6 +51,11 @@ int Enemy::getEnemyDefence()
 int Enemy::getEnemyStrength()
 {
 	return strength;
+}
+
+int Enemy::getEnemyLevel()
+{
+	return level;
 }
 
 void Enemy::takeDamage(int damage)

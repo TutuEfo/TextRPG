@@ -20,6 +20,7 @@ public:
     int getStrength();
     int getDefence();
     int getLevel();
+    void takeDamage(int damage);
     virtual void displayCharacter() const;
     int attack();
 };
