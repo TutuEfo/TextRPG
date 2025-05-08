@@ -36,7 +36,7 @@ void combatRound(Character &player, Enemy &enemy)
     
     cout << "1) Attack" << endl;
     cout << "2) Defend" << endl;
-    // cout << "3) Items" << endl;
+    cout << "3) Items" << endl;
     // cout << "4) Escape" << endl;
     cout << "What do you want to do: ";
 
@@ -46,6 +46,52 @@ void combatRound(Character &player, Enemy &enemy)
 
     switch (choice)
     {
+    case 3:
+    {
+        int itemChoice = 0;
+
+        while (itemChoice != 4)
+        {
+            cout << "===================================================" << endl;
+
+            cout << ">> Items: " << endl;
+            cout << ">> 1) Health Potions:      " << player.getPotions() << endl;
+            // cout << ">> 2) Strength Potions: " << player.getStrengthPotions() << endl;
+            // cout << ">> 3) Defense Potions:  " << player.getDefensePotions() << endl;
+            cout << ">> 4) Go back to the main menu" << endl;
+
+            cin >> itemChoice;
+
+            switch (itemChoice)
+            {
+            case 1:
+            {
+                player.usePotion();
+
+                break;
+            }
+            case 4:
+            {
+                cout << "1) Attack" << endl;
+                cout << "2) Defend" << endl;
+                // cout << "4) Escape" << endl;
+                cout << "What do you want to do: ";
+
+                cin >> choice;
+
+                break;
+            }
+            default:
+            {
+                cout << "Choose 1 or 4" << endl;
+
+                break;
+            }
+            }
+        }
+
+        break;
+    }
     case 1:
     {
         cout << "===================================================" << endl;

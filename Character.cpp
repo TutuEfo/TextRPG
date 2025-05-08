@@ -12,6 +12,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	strength = 5;
 	defence = 1;
 	level = 1;
+	potions = 3;
 }
 
 void Character::displayCharacter() const
@@ -30,6 +31,22 @@ int Character::attack()
 	int damage = strength + (rand() % strength);
 
 	return damage;
+}
+
+void Character::usePotion()
+{
+	if (potions > 0)
+	{
+		health += 20;
+		potions--;
+
+		cout << nickName << " used a potion and recovered 20 HP!" << endl;
+	}
+	else
+	{
+		cout << "No potions left!" << endl;
+	}
+	
 }
 
 string Character::getNickName()
@@ -55,6 +72,11 @@ int Character::getDefence()
 int Character::getLevel()
 {
 	return level;
+}
+
+int Character::getPotions() const
+{
+	return potions;
 }
 
 void Character::takeDamage(int damage)

@@ -13,6 +13,7 @@ private:
     int strength;
     int defence;
     int level;
+    int potions;
 public:
     Character(const string& nickname);  // Constructor
     string getNickName();
@@ -20,6 +21,8 @@ public:
     int getStrength();
     int getDefence();
     int getLevel();
+    int getPotions() const;
+    void usePotion();
     void takeDamage(int damage);
     virtual void displayCharacter() const;
     int attack();
