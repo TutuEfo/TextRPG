@@ -35,10 +35,17 @@ int Character::attack()
 
 void Character::usePotion()
 {
+	int maxHealth = 100 + (10 * (level - 1));
+
 	if (potions > 0)
 	{
 		health += 20;
 		potions--;
+
+		if (health >= maxHealth)
+		{
+			health = maxHealth;
+		}
 
 		cout << nickName << " used a potion and recovered 20 HP!" << endl;
 	}

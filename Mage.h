@@ -12,6 +12,7 @@ private:
 	int mana;
 public:
 	Mage(const string& name);
+	int getMana();
 	int castSpell();
 	void displayCharacter() const override;
 };
