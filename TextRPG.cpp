@@ -31,7 +31,7 @@ void combatRound(Character &player, Enemy &enemy)
     cout << "Strength: " << player.getStrength() << endl;
     cout << "Defence:  " << player.getDefence() << endl;
     cout << "Level:    " << player.getLevel() << endl;
-
+    cout << "XP:       " << player.getXP() << "/" << player.getXPToLevelUp() << endl;
 
     cout << "\n" << endl;
 
@@ -187,7 +187,7 @@ void combatRound(Character &player, Enemy &enemy)
     }
 
     // Press Enter to continue program to slow things down.
-    cout << "Press Enter to continue to the battle:";
+    cout << ">> Press Enter to continue to the battle:";
     // cin.ignore() skips the leftover '\n' character in the input buffer.
     // This is usually needed after using cin >> something, because cin leaves a '\n' behind.
     cin.ignore();
@@ -207,14 +207,21 @@ int main()
     //myCharMage.castSpell();
 
     Character myCharDefault("TutuEfo");
-    Enemy enemyGoblin("Goblin", 100, 3, 3, 1);
+    Enemy enemyGoblin("Goblin", 100, 3, 3, myCharMage.getLevel());
 
     while (enemyGoblin.isAlive())
     {
         combatRound(myCharMage, enemyGoblin);
     }
 
-        cout << myCharMage.getNickName() << " defeats the " << enemyGoblin.getEnemyName() << "!" << endl;
+    if (!enemyGoblin.isAlive())
+    {
+        myCharMage.gainXP(enemyGoblin.getXPReward());
+    }
+
+    cout << ">> " << myCharMage.getNickName() << " defeats the " << enemyGoblin.getEnemyName() << "!" << endl;
+
+    myCharMage.displayCharacter();
         
     return 0;
 }

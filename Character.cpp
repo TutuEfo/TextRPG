@@ -11,6 +11,8 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	health = 100;
 	strength = 5;
 	defence = 1;
+	xp = 0;
+	xpToLevelUp = 100;
 	level = 1;
 	potions = 3;
 }
@@ -24,6 +26,7 @@ void Character::displayCharacter() const
 	cout << "Strength: " << strength << endl;
 	cout << "Defence:  " << defence << endl;
 	cout << "Level:    " << level << endl;
+	cout << "XP:       " << getXP() << "/" << getXPToLevelUp() << endl;
 }
 
 int Character::attack()
@@ -54,6 +57,50 @@ void Character::usePotion()
 		cout << "No potions left!" << endl;
 	}
 	
+}
+
+void Character::gainXP(int amount)
+{
+	xp = xp + amount;
+
+	cout << ">> " << nickName << " gained " << xp << " XP!" << endl;
+
+	if (xp >= xpToLevelUp)
+	{
+		xp = xp - xpToLevelUp;
+
+		levelUp();
+	}
+}
+
+void Character::levelUp()
+{
+	level++;
+
+	// int skillPoints = 2;
+
+	strength = strength + 2;
+	cout << nickName << " gets +2 strength!" << endl;
+	defence = defence + 1;
+	cout << nickName << " gets +1 defence!" << endl;
+	health = health + 10;
+	cout << nickName << " gets +10 health!" << endl;
+
+	potions = 3;
+	cout << "Potions are refilled!" << endl;
+
+	cout << nickName << " leveled up to Level " << level << "!" << endl;
+ }
+
+
+int Character::getXPToLevelUp() const
+{
+	return xpToLevelUp;
+}
+
+int Character::getXP() const
+{
+	return xp;
 }
 
 string Character::getNickName()

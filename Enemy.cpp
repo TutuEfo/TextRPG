@@ -4,7 +4,14 @@
 
 using namespace std;
 
-Enemy::Enemy(const string& name, int health, int defence, int strength, int level) : enemyName(name), health(health), defence(defence), strength(strength), level(level) {}
+Enemy::Enemy(const string& name, int health, int defence, int strength, int level)
+{
+	enemyName = name;
+	enemyLevel = max(1, level + (rand() % 3 - 1));
+	enemyHealth = health + (level - 1) * 10;
+	enemyDefence = defence + (level - 1) * 1;
+	enemyStrength = strength + (level - 1) * 2;
+}
 
 string Enemy::getEnemyName()
 {
@@ -15,15 +22,15 @@ void Enemy::displayStatus() const
 {
 	cout << "\n=== Enemy Stats ===\n";
 	cout << "Name:     " << enemyName << endl;
-	cout << "Health:   " << health << endl;
-	cout << "Strength: " << strength << endl;
-	cout << "Defence:  " << defence << endl;
-	cout << "Level:    " << level << endl;
+	cout << "Health:   " << enemyHealth << endl;
+	cout << "Strength: " << enemyStrength << endl;
+	cout << "Defence:  " << enemyDefence << endl;
+	cout << "Level:    " << enemyLevel << endl;
 }
 
 bool Enemy::isAlive() const
 {
-	if (health > 0)
+	if (enemyHealth > 0)
 	{
 		return 1;
 	}
@@ -35,35 +42,40 @@ bool Enemy::isAlive() const
 
 int Enemy::attackCharacter()
 {
-	return (strength + (rand() % strength));
+	return (enemyStrength + (rand() % enemyStrength));
+}
+
+int Enemy::getXPReward()
+{
+	return (10 + ((rand() % 10) + 1));
 }
 
 int Enemy::getEnemyHealth()
 {
-	return health;
+	return enemyHealth;
 }
 
 int Enemy::getEnemyDefence()
 {
-	return defence;
+	return enemyDefence;
 }
 
 int Enemy::getEnemyStrength()
 {
-	return strength;
+	return enemyStrength;
 }
 
 int Enemy::getEnemyLevel()
 {
-	return level;
+	return enemyLevel;
 }
 
 void Enemy::takeDamage(int damage)
 {
-	this->health = this->health - damage;
+	this->enemyHealth = this->enemyHealth - damage;
 
-	if (this->health < 0)
+	if (this->enemyHealth < 0)
 	{
-		this->health = 0;
+		this->enemyHealth = 0;
 	}
 }

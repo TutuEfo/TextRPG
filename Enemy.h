@@ -9,10 +9,10 @@ using namespace std;
 class Enemy {
 private:
 	string enemyName;
-	int health;
-	int defence;
-	int strength;
-	int level;
+	int enemyHealth;
+	int enemyDefence;
+	int enemyStrength;
+	int enemyLevel;
 public:
 	Enemy(const string& name, int health, int defence, int strength, int level);
 	string getEnemyName();
@@ -20,6 +20,7 @@ public:
 	int getEnemyDefence();
 	int getEnemyStrength();
 	int getEnemyLevel();
+	int getXPReward();
 	int attackCharacter();
 	void takeDamage(int damage);
 	void displayStatus() const;

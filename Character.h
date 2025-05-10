@@ -12,6 +12,8 @@ private:
     int health;
     int strength;
     int defence;
+    int xp;
+    int xpToLevelUp;
     int level;
     int potions;
 public:
@@ -22,6 +24,10 @@ public:
     int getDefence();
     int getLevel();
     int getPotions() const;
+    void gainXP(int amount);
+    void levelUp();
+    int getXP() const;
+    int getXPToLevelUp() const;
     void usePotion();
     void takeDamage(int damage);
     virtual void displayCharacter() const;
