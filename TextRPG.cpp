@@ -7,7 +7,6 @@
 
 using namespace std;
 
-
 void combatRound(Character &player, Enemy &enemy)
 {
     int choice = 0;
@@ -202,26 +201,40 @@ int main()
     srand(static_cast<unsigned int>(time(0)));
 
     // Testing the Mage Class:
-    Mage myCharMage("Gandalf");
+    // Mage myCharMage("Gandalf");
     //myCharMage.displayCharacter();
     //myCharMage.castSpell();
 
     Character myCharDefault("TutuEfo");
-    Enemy enemyGoblin("Goblin", 100, 3, 3, myCharMage.getLevel());
 
-    while (enemyGoblin.isAlive())
+    while (true)
     {
-        combatRound(myCharMage, enemyGoblin);
+        Enemy randomEnemy = Enemy::generateEnemy(myCharDefault.getLevel());
+
+        while (randomEnemy.isAlive() && myCharDefault.getHealth() > 0)
+        {
+            combatRound(myCharDefault, randomEnemy);
+        }
+
+        if (!randomEnemy.isAlive())
+        {
+            myCharDefault.gainXP(randomEnemy.getXPReward());
+            cout << ">> " << myCharDefault.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
+        }
+
+        if (myCharDefault.getHealth() <= 0)
+        {
+            cout << "\n======================================" << endl;
+            cout << ">> "<< myCharDefault.getNickName() << " has been defeated!" << endl;
+            cout << ">> GAME OVER!!" << endl;
+            cout << "======================================" << endl;
+            break;
+        }
+
+        cout << ">> Press Enter to face the next enemy...";
+        cin.ignore();
+        cin.get();
     }
-
-    if (!enemyGoblin.isAlive())
-    {
-        myCharMage.gainXP(enemyGoblin.getXPReward());
-    }
-
-    cout << ">> " << myCharMage.getNickName() << " defeats the " << enemyGoblin.getEnemyName() << "!" << endl;
-
-    myCharMage.displayCharacter();
         
     return 0;
 }

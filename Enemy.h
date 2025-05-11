@@ -15,6 +15,7 @@ private:
 	int enemyLevel;
 public:
 	Enemy(const string& name, int health, int defence, int strength, int level);
+	static Enemy generateEnemy(int level);
 	string getEnemyName();
 	int getEnemyHealth();
 	int getEnemyDefence();

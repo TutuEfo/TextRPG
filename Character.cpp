@@ -9,8 +9,8 @@ using namespace std;
 Character::Character(const string& name) /* : nickName(name), health(0), strength(5), defence(1), level(1) */ {
 	nickName = name;
 	health = 100;
-	strength = 5;
-	defence = 1;
+	strength = 10;
+	defence = 3;
 	xp = 0;
 	xpToLevelUp = 100;
 	level = 1;

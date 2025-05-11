@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstdlib>
 #include <string>
 #include "Enemy.h"
 
@@ -11,6 +12,26 @@ Enemy::Enemy(const string& name, int health, int defence, int strength, int leve
 	enemyHealth = health + (level - 1) * 10;
 	enemyDefence = defence + (level - 1) * 1;
 	enemyStrength = strength + (level - 1) * 2;
+}
+
+Enemy Enemy::generateEnemy(int level)
+{
+	const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
+	int typeIndex = rand() % 4;
+
+	string name = types[typeIndex];
+
+	int baseHealth = 50 + (rand() % 15 + 1);
+	int baseStrength = 5 + (rand() % 3 + 1);
+	int baseDefence = 2 + (rand() % 3 + 1);
+
+	int enemyLevel = max(1, level + (rand() % 3 - 1));
+
+	int health = baseHealth + (enemyLevel - 1) * 10;
+	int strength = baseStrength + (enemyLevel - 1) * 2;
+	int defence = baseDefence + (enemyLevel - 1) * 1;
+
+	return Enemy(name, health, defence, strength, enemyLevel);
 }
 
 string Enemy::getEnemyName()
