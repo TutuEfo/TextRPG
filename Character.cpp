@@ -11,22 +11,24 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	health = 100;
 	strength = 10;
 	defence = 3;
+	level = 1;
 	xp = 0;
 	xpToLevelUp = 100;
-	level = 1;
+	gold = 0;
 	potions = 3;
 }
 
 void Character::displayCharacter() const
 {
 
-	cout << "\n=== Character Stats ===\n";
+	cout << "\n===== Character Stats =====\n";
 	cout << "Name:     " << nickName << endl;
 	cout << "Health:   " << health << endl;
 	cout << "Strength: " << strength << endl;
 	cout << "Defence:  " << defence << endl;
 	cout << "Level:    " << level << endl;
-	cout << "XP:       " << getXP() << "/" << getXPToLevelUp() << endl;
+	cout << "XP:       " << xp << "/" << xpToLevelUp << endl;
+	cout << "Gold:     " << gold << endl;
 }
 
 int Character::attack()
@@ -92,6 +94,12 @@ void Character::levelUp()
 	cout << nickName << " leveled up to Level " << level << "!" << endl;
  }
 
+void Character::addGold(int amount)
+{
+	gold = gold + amount;
+
+	cout << nickName << " received " << amount << " of gold!" << endl;
+}
 
 int Character::getXPToLevelUp() const
 {
@@ -131,6 +139,11 @@ int Character::getLevel()
 int Character::getPotions() const
 {
 	return potions;
+}
+
+int Character::getGold()
+{
+	return gold;
 }
 
 void Character::takeDamage(int damage)

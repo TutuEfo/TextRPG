@@ -34,19 +34,24 @@ Enemy Enemy::generateEnemy(int level)
 	return Enemy(name, health, defence, strength, enemyLevel);
 }
 
-string Enemy::getEnemyName()
-{
-	return enemyName;
-}
-
 void Enemy::displayStatus() const
 {
-	cout << "\n=== Enemy Stats ===\n";
+	cout << "\n===== Enemy Stats =====\n";
 	cout << "Name:     " << enemyName << endl;
 	cout << "Health:   " << enemyHealth << endl;
 	cout << "Strength: " << enemyStrength << endl;
 	cout << "Defence:  " << enemyDefence << endl;
 	cout << "Level:    " << enemyLevel << endl;
+}
+
+int Enemy::getGoldReward() const
+{
+	return (enemyLevel * (10 + (rand() % 5 + 1)));
+}
+
+string Enemy::getEnemyName()
+{
+	return enemyName;
 }
 
 bool Enemy::isAlive() const

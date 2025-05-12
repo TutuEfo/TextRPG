@@ -23,6 +23,7 @@ public:
 	int getEnemyLevel();
 	int getXPReward();
 	int attackCharacter();
+	int getGoldReward() const;
 	void takeDamage(int damage);
 	void displayStatus() const;
 	bool isAlive() const;

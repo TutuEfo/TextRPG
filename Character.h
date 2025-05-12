@@ -16,6 +16,7 @@ private:
     int xpToLevelUp;
     int level;
     int potions;
+    int gold;
 public:
     Character(const string& nickname);  // Constructor
     string getNickName();
@@ -24,7 +25,9 @@ public:
     int getDefence();
     int getLevel();
     int getPotions() const;
+    int getGold();
     void gainXP(int amount);
+    void addGold(int amuntOfGold);
     void levelUp();
     int getXP() const;
     int getXPToLevelUp() const;

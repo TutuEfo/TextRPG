@@ -14,33 +14,25 @@ void combatRound(Character &player, Enemy &enemy)
     cout << "\n" << endl;
 
     cout << "===================================================" << endl;
-    cout << "Your stats: " << endl;
-    cout << "Name:     " << player.getNickName() << endl;
-    cout << "Health:   " << player.getHealth() << endl;
-
     // dynamic_cast checks if 'player' is actually a Mage.
     // If so, it safely casts to Mage* and stores it in magePtr.
     // Then we call getMana() on magePtr to get the mana value.
     Mage* magePtr = dynamic_cast<Mage*>(&player);
+
     if (magePtr != nullptr)
     {
-        cout << "Mana:     " << magePtr->getMana() << endl;
+        magePtr->displayCharacter();
     }
-
-    cout << "Strength: " << player.getStrength() << endl;
-    cout << "Defence:  " << player.getDefence() << endl;
-    cout << "Level:    " << player.getLevel() << endl;
-    cout << "XP:       " << player.getXP() << "/" << player.getXPToLevelUp() << endl;
+    else
+    {
+        player.displayCharacter();
+    }
 
     cout << "\n" << endl;
 
     cout << "===================================================" << endl;
-    cout << "Enemy stats: " << endl;
-    cout << "Name:     " << enemy.getEnemyName() << endl;
-    cout << "Health:   " << enemy.getEnemyHealth() << endl;
-    cout << "Strength: " << enemy.getEnemyStrength() << endl;
-    cout << "Defence:  " << enemy.getEnemyDefence() << endl;
-    cout << "Level:    " << enemy.getEnemyLevel() << endl;
+
+    enemy.displayStatus();
 
     cout << "\n" << endl;
 
@@ -219,6 +211,8 @@ int main()
         if (!randomEnemy.isAlive())
         {
             myCharDefault.gainXP(randomEnemy.getXPReward());
+            myCharDefault.addGold(randomEnemy.getGoldReward());
+
             cout << ">> " << myCharDefault.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
         }
 
