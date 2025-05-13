@@ -36,12 +36,12 @@ Enemy Enemy::generateEnemy(int level)
 
 void Enemy::displayStatus() const
 {
-	cout << "\n===== Enemy Stats =====\n";
-	cout << "Name:     " << enemyName << endl;
-	cout << "Health:   " << enemyHealth << endl;
-	cout << "Strength: " << enemyStrength << endl;
-	cout << "Defence:  " << enemyDefence << endl;
-	cout << "Level:    " << enemyLevel << endl;
+	cout << "\n===== ENEMY STATS =====\n";
+	cout << "Name:        " << enemyName << endl;
+	cout << "Health:      " << enemyHealth << endl;
+	cout << "Strength:    " << enemyStrength << endl;
+	cout << "Defence:     " << enemyDefence << endl;
+	cout << "Level:       " << enemyLevel << endl;
 }
 
 int Enemy::getGoldReward() const

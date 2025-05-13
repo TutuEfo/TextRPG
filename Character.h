@@ -19,22 +19,29 @@ private:
     int gold;
 public:
     Character(const string& nickname);  // Constructor
+
+    void addGold(int amuntOfGold);
+
+    void gainXP(int amount);
+    void levelUp();
+    int getXPToLevelUp() const;
+
+    void usePotion();
+    void addPotion(int amount);
+
+    void takeDamage(int damage);
+    int attack();
+    
+    virtual void displayCharacter() const;
+
     string getNickName();
     int getHealth();
     int getStrength();
     int getDefence();
     int getLevel();
-    int getPotions() const;
     int getGold();
-    void gainXP(int amount);
-    void addGold(int amuntOfGold);
-    void levelUp();
     int getXP() const;
-    int getXPToLevelUp() const;
-    void usePotion();
-    void takeDamage(int damage);
-    virtual void displayCharacter() const;
-    int attack();
+    int getPotions() const;
 };
 
 #endif // CHARACTER_H

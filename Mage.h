@@ -10,10 +10,12 @@ using namespace std;
 class Mage : public Character {
 private:
 	int mana;
+	int manaPotions;
 public:
 	Mage(const string& name);
 	int getMana();
 	int castSpell();
+	void addManaPotion(int amount);
 	void displayCharacter() const override;
 };
 

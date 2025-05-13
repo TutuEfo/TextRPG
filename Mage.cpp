@@ -25,7 +25,13 @@ int Mage::castSpell(){
 
 void Mage::displayCharacter() const {
 	Character::displayCharacter();
-	cout << "Mana:     " << mana << endl;
+	cout << "Mana:        " << mana << endl;
+	cout << "Mana Potion: " << manaPotions << endl;
+}
+
+void Mage::addManaPotion(int amount)
+{
+	manaPotions = manaPotions + amount;
 }
 
 int Mage::getMana()

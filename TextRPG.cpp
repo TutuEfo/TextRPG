@@ -187,6 +187,65 @@ void combatRound(Character &player, Enemy &enemy)
     cin.get();
 }
 
+void shopMenu(Character& player)
+{
+    int choice = 0;
+
+    while (choice != 3)
+    {
+        cout << "\n===== SHOP =====" << endl;
+        cout << ">> Gold: " << player.getGold() << endl;
+        cout << "1) Buy Health Potion (20 gold)" << endl;
+        cout << "2) Buy Mana Potion (25 gold)" << endl; // For Mage Class
+        cout << "3) Exit Shop" << endl;
+        cout << ">> Choose an option: ";
+        cin >> choice;
+
+        switch (choice)
+        {
+        case 1:
+            if (player.getGold() >= 20)
+            {
+                player.addPotion(1);
+                player.addGold(-20);
+                cout << ">> You bought 1 Health Potion!" << endl;
+            }
+            else
+            {
+                cout << ">> Not enough gold!" << endl;
+            }
+            break;
+
+        case 2:
+            if (Mage* mage = dynamic_cast<Mage*>(&player))
+            {
+                if (player.getGold() >= 25)
+                {
+                    mage->addManaPotion(1);
+                    player.addGold(-25);
+                    cout << ">> You bought 1 Mana Potion!" << endl;
+                }
+                else
+                {
+                    cout << ">> Not enough gold!" << endl;
+                }
+            }
+            else
+            {
+                cout << ">> Only Mages can buy mana potions!" << endl;
+            }
+            break;
+
+        case 3:
+            cout << ">> Leaving the shop..." << endl;
+            break;
+
+        default:
+            cout << ">> Invalid choice!" << endl;
+        }
+    }
+}
+
 int main()
 {
     // static_cast: converting the value to the expected type.
@@ -214,6 +273,29 @@ int main()
             myCharDefault.addGold(randomEnemy.getGoldReward());
 
             cout << ">> " << myCharDefault.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
+
+            int shopChoice = 0;
+
+            cout << ">> " << "Do you want to open the shop? " << endl;
+            cout << ">> " << "1) Yes" << endl;
+            cout << ">> " << "2) No" << endl;
+
+            cout << ">> " << "Enter your choice: ";
+            cin >> shopChoice;
+
+            if (shopChoice == 1)
+            {
+                shopMenu(myCharDefault);
+            }
+            else if (shopChoice == 2)
+            {
+                cout << ">> " << "Don't enter the Shop" << endl;
+            }
+            else
+            {
+                cout << ">> " << "Wrong input, moving onto the next enemy" << endl;
+            }
+
         }
 
         if (myCharDefault.getHealth() <= 0)
