@@ -10,7 +10,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	nickName = name;
 	health = 100;
 	strength = 10;
-	defence = 3;
+	defence = 5;
 	level = 1;
 	xp = 0;
 	xpToLevelUp = 100;
@@ -65,7 +65,7 @@ void Character::gainXP(int amount)
 {
 	xp = xp + amount;
 
-	cout << ">> " << nickName << " gained " << xp << " XP!" << endl;
+	cout << ">> " << nickName << " gained " << amount << " XP!" << endl;
 
 	if (xp >= xpToLevelUp)
 	{

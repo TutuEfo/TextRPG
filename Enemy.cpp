@@ -5,6 +5,15 @@
 
 using namespace std;
 
+Enemy::Enemy()
+{
+	enemyName = "Undefined";
+	enemyLevel = 0;
+	enemyHealth = 0;
+	enemyDefence = 0;
+	enemyStrength = 0;
+}
+
 Enemy::Enemy(const string& name, int health, int defence, int strength, int level)
 {
 	enemyName = name;
@@ -12,26 +21,6 @@ Enemy::Enemy(const string& name, int health, int defence, int strength, int leve
 	enemyHealth = health + (level - 1) * 10;
 	enemyDefence = defence + (level - 1) * 1;
 	enemyStrength = strength + (level - 1) * 2;
-}
-
-Enemy Enemy::generateEnemy(int level)
-{
-	const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
-	int typeIndex = rand() % 4;
-
-	string name = types[typeIndex];
-
-	int baseHealth = 50 + (rand() % 15 + 1);
-	int baseStrength = 5 + (rand() % 3 + 1);
-	int baseDefence = 2 + (rand() % 3 + 1);
-
-	int enemyLevel = max(1, level + (rand() % 3 - 1));
-
-	int health = baseHealth + (enemyLevel - 1) * 10;
-	int strength = baseStrength + (enemyLevel - 1) * 2;
-	int defence = baseDefence + (enemyLevel - 1) * 1;
-
-	return Enemy(name, health, defence, strength, enemyLevel);
 }
 
 void Enemy::displayStatus() const
@@ -44,9 +33,62 @@ void Enemy::displayStatus() const
 	cout << "Level:       " << enemyLevel << endl;
 }
 
+Enemy Enemy::generateEnemy(int level)
+{
+	const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
+	int typeIndex = rand() % 4;
+
+	string name = types[typeIndex];
+
+	int baseHealth = 50 + (rand() % 15 + 1);
+	int baseStrength = 3 + (rand() % 3 + 1);
+	int baseDefence = 3 + (rand() % 3 + 1);
+
+	int enemyLevel = max(1, level + (rand() % 3 - 1));
+
+	int health = baseHealth + (enemyLevel - 1) * 5;
+	int strength = baseStrength + (enemyLevel - 1);
+	int defence = baseDefence + (enemyLevel - 1);
+
+	return Enemy(name, health, defence, strength, enemyLevel);
+}
+
+Enemy Enemy::generateBoss(int level)
+{
+	const string bossAdjectives[] = { "Ancient", "Savage", "Unholy", "Wrathful", "Doombringer", "Infernal" };
+	const string bossNames[] = { "Goblin", "Orc", "Bandit", "Troll" };
+
+	int bossAdjIndex = rand() % 5;
+	int bossNamesIndex = rand() % 4;
+
+	string name = bossAdjectives[bossAdjIndex] + " " + bossNames[bossNamesIndex];
+
+	int enemyLevel = level + 1;
+	int health = 150 + (level * 20);
+	int strength = 15 + (level * 3);
+	int defence = 10 + (level * 2);
+
+	return Enemy(name, health, defence, strength, enemyLevel);
+}
+
 int Enemy::getGoldReward() const
 {
 	return (enemyLevel * (10 + (rand() % 5 + 1)));
+}
+
+int Enemy::getXPReward()
+{
+	return (20 + ((rand() % 10) + 1));
+}
+
+int Enemy::getGoldRewardBoss() const
+{
+	return (enemyLevel * (30 + (rand() % 10 + 1)));
+}
+
+int Enemy::getXPRewardBoss()
+{
+	return (60 + ((rand() % 20) + 1));
 }
 
 string Enemy::getEnemyName()
@@ -69,11 +111,6 @@ bool Enemy::isAlive() const
 int Enemy::attackCharacter()
 {
 	return (enemyStrength + (rand() % enemyStrength));
-}
-
-int Enemy::getXPReward()
-{
-	return (10 + ((rand() % 10) + 1));
 }
 
 int Enemy::getEnemyHealth()

@@ -14,16 +14,20 @@ private:
 	int enemyStrength;
 	int enemyLevel;
 public:
+	Enemy();
 	Enemy(const string& name, int health, int defence, int strength, int level);
 	static Enemy generateEnemy(int level);
+	static Enemy generateBoss(int level);
 	string getEnemyName();
 	int getEnemyHealth();
 	int getEnemyDefence();
 	int getEnemyStrength();
 	int getEnemyLevel();
 	int getXPReward();
-	int attackCharacter();
 	int getGoldReward() const;
+	int getGoldRewardBoss() const;
+	int getXPRewardBoss();
+	int attackCharacter();
 	void takeDamage(int damage);
 	void displayStatus() const;
 	bool isAlive() const;

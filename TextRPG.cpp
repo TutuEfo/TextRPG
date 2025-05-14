@@ -260,7 +260,17 @@ int main()
 
     while (true)
     {
-        Enemy randomEnemy = Enemy::generateEnemy(myCharDefault.getLevel());
+        Enemy randomEnemy;
+
+        if (myCharDefault.getLevel() % 5 == 0)
+        {
+            cout << "\nA powerful enemy is approaching...\n";
+            randomEnemy = Enemy::generateBoss(myCharDefault.getLevel());
+        }
+        else
+        {
+            randomEnemy = Enemy::generateEnemy(myCharDefault.getLevel());
+        }
 
         while (randomEnemy.isAlive() && myCharDefault.getHealth() > 0)
         {
@@ -269,12 +279,23 @@ int main()
 
         if (!randomEnemy.isAlive())
         {
-            myCharDefault.gainXP(randomEnemy.getXPReward());
-            myCharDefault.addGold(randomEnemy.getGoldReward());
+            if (myCharDefault.getLevel() % 5 == 0)
+            {
+                myCharDefault.gainXP(randomEnemy.getXPRewardBoss());
+                myCharDefault.addGold(randomEnemy.getGoldRewardBoss());
+
+            }
+            else
+            {
+                myCharDefault.gainXP(randomEnemy.getXPReward());
+                myCharDefault.addGold(randomEnemy.getGoldReward());
+            }
 
             cout << ">> " << myCharDefault.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
 
             int shopChoice = 0;
+
+            cout << "\n" << endl;
 
             cout << ">> " << "Do you want to open the shop? " << endl;
             cout << ">> " << "1) Yes" << endl;
@@ -285,15 +306,17 @@ int main()
 
             if (shopChoice == 1)
             {
+                cout << "\n" << endl;
+
                 shopMenu(myCharDefault);
             }
             else if (shopChoice == 2)
             {
-                cout << ">> " << "Don't enter the Shop" << endl;
+                cout << ">> " << "Don't enter the Shop." << endl;
             }
             else
             {
-                cout << ">> " << "Wrong input, moving onto the next enemy" << endl;
+                cout << ">> " << "Wrong input, moving onto the next enemy." << endl;
             }
 
         }
