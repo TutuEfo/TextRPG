@@ -31,6 +31,22 @@ void Character::displayCharacter() const
 	cout << "Gold:        " << gold << endl;
 }
 
+bool Character::escapeFromBattle()
+{
+	int escape;
+
+	escape = rand() % 2;
+
+	if (escape == 0)
+	{
+		return false;
+	}
+	else
+	{
+		return true;
+	}
+}
+
 int Character::attack()
 {
 	int damage = strength + (rand() % strength);

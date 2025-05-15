@@ -33,6 +33,8 @@ public:
     int attack();
     
     virtual void displayCharacter() const;
+    
+    bool escapeFromBattle();
 
     string getNickName();
     int getHealth();
