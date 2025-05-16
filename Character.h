@@ -17,6 +17,7 @@ private:
     int level;
     int potions;
     int gold;
+    bool escapeBattle;
 public:
     Character(const string& nickname);  // Constructor
 
@@ -34,7 +35,7 @@ public:
     
     virtual void displayCharacter() const;
     
-    bool escapeFromBattle();
+    void escapeFromBattle();
 
     string getNickName();
     int getHealth();
@@ -44,6 +45,8 @@ public:
     int getGold();
     int getXP() const;
     int getPotions() const;
+    bool getEscapeBattle();
+    void setEscapeBattle(bool escape);
 };
 
 #endif // CHARACTER_H

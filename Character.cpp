@@ -16,6 +16,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	xpToLevelUp = 100;
 	gold = 0;
 	potions = 3;
+	escapeBattle = false;
 }
 
 void Character::displayCharacter() const
@@ -31,7 +32,7 @@ void Character::displayCharacter() const
 	cout << "Gold:        " << gold << endl;
 }
 
-bool Character::escapeFromBattle()
+void Character::escapeFromBattle()
 {
 	int escape;
 
@@ -39,11 +40,11 @@ bool Character::escapeFromBattle()
 
 	if (escape == 0)
 	{
-		return false;
+		escapeBattle = false;
 	}
 	else
 	{
-		return true;
+		escapeBattle = true;
 	}
 }
 
@@ -165,6 +166,16 @@ int Character::getPotions() const
 int Character::getGold()
 {
 	return gold;
+}
+
+bool Character::getEscapeBattle()
+{
+	return escapeBattle;
+}
+
+void Character::setEscapeBattle(bool escape)
+{
+	escapeBattle = escape;
 }
 
 void Character::takeDamage(int damage)

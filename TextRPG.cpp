@@ -43,15 +43,14 @@ void combatRound(Character &player, Enemy &enemy)
     {
         cout << "2) Defend" << endl;
         cout << "3) Items" << endl;
-        cout << "4) Cast Spell" << endl;
-        // cout << "5) Escape" << endl;
+        cout << "4) Escape" << endl;
+        cout << "5) Cast Spell" << endl;
     }
     else
     {
         cout << "2) Defend" << endl;
         cout << "3) Items" << endl;
-        // cout << "4) Escape" << endl;
-
+        cout << "4) Escape" << endl;
     }
 
     cout << "What do you want to do: ";
@@ -140,6 +139,25 @@ void combatRound(Character &player, Enemy &enemy)
 
     }
     else if (choice == 4)
+    {
+        player.escapeFromBattle();
+        
+        if (player.getEscapeBattle())
+        {
+            cout << "You escaped successfully from the battle!" << endl;
+            return;
+        }
+        else
+        {
+            cout << "Escape failed! The enemy strikes you as you run!" << endl;
+
+            int escapeDamage = enemy.attackCharacter() - player.getDefence();
+            player.takeDamage(max(0, escapeDamage));
+
+            cout << "\n" << endl;
+        }
+    }
+    else if (choice == 5 && magePtr != nullptr)
     {
         if (magePtr->getMana() > 0)
         {
@@ -272,7 +290,7 @@ int main()
             randomEnemy = Enemy::generateEnemy(myCharDefault.getLevel());
         }
 
-        while (randomEnemy.isAlive() && myCharDefault.getHealth() > 0)
+        while (randomEnemy.isAlive() && myCharDefault.getHealth() > 0 && !myCharDefault.getEscapeBattle())
         {
             combatRound(myCharDefault, randomEnemy);
         }
@@ -329,6 +347,8 @@ int main()
             cout << "======================================" << endl;
             break;
         }
+
+        myCharDefault.setEscapeBattle(false);
 
         cout << ">> Press Enter to face the next enemy...";
         cin.ignore();
