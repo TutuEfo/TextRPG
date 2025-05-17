@@ -3,6 +3,8 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
+#include "Quest.h"
 
 using namespace std;
 
@@ -18,6 +20,7 @@ private:
     int potions;
     int gold;
     bool escapeBattle;
+    vector<Quest> activeQuests;
 public:
     Character(const string& nickname);  // Constructor
 
@@ -36,6 +39,10 @@ public:
     virtual void displayCharacter() const;
     
     void escapeFromBattle();
+
+    void addQuest(Quest& q);
+    void checkQuestCompletion(const string& enemyName, Character& player);
+    void displayQuests() const;
 
     string getNickName();
     int getHealth();

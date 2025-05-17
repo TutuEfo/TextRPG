@@ -1,8 +1,10 @@
-#include <iostream>
-#include "Character.h"
-#include <cstring>
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+#include <string>
+#include <vector>
+#include "Character.h"
+#include "Quest.h"
 
 using namespace std;
 
@@ -17,6 +19,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	gold = 0;
 	potions = 3;
 	escapeBattle = false;
+	activeQuests;
 }
 
 void Character::displayCharacter() const
@@ -121,6 +124,13 @@ void Character::addGold(int amount)
 void Character::addPotion(int amount)
 {
 	potions = potions + amount;
+}
+
+void Character::addQuest(Quest& quest)
+{
+	activeQuests.push_back(quest);
+
+	cout << "New Quest: " << quest.getDescription() << std::endl;
 }
 
 int Character::getXPToLevelUp() const
