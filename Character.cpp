@@ -126,11 +126,52 @@ void Character::addPotion(int amount)
 	potions = potions + amount;
 }
 
-void Character::addQuest(Quest& quest)
+void Character::addQuest(const Quest& q)
 {
-	activeQuests.push_back(quest);
+	activeQuests.push_back(q);
 
-	cout << "New Quest: " << quest.getDescription() << std::endl;
+	cout << "New Quest: " << q.description << std::endl;
+}
+
+void Character::checkQuestCompletion(const string& enemyName)
+{
+	// bind it by reference, deduce the type
+	for (auto& q : activeQuests)
+	{
+		if (!q.isComplete() && q.targetName == enemyName)
+		{
+			q.progress++;
+
+			cout << "Quest updated: " << q.description << " (" << q.progress << "/" << q.targetCount << ")\n";
+
+			if (q.isComplete())
+			{
+				cout << "Quest complete! +" << q.rewardXP << " XP, +" << q.rewardGold << " gold\n";
+
+				gainXP(q.rewardXP);
+				addGold(q.rewardGold);
+			}
+		}
+	}
+}
+
+void Character::displayQuests() const
+{
+	cout << "\n=== Active Quests ===\n";
+
+	for (const auto& q : activeQuests)
+	{
+		cout << q.description << " (" << q.progress << "/" << q.targetCount << ")";
+
+		if (q.isComplete())
+		{
+			cout << " [Completed]";
+		}
+
+		cout << "\n";
+	}
+
+	cout << endl;
 }
 
 int Character::getXPToLevelUp() const

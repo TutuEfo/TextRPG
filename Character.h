@@ -40,8 +40,8 @@ public:
     
     void escapeFromBattle();
 
-    void addQuest(Quest& q);
-    void checkQuestCompletion(const string& enemyName, Character& player);
+    void addQuest(const Quest& q);
+    void checkQuestCompletion(const string& enemyName);
     void displayQuests() const;
 
     string getNickName();
