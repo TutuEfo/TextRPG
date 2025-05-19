@@ -21,6 +21,7 @@ private:
     int gold;
     bool escapeBattle;
     vector<Quest> activeQuests;
+    bool hasQuests;
 public:
     Character(const string& nickname);  // Constructor
 
@@ -53,6 +54,8 @@ public:
     int getXP() const;
     int getPotions() const;
     bool getEscapeBattle();
+    bool getHasQuests();
+    void setHasQuests(bool hasQuest);
     void setEscapeBattle(bool escape);
 };
 

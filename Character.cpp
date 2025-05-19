@@ -20,6 +20,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	potions = 3;
 	escapeBattle = false;
 	activeQuests;
+	hasQuests = false;
 }
 
 void Character::displayCharacter() const
@@ -72,7 +73,7 @@ void Character::usePotion()
 			health = maxHealth;
 		}
 
-		cout << nickName << " used a potion and recovered 20 HP!" << endl;
+		cout << ">> " << nickName << " used a potion and recovered 20 HP!" << endl;
 	}
 	else
 	{
@@ -103,22 +104,28 @@ void Character::levelUp()
 
 	strength = strength + 2;
 	cout << nickName << " gets +2 strength!" << endl;
+	cout << "\n";
+
 	defence = defence + 1;
 	cout << nickName << " gets +1 defence!" << endl;
+	cout << "\n";
+
 	health = health + 10;
 	cout << nickName << " gets +10 health!" << endl;
+	cout << "\n";
 
-	potions = 3;
+	potions = potions + 3;
 	cout << "Potions are refilled!" << endl;
+	cout << "\n";
 
-	cout << nickName << " leveled up to Level " << level << "!" << endl;
+	cout << ">> " << nickName << " leveled up to Level " << level << "!" << endl;
  }
 
 void Character::addGold(int amount)
 {
 	gold = gold + amount;
 
-	cout << nickName << " received " << amount << " of gold!" << endl;
+	cout << ">> " << nickName << " received " << amount << " gold!" << endl;
 }
 
 void Character::addPotion(int amount)
@@ -129,8 +136,6 @@ void Character::addPotion(int amount)
 void Character::addQuest(const Quest& q)
 {
 	activeQuests.push_back(q);
-
-	cout << "New Quest: " << q.description << std::endl;
 }
 
 void Character::checkQuestCompletion(const string& enemyName)
@@ -150,6 +155,8 @@ void Character::checkQuestCompletion(const string& enemyName)
 
 				gainXP(q.rewardXP);
 				addGold(q.rewardGold);
+
+				hasQuests = false;
 			}
 		}
 	}
@@ -222,6 +229,16 @@ int Character::getGold()
 bool Character::getEscapeBattle()
 {
 	return escapeBattle;
+}
+
+bool Character::getHasQuests()
+{
+	return hasQuests;
+}
+
+void Character::setHasQuests(bool hasQuest)
+{
+	hasQuests = hasQuest;
 }
 
 void Character::setEscapeBattle(bool escape)

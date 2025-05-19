@@ -274,81 +274,125 @@ int main()
     //myCharMage.displayCharacter();
     //myCharMage.castSpell();
 
-    Character myCharDefault("TutuEfo");
+    Character player("TutuEfo");
 
     while (true)
     {
         Enemy randomEnemy;
 
-        if (myCharDefault.getLevel() % 5 == 0)
+        if(!player.getHasQuests())
+        {
+            const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
+            int typeIndex = rand() % 4;
+
+            string name = types[0];
+
+            int count;
+            count = rand() % 3 + 5;
+
+            int randomXP;
+            randomXP = rand() % 26 + 25;
+
+            int randomGold;
+            randomGold = rand() % 41 + 10;
+
+            Quest quest{ "Defeat 5 " + name, name, count, 0, randomXP, randomGold };
+
+            player.addQuest(quest);
+
+            player.setHasQuests(true);
+        }
+
+        if (player.getLevel() % 5 == 0)
         {
             cout << "\nA powerful enemy is approaching...\n";
-            randomEnemy = Enemy::generateBoss(myCharDefault.getLevel());
+            randomEnemy = Enemy::generateBoss(player.getLevel());
         }
         else
         {
-            randomEnemy = Enemy::generateEnemy(myCharDefault.getLevel());
+            randomEnemy = Enemy::generateEnemy(player.getLevel());
         }
 
-        while (randomEnemy.isAlive() && myCharDefault.getHealth() > 0 && !myCharDefault.getEscapeBattle())
+        while (randomEnemy.isAlive() && player.getHealth() > 0 && !player.getEscapeBattle())
         {
-            combatRound(myCharDefault, randomEnemy);
+            combatRound(player, randomEnemy);
+
+            if (!randomEnemy.isAlive())
+            {
+                player.checkQuestCompletion(randomEnemy.getEnemyName());
+            }
         }
 
         if (!randomEnemy.isAlive())
         {
-            if (myCharDefault.getLevel() % 5 == 0)
+            if (player.getLevel() % 5 == 0)
             {
-                myCharDefault.gainXP(randomEnemy.getXPRewardBoss());
-                myCharDefault.addGold(randomEnemy.getGoldRewardBoss());
+                player.gainXP(randomEnemy.getXPRewardBoss());
+                player.addGold(randomEnemy.getGoldRewardBoss());
 
             }
             else
             {
-                myCharDefault.gainXP(randomEnemy.getXPReward());
-                myCharDefault.addGold(randomEnemy.getGoldReward());
+                player.gainXP(randomEnemy.getXPReward());
+                player.addGold(randomEnemy.getGoldReward());
             }
 
-            cout << ">> " << myCharDefault.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
-
-            int shopChoice = 0;
-
-            cout << "\n" << endl;
-
-            cout << ">> " << "Do you want to open the shop? " << endl;
-            cout << ">> " << "1) Yes" << endl;
-            cout << ">> " << "2) No" << endl;
-
-            cout << ">> " << "Enter your choice: ";
-            cin >> shopChoice;
-
-            if (shopChoice == 1)
-            {
-                cout << "\n" << endl;
-
-                shopMenu(myCharDefault);
-            }
-            else if (shopChoice == 2)
-            {
-                cout << ">> " << "Don't enter the Shop." << endl;
-            }
-            else
-            {
-                cout << ">> " << "Wrong input, moving onto the next enemy." << endl;
-            }
+            cout << ">> " << player.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
 
         }
 
-        if (myCharDefault.getHealth() <= 0)
+        if (player.getHealth() <= 0)
         {
             cout << "\n======================================" << endl;
-            cout << ">> "<< myCharDefault.getNickName() << " has been defeated!" << endl;
+            cout << ">> "<< player.getNickName() << " has been defeated!" << endl;
             cout << ">> GAME OVER!!" << endl;
             cout << "======================================" << endl;
             break;
         }
 
-        myCharDefault.setEscapeBattle(false);
+        int choice = 0;
+
+        while (choice < 1 || choice > 3)
+        {
+            cout << "\n========== Post Combat Menu ==========" << endl;
+            cout << "1) Move to the Next Battle" << endl;
+            cout << "2) Open Shop" << endl;
+            cout << "3) View Quest(s) " << endl;
+            cout << ">> Enter your choice: ";
+            cin >> choice;
+
+            switch (choice)
+            {
+            case 1:
+            {
+                break;
+            }
+            case 2:
+            {
+                shopMenu(player);
+
+                break;
+            }
+            case 3:
+            {
+                player.displayQuests();
+
+                break;
+            }
+            default:
+            {
+                cout << "Invalid choice, choose again";
+            }
+            }
+
+            if (choice == 1)
+            {
+                continue;
+            }
+        }
+
+        cout << "\n";
+        player.setEscapeBattle(false);
 
         cout << ">> Press Enter to face the next enemy...";
         cin.ignore();

@@ -6,5 +6,5 @@ using namespace std;
 
 bool Quest::isComplete() const
 {
-	return (progress > targetCount);
+	return (progress >= targetCount);
 }
