@@ -4,6 +4,7 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Mage.h"
+#include "Console.h"
 
 using namespace std;
 
@@ -144,12 +145,12 @@ void combatRound(Character &player, Enemy &enemy)
         
         if (player.getEscapeBattle())
         {
-            cout << "You escaped successfully from the battle!" << endl;
+            coloredPrint(Color::Blue, "You escaped successfully from the battle!");
             return;
         }
         else
         {
-            cout << "Escape failed! The enemy strikes you as you run!" << endl;
+            coloredPrint(Color::Red, "Escape failed! The enemy strikes you as you run!");
 
             int escapeDamage = enemy.attackCharacter() - player.getDefence();
             player.takeDamage(max(0, escapeDamage));
@@ -174,7 +175,7 @@ void combatRound(Character &player, Enemy &enemy)
         }
         else
         {
-            cout << "Don't have enough mana to cast a spell!" << endl;
+            coloredPrint(Color::Cyan, "Don't have enough mana to cast a spell!");
         }
 
         cout << ">> " << enemy.getEnemyName() << " attacks the " << player.getNickName() << endl;
@@ -266,6 +267,8 @@ void shopMenu(Character& player)
 
 int main()
 {
+    initConsole();
+
     // static_cast: converting the value to the expected type.
     srand(static_cast<unsigned int>(time(0)));
 
@@ -305,7 +308,7 @@ int main()
 
         if (player.getLevel() % 5 == 0)
         {
-            cout << "\nA powerful enemy is approaching...\n";
+            coloredPrint(Color::Red, "\nA powerful enemy is approaching...\n");
             randomEnemy = Enemy::generateBoss(player.getLevel());
         }
         else
