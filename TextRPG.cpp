@@ -11,6 +11,35 @@ using namespace std;
 void combatRound(Character &player, Enemy &enemy)
 {
     int choice = 0;
+    int escapeChoice = 0;
+
+    if (player.getStrengthPotionDuration() > 0)
+    {
+        int sDuration = player.getStrengthPotionDuration() - 1;
+
+        player.setStrengthPotionDuration(sDuration);
+
+        if (player.getStrengthPotionDuration() == 0 && player.isStrengthEffectActive())
+        {
+            player.setStrength(player.getStrength() - 5);
+            player.setStrengthEffectActive(false);
+            cout << ">> Strength potion wore off!" << endl;
+        }
+    }
+
+    if (player.getDefencePotionDuration() > 0)
+    {
+        int dDuration = player.getDefencePotionDuration() - 1;
+
+        player.setDefencePotionDuration(dDuration);
+
+        if (player.getDefencePotionDuration() == 0 && player.isDefenceEffectActive())
+        {
+            player.setDefence(player.getDefence() - 3);
+            player.setDefenceEffectActive(false);
+            cout << ">> Defence potion wore off!" << endl;
+        }
+    }
 
     cout << "\n" << endl;
 
@@ -20,6 +49,7 @@ void combatRound(Character &player, Enemy &enemy)
     // Then we call getMana() on magePtr to get the mana value.
     Mage* magePtr = dynamic_cast<Mage*>(&player);
 
+    // Check for Mage Class:
     if (magePtr != nullptr)
     {
         magePtr->displayCharacter();
@@ -40,6 +70,7 @@ void combatRound(Character &player, Enemy &enemy)
     
     cout << "1) Attack" << endl;
 
+    // Combat Panel:
     if (magePtr != nullptr)
     {
         cout << "2) Defend" << endl;
@@ -68,31 +99,70 @@ void combatRound(Character &player, Enemy &enemy)
         {
             cout << "===================================================" << endl;
 
+            // Items Panel:
             cout << ">> Items: " << endl;
-            cout << ">> 1) Health Potions:      " << player.getPotions() << endl;
-            // cout << ">> 2) Strength Potions: " << player.getStrengthPotions() << endl;
-            // cout << ">> 3) Defense Potions:  " << player.getDefensePotions() << endl;
-            cout << ">> 4) Go back to the main menu" << endl;
+            cout << ">> 1) Potions" << endl;
+            cout << ">> 2) Go back to the main menu" << endl;
+            cout << ">> Choose an option: ";
 
             cin >> itemChoice;
 
             if (itemChoice == 1)
             {
-                player.usePotion();
+                int potionChoice;
+
+                cout << ">> Which potion do you want to use: " << endl;
+                cout << ">> 1) Health: " << player.getHealthPotions() << endl;
+                cout << ">> 2) Strength: " << player.getStrengthPotions() << endl;
+                cout << ">> 3) Defence: " << player.getDefencePotions() << endl;
+                cout << ">> Choose a potion: ";
+
+                cin >> potionChoice;
+
+                if (potionChoice == 1)
+                {
+                    player.usePotion(potionChoice);
+                }
+                if (potionChoice == 2 && !player.isStrengthEffectActive())
+                {
+                    player.usePotion(potionChoice);
+
+                    player.setStrengthPotionDuration(3);
+
+                    player.setStrengthEffectActive(true);
+                }
+                else if (potionChoice == 3 && !player.isDefenceEffectActive())
+                {
+                    player.usePotion(potionChoice);
+
+                    player.setDefencePotionDuration(3);
+
+                    player.setDefenceEffectActive(true);
+                }
+                else {
+                    cout << ">> You can't use that potion right now." << endl;
+                }
+
                 break;
             }
-            if (itemChoice == 4)
+            if (itemChoice == 2)
             {
                 cout << "1) Attack" << endl;
                 cout << "2) Defend" << endl;
-                // cout << "3) Escape" << endl;
+                cout << "3) Escape" << endl;
                 cout << "What do you want to do: ";
 
                 cin >> choice;
                 cin.ignore();
+
+                if (choice == 3)
+                {
+                    escapeChoice = 1;
+                }
             }
         }
     }
+
     if (choice == 1)
     {
         cout << "===================================================" << endl;
@@ -139,13 +209,18 @@ void combatRound(Character &player, Enemy &enemy)
         cout << "\n" << endl;
 
     }
-    else if (choice == 4)
+    else if (choice == 4 || escapeChoice == 1)
     {
         player.escapeFromBattle();
         
         if (player.getEscapeBattle())
         {
-            coloredPrint(Color::Blue, "You escaped successfully from the battle!");
+            cout << endl;
+        
+            coloredPrint(Color::Green, "You escaped successfully from the battle!");
+
+            cout << endl;
+
             return;
         }
         else
@@ -175,7 +250,7 @@ void combatRound(Character &player, Enemy &enemy)
         }
         else
         {
-            coloredPrint(Color::Cyan, "Don't have enough mana to cast a spell!");
+            coloredPrint(Color::Yellow, "Don't have enough mana to cast a spell!");
         }
 
         cout << ">> " << enemy.getEnemyName() << " attacks the " << player.getNickName() << endl;
@@ -225,14 +300,15 @@ void shopMenu(Character& player)
         case 1:
             if (player.getGold() >= 20)
             {
-                player.addPotion(1);
+                player.addHealthPotion(1);
                 player.addGold(-20);
-                cout << ">> You bought 1 Health Potion!" << endl;
+                coloredPrint(Color::Green, ">> You bought 1 Health Potion!");
             }
             else
             {
                 cout << ">> Not enough gold!" << endl;
             }
+
             break;
 
         case 2:
@@ -242,7 +318,7 @@ void shopMenu(Character& player)
                 {
                     mage->addManaPotion(1);
                     player.addGold(-25);
-                    cout << ">> You bought 1 Mana Potion!" << endl;
+                    coloredPrint(Color::Cyan, ">> You bought 1 Mana Potion!");
                 }
                 else
                 {
@@ -253,10 +329,12 @@ void shopMenu(Character& player)
             {
                 cout << ">> Only Mages can buy mana potions!" << endl;
             }
+
             break;
 
         case 3:
             cout << ">> Leaving the shop..." << endl;
+
             break;
 
         default:
@@ -283,12 +361,13 @@ int main()
     {
         Enemy randomEnemy;
 
+        // Quest Panel:
         if(!player.getHasQuests())
         {
             const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
             int typeIndex = rand() % 4;
 
-            string name = types[0];
+            string name = types[typeIndex];
 
             int count;
             count = rand() % 3 + 5;
@@ -299,16 +378,17 @@ int main()
             int randomGold;
             randomGold = rand() % 41 + 10;
 
-            Quest quest{ "Defeat 5 " + name, name, count, 0, randomXP, randomGold };
+            Quest quest{ "Defeat " + to_string(count) + " " + name, name, count, 0, randomXP, randomGold };
 
             player.addQuest(quest);
 
             player.setHasQuests(true);
         }
 
+        // Normal Enemy & Boss:
         if (player.getLevel() % 5 == 0)
         {
-            coloredPrint(Color::Red, "\nA powerful enemy is approaching...\n");
+            coloredPrint(Color::Red, "\n!! A powerful enemy is approaching...\n");
             randomEnemy = Enemy::generateBoss(player.getLevel());
         }
         else
@@ -316,6 +396,7 @@ int main()
             randomEnemy = Enemy::generateEnemy(player.getLevel());
         }
 
+        // Combat loop:
         while (randomEnemy.isAlive() && player.getHealth() > 0 && !player.getEscapeBattle())
         {
             combatRound(player, randomEnemy);
@@ -326,6 +407,7 @@ int main()
             }
         }
 
+        // Reward Panel: 
         if (!randomEnemy.isAlive())
         {
             if (player.getLevel() % 5 == 0)
@@ -344,17 +426,20 @@ int main()
 
         }
 
+        // Game Over:
         if (player.getHealth() <= 0)
         {
             cout << "\n======================================" << endl;
             cout << ">> "<< player.getNickName() << " has been defeated!" << endl;
             cout << ">> GAME OVER!!" << endl;
             cout << "======================================" << endl;
+
             break;
         }
 
         int choice = 0;
 
+        // Post Combat Panel:
         while (choice < 1 || choice > 3)
         {
             cout << "\n========== Post Combat Menu ==========" << endl;
@@ -384,7 +469,7 @@ int main()
             }
             default:
             {
-                cout << "Invalid choice, choose again";
+                cout << ">> Invalid choice, choose again";
             }
             }
 

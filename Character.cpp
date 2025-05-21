@@ -10,15 +10,27 @@ using namespace std;
 
 Character::Character(const string& name) /* : nickName(name), health(0), strength(5), defence(1), level(1) */ {
 	nickName = name;
+
 	health = 100;
 	strength = 10;
 	defence = 5;
+
 	level = 1;
 	xp = 0;
 	xpToLevelUp = 100;
+
 	gold = 0;
-	potions = 3;
+
+	healthPotions = 3;
+	strengthPotions = 2;
+	defencePotions = 2;
+	strengthPotionDuration = 0;
+	defencePotionDuration = 0;
+	strengthEffectActive = false;
+	defenceEffectActive = false;
+
 	escapeBattle = false;
+
 	activeQuests;
 	hasQuests = false;
 }
@@ -59,14 +71,14 @@ int Character::attack()
 	return damage;
 }
 
-void Character::usePotion()
+void Character::usePotion(int choice)
 {
 	int maxHealth = 100 + (10 * (level - 1));
 
-	if (potions > 0)
+	if (healthPotions > 0 && choice == 1)
 	{
 		health += 20;
-		potions--;
+		healthPotions--;
 
 		if (health >= maxHealth)
 		{
@@ -75,9 +87,25 @@ void Character::usePotion()
 
 		cout << ">> " << nickName << " used a potion and recovered 20 HP!" << endl;
 	}
+	else if (strengthPotions > 0 && choice == 2)
+	{
+		strengthPotions--;
+
+		strength = strength + 5;
+
+		cout << ">> " << nickName << " used a strength potion and gain +5 strength for 3 rounds!" << endl;
+	}
+	else if (defencePotions > 0 && choice == 3)
+	{
+		defencePotions--;
+
+		defence = defence + 3;
+
+		cout << ">> " << nickName << " used a defence potion and gain +3 defence for 3 rounds!" << endl;
+	}
 	else
 	{
-		cout << "No potions left!" << endl;
+		cout << ">> No potions left!" << endl;
 	}
 	
 }
@@ -102,20 +130,18 @@ void Character::levelUp()
 
 	// int skillPoints = 2;
 
-	strength = strength + 2;
-	cout << nickName << " gets +2 strength!" << endl;
 	cout << "\n";
+	strength = strength + 2;
+	cout << "#" << nickName << " gets +2 strength!" << endl;
 
 	defence = defence + 1;
-	cout << nickName << " gets +1 defence!" << endl;
-	cout << "\n";
+	cout << "#" << nickName << " gets +1 defence!" << endl;
 
 	health = health + 10;
-	cout << nickName << " gets +10 health!" << endl;
-	cout << "\n";
+	cout << "#" << nickName << " gets +10 health!" << endl;
 
-	potions = potions + 3;
-	cout << "Potions are refilled!" << endl;
+	healthPotions = healthPotions + 3;
+	cout << "#Potions are refilled!" << endl;
 	cout << "\n";
 
 	cout << ">> " << nickName << " leveled up to Level " << level << "!" << endl;
@@ -128,9 +154,19 @@ void Character::addGold(int amount)
 	cout << ">> " << nickName << " received " << amount << " gold!" << endl;
 }
 
-void Character::addPotion(int amount)
+void Character::addHealthPotion(int amount)
 {
-	potions = potions + amount;
+	healthPotions = healthPotions + amount;
+}
+
+void Character::addStrengthPotion(int amount)
+{
+	strengthPotions = strengthPotions + amount;
+}
+
+void Character::addDefencePotion(int amount)
+{
+	defencePotions = defencePotions + amount;
 }
 
 void Character::addQuest(const Quest& q)
@@ -147,11 +183,11 @@ void Character::checkQuestCompletion(const string& enemyName)
 		{
 			q.progress++;
 
-			cout << "Quest updated: " << q.description << " (" << q.progress << "/" << q.targetCount << ")\n";
+			cout << ">> Quest updated: " << q.description << " (" << q.progress << "/" << q.targetCount << ")\n";
 
 			if (q.isComplete())
 			{
-				cout << "Quest complete! +" << q.rewardXP << " XP, +" << q.rewardGold << " gold\n";
+				cout << ">> Quest complete! +" << q.rewardXP << " XP, +" << q.rewardGold << " gold\n";
 
 				gainXP(q.rewardXP);
 				addGold(q.rewardGold);
@@ -179,6 +215,26 @@ void Character::displayQuests() const
 	}
 
 	cout << endl;
+}
+
+int Character::getStrengthPotionDuration() const
+{
+	return strengthPotionDuration;
+}
+
+int Character::getDefencePotionDuration() const
+{ 
+	return defencePotionDuration;
+}
+
+bool Character::isStrengthEffectActive() const 
+{ 
+	return strengthEffectActive; 
+}
+
+bool Character::isDefenceEffectActive() const
+{ 
+	return defenceEffectActive; 
 }
 
 int Character::getXPToLevelUp() const
@@ -216,9 +272,19 @@ int Character::getLevel()
 	return level;
 }
 
-int Character::getPotions() const
+int Character::getHealthPotions() const
 {
-	return potions;
+	return healthPotions;
+}
+
+int Character::getStrengthPotions() const
+{
+	return strengthPotions;
+}
+
+int Character::getDefencePotions() const
+{
+	return defencePotions;
 }
 
 int Character::getGold()
@@ -254,4 +320,34 @@ void Character::takeDamage(int damage)
 	{
 		this->health = 0;
 	}
+}
+
+void Character::setStrength(int strength)
+{
+	this->strength = strength;
+}
+
+void Character::setDefence(int defence)
+{
+	this->defence = defence;
+}
+
+void Character::setStrengthEffectActive(bool active)
+{
+	strengthEffectActive = active;
+}
+
+void Character::setDefenceEffectActive(bool active) 
+{ 
+	defenceEffectActive = active;
+}
+
+void Character::setStrengthPotionDuration(int duration)
+{
+	strengthPotionDuration = duration;
+}
+
+void Character::setDefencePotionDuration(int duration)
+{
+	defencePotionDuration = duration;
 }
