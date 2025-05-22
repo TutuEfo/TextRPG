@@ -11,6 +11,7 @@ using namespace std;
 void combatRound(Character &player, Enemy &enemy)
 {
     int choice = 0;
+    int goBackMenu = 0;
     int escapeChoice = 0;
 
     if (player.getStrengthPotionDuration() > 0)
@@ -41,7 +42,7 @@ void combatRound(Character &player, Enemy &enemy)
         }
     }
 
-    cout << "\n" << endl;
+    cout << endl;
 
     cout << "===================================================" << endl;
     // dynamic_cast checks if 'player' is actually a Mage.
@@ -59,14 +60,13 @@ void combatRound(Character &player, Enemy &enemy)
         player.displayCharacter();
     }
 
-    cout << "\n" << endl;
+    cout << endl;
 
     cout << "===================================================" << endl;
 
     enemy.displayStatus();
 
-    cout << "\n" << endl;
-
+    cout << endl;
     
     cout << "1) Attack" << endl;
 
@@ -89,7 +89,7 @@ void combatRound(Character &player, Enemy &enemy)
 
     cin >> choice;
 
-    cout << "\n" << endl;
+    cout << endl;
 
     if (choice == 3)
     {
@@ -111,10 +111,12 @@ void combatRound(Character &player, Enemy &enemy)
             {
                 int potionChoice;
 
+                cout << endl;
                 cout << ">> Which potion do you want to use: " << endl;
                 cout << ">> 1) Health: " << player.getHealthPotions() << endl;
                 cout << ">> 2) Strength: " << player.getStrengthPotions() << endl;
                 cout << ">> 3) Defence: " << player.getDefencePotions() << endl;
+                cout << ">> 4) Don't use potion: " << endl;
                 cout << ">> Choose a potion: ";
 
                 cin >> potionChoice;
@@ -122,14 +124,18 @@ void combatRound(Character &player, Enemy &enemy)
                 if (potionChoice == 1)
                 {
                     player.usePotion(potionChoice);
+
+                    goBackMenu = 1;
                 }
-                if (potionChoice == 2 && !player.isStrengthEffectActive())
+                else if (potionChoice == 2 && !player.isStrengthEffectActive())
                 {
                     player.usePotion(potionChoice);
 
                     player.setStrengthPotionDuration(3);
 
                     player.setStrengthEffectActive(true);
+
+                    goBackMenu = 1;
                 }
                 else if (potionChoice == 3 && !player.isDefenceEffectActive())
                 {
@@ -138,27 +144,35 @@ void combatRound(Character &player, Enemy &enemy)
                     player.setDefencePotionDuration(3);
 
                     player.setDefenceEffectActive(true);
+
+                    goBackMenu = 1;
                 }
-                else {
+                else if (potionChoice == 4)
+                {
+                    goBackMenu = 1;
+                }
+                else
+                {
                     cout << ">> You can't use that potion right now." << endl;
                 }
-
-                break;
             }
-            if (itemChoice == 2)
+
+            if (itemChoice == 2 || goBackMenu == 1)
             {
+                cout << endl;
                 cout << "1) Attack" << endl;
                 cout << "2) Defend" << endl;
                 cout << "3) Escape" << endl;
                 cout << "What do you want to do: ";
 
                 cin >> choice;
-                cin.ignore();
 
                 if (choice == 3)
                 {
                     escapeChoice = 1;
                 }
+
+                break;
             }
         }
     }
@@ -183,7 +197,7 @@ void combatRound(Character &player, Enemy &enemy)
 
         cout << ">> " << enemy.getEnemyName() << " hits the " << player.getNickName() << " and deals " << damageEnemy1 << " damage!" << endl;
 
-        cout << "\n" << endl;
+        cout << endl;
 
     }
     else if (choice == 2)
@@ -201,12 +215,12 @@ void combatRound(Character &player, Enemy &enemy)
 
         cout << ">> " << player.getNickName() << " attacks the " << enemy.getEnemyName() << endl;
 
-        int damagePlayer2 = max(0, (player.attack()) - enemy.getEnemyDefence());
+        int damagePlayer2 = max(0, (player.attack()) - (2 * enemy.getEnemyDefence()));
         enemy.takeDamage(damagePlayer2);
 
         cout << ">> " << player.getNickName() << " hits the " << enemy.getEnemyName() << " and deals " << damagePlayer2 << " damage!" << endl;
 
-        cout << "\n" << endl;
+        cout << endl;
 
     }
     else if (choice == 4 || escapeChoice == 1)
@@ -230,7 +244,7 @@ void combatRound(Character &player, Enemy &enemy)
             int escapeDamage = enemy.attackCharacter() - player.getDefence();
             player.takeDamage(max(0, escapeDamage));
 
-            cout << "\n" << endl;
+            cout << endl;
         }
     }
     else if (choice == 5 && magePtr != nullptr)
@@ -259,7 +273,7 @@ void combatRound(Character &player, Enemy &enemy)
         player.takeDamage(damageEnemy3);
 
         cout << ">> " << enemy.getEnemyName() << " hits the " << player.getNickName() << " and deals " << damageEnemy3 << " damage!" << endl;
-        cout << "\n" << endl;
+        cout << endl;
     }
     else
     {
@@ -268,7 +282,7 @@ void combatRound(Character &player, Enemy &enemy)
             cout << ">> " << "Please choose 1, 2 or 3" << endl;
         }
 
-        cout << "\n" << endl;
+        cout << endl;
     }
 
     // Press Enter to continue program to slow things down.
@@ -287,7 +301,8 @@ void shopMenu(Character& player)
 
     while (choice != 3)
     {
-        cout << "\n===== SHOP =====" << endl;
+        coloredPrint(Color::Yellow, "\n===== SHOP =====");
+        cout << endl;
         cout << ">> Gold: " << player.getGold() << endl;
         cout << "1) Buy Health Potion (20 gold)" << endl;
         cout << "2) Buy Mana Potion (25 gold)" << endl; // For Mage Class
@@ -306,7 +321,7 @@ void shopMenu(Character& player)
             }
             else
             {
-                cout << ">> Not enough gold!" << endl;
+                coloredPrint(Color::Red, ">> Not enough gold!");
             }
 
             break;
@@ -322,12 +337,12 @@ void shopMenu(Character& player)
                 }
                 else
                 {
-                    cout << ">> Not enough gold!" << endl;
+                    coloredPrint(Color::Red, ">> Not enough gold!");
                 }
             }
             else
             {
-                cout << ">> Only Mages can buy mana potions!" << endl;
+                coloredPrint(Color::Red, ">> Only Mages can buy mana potions!");
             }
 
             break;
@@ -338,7 +353,7 @@ void shopMenu(Character& player)
             break;
 
         default:
-            cout << ">> Invalid choice!" << endl;
+            coloredPrint(Color::Red, ">> Invalid choice!");
         }
     }
 }
@@ -367,7 +382,7 @@ int main()
             const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
             int typeIndex = rand() % 4;
 
-            string name = types[typeIndex];
+            string name = types[0];
 
             int count;
             count = rand() % 3 + 5;
@@ -442,10 +457,15 @@ int main()
         // Post Combat Panel:
         while (choice < 1 || choice > 3)
         {
-            cout << "\n========== Post Combat Menu ==========" << endl;
-            cout << "1) Move to the Next Battle" << endl;
-            cout << "2) Open Shop" << endl;
-            cout << "3) View Quest(s) " << endl;
+            coloredPrint(Color::Green, "\n========== Post Combat Menu ==========");
+            cout << endl;
+            cout << endl;
+            coloredPrint(Color::Cyan, "1) Move to the Next Battle");
+            cout << endl;
+            coloredPrint(Color::Yellow, "2) Open Shop");
+            cout << endl;
+            coloredPrint(Color::Magenta, "3) View Quest(s) ");
+            cout << endl;
             cout << ">> Enter your choice: ";
             cin >> choice;
 
@@ -469,7 +489,7 @@ int main()
             }
             default:
             {
-                cout << ">> Invalid choice, choose again";
+                coloredPrint(Color::Red, ">> Invalid choice! Choice again: ");
             }
             }
 
@@ -479,10 +499,10 @@ int main()
             }
         }
 
-        cout << "\n";
+        cout << endl;
         player.setEscapeBattle(false);
 
-        cout << ">> Press Enter to face the next enemy...";
+        coloredPrint(Color::Cyan, ">> Press Enter to face the next enemy...");
         cin.ignore();
         cin.get();
     }

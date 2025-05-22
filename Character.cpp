@@ -5,6 +5,7 @@
 #include <vector>
 #include "Character.h"
 #include "Quest.h"
+#include "Console.h"
 
 using namespace std;
 
@@ -13,7 +14,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 
 	health = 100;
 	strength = 10;
-	defence = 5;
+	defence = 7;
 
 	level = 1;
 	xp = 0;
@@ -37,8 +38,8 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 
 void Character::displayCharacter() const
 {
-
-	cout << "\n===== CHARACTER STATS =====\n";
+	coloredPrint(Color::Blue, "\n===== CHARACTER STATS =====\n");
+	cout << endl;
 	cout << "Name:        " << nickName << endl;
 	cout << "Health:      " << health << endl;
 	cout << "Strength:    " << strength << endl;
@@ -66,7 +67,7 @@ void Character::escapeFromBattle()
 
 int Character::attack()
 {
-	int damage = strength + (rand() % strength);
+	int damage = strength + (rand() % strength - 1);
 
 	return damage;
 }
@@ -128,6 +129,8 @@ void Character::levelUp()
 {
 	level++;
 
+	int maxHealth = 100 + (10 * (level - 1));
+
 	// int skillPoints = 2;
 
 	cout << "\n";
@@ -137,8 +140,8 @@ void Character::levelUp()
 	defence = defence + 1;
 	cout << "#" << nickName << " gets +1 defence!" << endl;
 
-	health = health + 10;
-	cout << "#" << nickName << " gets +10 health!" << endl;
+	health = maxHealth;
+	cout << "#" << nickName << " gets +10 max health!" << endl;
 
 	healthPotions = healthPotions + 3;
 	cout << "#Potions are refilled!" << endl;
@@ -200,7 +203,8 @@ void Character::checkQuestCompletion(const string& enemyName)
 
 void Character::displayQuests() const
 {
-	cout << "\n=== Active Quests ===\n";
+	coloredPrint(Color::Magenta, "\n=== Active Quests ===\n");
+	cout << endl;
 
 	for (const auto& q : activeQuests)
 	{
@@ -208,7 +212,7 @@ void Character::displayQuests() const
 
 		if (q.isComplete())
 		{
-			cout << " [Completed]";
+			coloredPrint(Color::Green, " [Completed]");
 		}
 
 		cout << "\n";
