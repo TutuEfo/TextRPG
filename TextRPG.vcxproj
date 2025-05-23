@@ -132,6 +132,7 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="Mage.cpp" />
     <ClCompile Include="Quest.cpp" />
+    <ClCompile Include="SaveLoad.cpp" />
     <ClCompile Include="TextRPG.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -140,6 +141,7 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="Mage.h" />
     <ClInclude Include="Quest.h" />
+    <ClInclude Include="SaveLoad.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

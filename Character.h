@@ -87,6 +87,14 @@ public:
     void setEscapeBattle(bool escape);
     void setStrength(int amount);
     void setDefence(int amount);
+    void setHealthPotions(int amount);
+    void setStrengthPotions(int amount);
+    void setDefencePotions(int amount);
+    void setNickName(string name);
+    void setLevel(int lvl);
+    void setXP(int xp);
+    void setGold(int amount);
+    const vector<Quest>& getActiveQuests() const;
 };
 
 #endif // CHARACTER_H

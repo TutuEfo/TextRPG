@@ -355,3 +355,43 @@ void Character::setDefencePotionDuration(int duration)
 {
 	defencePotionDuration = duration;
 }
+
+void Character::setHealthPotions(int amount)
+{
+	healthPotions = amount;
+}
+
+void Character::setStrengthPotions(int amount)
+{
+	strengthPotions = amount;
+}
+
+void Character::setDefencePotions(int amount)
+{
+	defencePotions = amount;
+}
+
+const vector<Quest>& Character::getActiveQuests() const
+{
+	return activeQuests;
+}
+
+void Character::setNickName(string name)
+{
+	nickName = name;
+}
+
+void Character::setLevel(int lvl)
+{
+	level = lvl;
+}
+
+void Character::setXP(int xp)
+{
+	this->xp = xp;
+}
+
+void Character::setGold(int amount)
+{
+	gold = amount;
+}
