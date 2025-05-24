@@ -59,12 +59,12 @@ public:
     void checkQuestCompletion(const string& enemyName);
     void displayQuests() const;
 
-    string getNickName();
-    int getHealth();
-    int getStrength();
-    int getDefence();
-    int getLevel();
-    int getGold();
+    string getNickName() const;
+    int getHealth() const;
+    int getStrength() const;
+    int getDefence() const;
+    int getLevel() const;
+    int getGold() const;
     int getXP() const;
 
     int getHealthPotions() const;
@@ -87,6 +87,7 @@ public:
     void setEscapeBattle(bool escape);
     void setStrength(int amount);
     void setDefence(int amount);
+    void setHealth(int amount);
     void setHealthPotions(int amount);
     void setStrengthPotions(int amount);
     void setDefencePotions(int amount);

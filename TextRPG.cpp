@@ -5,8 +5,47 @@
 #include "Enemy.h"
 #include "Mage.h"
 #include "Console.h"
+#include "SaveLoad.h"
 
 using namespace std;
+
+void doSave(const Character& player)
+{
+    // 1) Ask the user for a filename
+    cout << ">> Enter save filename: ";
+    string fname;
+    cin >> fname;
+
+    // 2) Try to write the player's data to that file
+    try
+    {
+        SaveLoad::saveGame(player, fname);
+        cout << ">> Game saved to " << fname << "\n";
+    }
+    catch (exception& e){
+        // 3) If something goes wrong (e.g. disk error), report it
+        cerr << ">> Save failed: " << e.what() << "\n";
+    }
+}
+
+void doLoad(Character& player)
+{
+    // 1) Ask the user for the savefile name
+    cout << ">> Enter filename to load: ";
+    string fname;
+    cin >> fname;
+
+    // 2) Call loadGame, which returns true on success
+    if (SaveLoad::loadGame(player, fname))
+    {
+        cout << ">> Loaded " << fname << "\n";
+    }
+    else
+    {
+        // 3) If open or parsing failed, let the user know
+        cerr << ">> Load failed: could not open!" << fname << "\n";
+    }
+}
 
 void combatRound(Character &player, Enemy &enemy)
 {
@@ -466,6 +505,8 @@ int main()
             cout << endl;
             coloredPrint(Color::Magenta, "3) View Quest(s) ");
             cout << endl;
+            cout << "4) Save Game" << endl;
+            cout << "5) Load Game" << endl;
             cout << ">> Enter your choice: ";
             cin >> choice;
 
@@ -484,6 +525,18 @@ int main()
             case 3:
             {
                 player.displayQuests();
+
+                break;
+            }
+            case 4:
+            {
+                doSave(player);
+
+                break;
+            }
+            case 5:
+            {
+                doLoad(player);
 
                 break;
             }

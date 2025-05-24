@@ -251,27 +251,27 @@ int Character::getXP() const
 	return xp;
 }
 
-string Character::getNickName()
+string Character::getNickName() const 
 {
 	return nickName;
 }
 
-int Character::getHealth()
+int Character::getHealth() const
 {
 	return health;
 }
 
-int Character::getStrength()
+int Character::getStrength() const
 {
 	return strength;
 }
 
-int Character::getDefence()
+int Character::getDefence() const
 {
 	return defence;
 }
 
-int Character::getLevel()
+int Character::getLevel() const
 {
 	return level;
 }
@@ -291,7 +291,7 @@ int Character::getDefencePotions() const
 	return defencePotions;
 }
 
-int Character::getGold()
+int Character::getGold() const
 {
 	return gold;
 }
@@ -394,4 +394,9 @@ void Character::setXP(int xp)
 void Character::setGold(int amount)
 {
 	gold = amount;
+}
+
+void Character::setHealth(int amount)
+{
+	health = amount;
 }
