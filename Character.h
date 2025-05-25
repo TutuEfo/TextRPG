@@ -96,6 +96,7 @@ public:
     void setXP(int xp);
     void setGold(int amount);
     const vector<Quest>& getActiveQuests() const;
+    void clearQuests();
 };
 
 #endif // CHARACTER_H

@@ -421,7 +421,7 @@ int main()
             const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
             int typeIndex = rand() % 4;
 
-            string name = types[0];
+            string name = types[typeIndex];
 
             int count;
             count = rand() % 3 + 5;

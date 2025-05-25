@@ -39,7 +39,7 @@ Enemy Enemy::generateEnemy(int level)
 	const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
 	int typeIndex = rand() % 4;
 
-	string name = types[0];
+	string name = types[typeIndex];
 
 	int baseHealth = 50 + (rand() % 15);
 	int baseStrength = 3 + (rand() % 5);

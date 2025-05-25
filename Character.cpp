@@ -400,3 +400,8 @@ void Character::setHealth(int amount)
 {
 	health = amount;
 }
+
+void Character::clearQuests() {
+	activeQuests.clear();
+	hasQuests = false;
+}
