@@ -86,7 +86,7 @@ void Character::usePotion(int choice)
 			health = maxHealth;
 		}
 
-		cout << ">> " << nickName << " used a potion and recovered 20 HP!" << endl;
+		cout << ">> " << nickName << " used a health potion and recovered 20 HP!" << endl;
 	}
 	else if (strengthPotions > 0 && choice == 2)
 	{
