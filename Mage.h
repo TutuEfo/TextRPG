@@ -19,6 +19,7 @@ public:
 	int getManaPotions();
 	void displayCharacter() const override;
 	void useManaPotion();
+	string getClassName() const override { return "Mage"; }
 };
 
 

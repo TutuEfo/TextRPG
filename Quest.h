@@ -10,10 +10,10 @@ struct Quest {
 
     string description;
     string targetName;
-    int targetCount;
+    int targetCount = 0;
     int progress = 0;
-    int rewardXP;
-    int rewardGold;
+    int rewardXP = 0;
+    int rewardGold = 0;
 
     bool isComplete() const;
 };

@@ -1,13 +1,111 @@
-#include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include "Character.h"
 #include "Enemy.h"
 #include "Mage.h"
 #include "Console.h"
 #include "SaveLoad.h"
 
+#include <iostream>
+#include <cstdlib>
+#include <ctime>
+#include <vector>
+#include <optional>
+#include <limits>
+#include <iomanip>
+
 using namespace std;
+
+void showLoadMenu(Character*& player)
+{
+    auto files = SaveLoad::listSaveFiles();
+
+    if (files.empty())
+    {
+        cout << ">> No save files found.\n";
+
+        return;
+    }
+
+    cout << "\n========== Load Game ==========\n";
+
+    for (size_t i = 0; i < files.size(); ++i)
+    {
+        auto mdOpt = SaveLoad::readMetadata(files[i]);
+
+        if (mdOpt)
+        {
+            auto& md = *mdOpt;
+
+            cout << setw(2) << (i + 1) << ") "
+                << "[" << md.className << "] "
+                << md.nickName << " "
+                << "(Lvl " << md.level
+                << ", HP " << md.health
+                << ", Gold " << md.gold
+                << ")  [" << md.timestamp
+                << "]\n";
+        }
+        else
+        {
+            cout << setw(2) << (i + 1) << ") "
+                << files[i] << "  (Save file corrupted)\n";
+        }
+    }
+
+    int choice;
+    cout << "\n>> Enter number to load (0 to cancel): ";
+
+    while (!(cin >> choice) || choice < 0 || choice > (int)files.size())
+    {
+        cin.clear();
+        // Throw everyhting in the buffer, to enter an input again.
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << ">> Please enter 0 to " << files.size() << ": ";
+    }
+
+    if (choice == 0)
+    {
+        return;
+    }
+
+    const string& sel = files[choice - 1];
+
+    cout << ">> Load \"" << sel << "\"? (y/n): ";
+    char c; cin >> c;
+
+    if (c == 'y' || c == 'Y')
+    {
+        auto mdOpt = SaveLoad::readMetadata(sel);
+
+        if (!mdOpt)
+        {
+            cout << ">> Error: could not read save metadata.\n";
+            return;
+        }
+
+        auto& md = *mdOpt;
+        // Delete any old player
+        delete player;
+
+        // Instantiate the right subclass using the saved nickname
+        if (md.className == "Mage")
+        {
+            player = new Mage(md.nickName);
+        }
+        else
+        {
+            player = new Character(md.nickName);
+        }
+
+        if (SaveLoad::loadGame(*player, sel))
+        {
+            cout << ">> Loaded \"" << sel << "\" successfully.\n";
+        }
+        else
+        {
+            cout << ">> Failed to load \"" << sel << "\".\n";
+        }
+    }
+}
 
 void doSave(const Character& player)
 {
@@ -595,11 +693,6 @@ int main()
     // static_cast: converting the value to the expected type.
     srand(static_cast<unsigned int>(time(0)));
 
-    // Testing the Mage Class:
-    // Mage myCharMage("Gandalf");
-    //myCharMage.displayCharacter();
-    //myCharMage.castSpell();
-
     Character* player = nullptr;
 
     int menuChoice;
@@ -610,58 +703,36 @@ int main()
     if (menuChoice == 1)
     {
         int classChoice;
-
         chooseClass();
-
         cin >> classChoice;
 
         string name;
-
         cout << ">> Enter your name: ";
-
         cin >> name;
 
         if (classChoice == 1)
-        {
             player = new Character(name);
-        }
-        else if (classChoice == 2)
-        {
+        else
             player = new Mage(name);
-        }
     }
     else if (menuChoice == 2)
     {
-        cout << ">> Which Class would you like the load:" << endl;
-        cout << "1) Default" << endl;
-        cout << "2) Mage" << endl;
-        cout << "Enter your choice: ";
+        showLoadMenu(player);
 
-        int loadClass;
-        cin >> loadClass;
-
-        if (loadClass == 1)
-        {
-            player = new Character("temp");
+        if (!player) {
+            cout << ">> No game loaded. Exiting.\n";
+            return 0;
         }
-        else
-        {
-            player = new Mage("temp");
-        }
-
-        doLoad(*player);
     }
     else
     {
-        cout << "Quitting the game!" << endl;
-
+        cout << "Quitting the game!\n";
         return 0;
     }
 
+    // Now we have a valid `player`, so enter your game loop:
     while (gameMenu(*player))
-    {
-        gameMenu(*player);
-    }
-        
+        /* nothing */;
+
     return 0;
 }

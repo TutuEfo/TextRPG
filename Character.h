@@ -66,6 +66,7 @@ public:
     int getLevel() const;
     int getGold() const;
     int getXP() const;
+    virtual string getClassName() const { return "Default"; }
 
     int getHealthPotions() const;
     int getStrengthPotions() const;
