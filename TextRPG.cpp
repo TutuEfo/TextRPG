@@ -3,6 +3,7 @@
 #include "Mage.h"
 #include "Console.h"
 #include "SaveLoad.h"
+#include "Combat.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -277,12 +278,22 @@ void combatRound(Character& player, Enemy& enemy)
 
                 if (potionChoiceDefault == 1 || potionChoiceMage == 1)
                 {
+                    if (magePtr != nullptr)
+                    {
+                        potionChoiceDefault = potionChoiceMage;
+                    }
+
                     player.usePotion(potionChoiceDefault);
 
                     goBackMenu = 1;
                 }
                 else if ((potionChoiceDefault == 2 || potionChoiceMage == 2) && !player.isStrengthEffectActive())
                 {
+                    if (magePtr != nullptr)
+                    {
+                        potionChoiceDefault = potionChoiceMage;
+                    }
+
                     player.usePotion(potionChoiceDefault);
 
                     player.setStrengthPotionDuration(3);
@@ -293,6 +304,11 @@ void combatRound(Character& player, Enemy& enemy)
                 }
                 else if ((potionChoiceDefault == 3 || potionChoiceMage == 3) && !player.isDefenceEffectActive())
                 {
+                    if (magePtr != nullptr)
+                    {
+                        potionChoiceDefault = potionChoiceMage;
+                    }
+
                     player.usePotion(potionChoiceDefault);
 
                     player.setDefencePotionDuration(3);
@@ -546,8 +562,6 @@ void chooseClass()
 
 int gameMenu(Character &player)
 {
-    Enemy randomEnemy;
-
     // Quest Panel:
     if (!player.getHasQuests())
     {
@@ -573,6 +587,7 @@ int gameMenu(Character &player)
     }
 
     // Normal Enemy & Boss:
+    Enemy randomEnemy;
     if (player.getLevel() % 5 == 0)
     {
         coloredPrint(Color::Red, "\n!! A powerful enemy is approaching...\n");
@@ -584,18 +599,11 @@ int gameMenu(Character &player)
     }
 
     // Combat loop:
-    while (randomEnemy.isAlive() && player.getHealth() > 0 && !player.getEscapeBattle())
-    {
-        combatRound(player, randomEnemy);
-
-        if (!randomEnemy.isAlive())
-        {
-            player.checkQuestCompletion(randomEnemy.getEnemyName());
-        }
-    }
+    Combat battle(player, randomEnemy);
+    bool survived = battle.runCombat();
 
     // Reward Panel: 
-    if (!randomEnemy.isAlive())
+    if (survived)
     {
         if (player.getLevel() % 5 == 0)
         {
@@ -612,9 +620,7 @@ int gameMenu(Character &player)
         cout << ">> " << player.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
 
     }
-
-    // Game Over:
-    if (player.getHealth() <= 0)
+    else
     {
         cout << "\n======================================" << endl;
         cout << ">> " << player.getNickName() << " has been defeated!" << endl;
@@ -624,9 +630,8 @@ int gameMenu(Character &player)
         return 0;
     }
 
-    int choice = 0;
-
     // Post Combat Panel:
+    int choice = 0;
     while (choice < 1 || choice > 3)
     {
         coloredPrint(Color::Green, "\n========== Post Combat Menu ==========");
@@ -730,9 +735,7 @@ int main()
         return 0;
     }
 
-    // Now we have a valid `player`, so enter your game loop:
-    while (gameMenu(*player))
-        /* nothing */;
+    while (gameMenu(*player));
 
     return 0;
 }

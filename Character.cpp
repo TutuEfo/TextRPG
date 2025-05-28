@@ -241,6 +241,27 @@ bool Character::isDefenceEffectActive() const
 	return defenceEffectActive; 
 }
 
+void Character::takeDamage(int damage)
+{
+	this->health = this->health - damage;
+
+	if (this->health < 0)
+	{
+		this->health = 0;
+	}
+}
+
+void Character::clearQuests() {
+	activeQuests.clear();
+	hasQuests = false;
+}
+
+// Getters
+const vector<Quest>& Character::getActiveQuests() const
+{
+	return activeQuests;
+}
+
 int Character::getXPToLevelUp() const
 {
 	return xpToLevelUp;
@@ -251,7 +272,7 @@ int Character::getXP() const
 	return xp;
 }
 
-string Character::getNickName() const 
+string Character::getNickName() const
 {
 	return nickName;
 }
@@ -306,24 +327,15 @@ bool Character::getHasQuests()
 	return hasQuests;
 }
 
-void Character::setHasQuests(bool hasQuest)
-{
-	hasQuests = hasQuest;
-}
-
+// Setters
 void Character::setEscapeBattle(bool escape)
 {
 	escapeBattle = escape;
 }
 
-void Character::takeDamage(int damage)
+void Character::setHasQuests(bool hasQuest)
 {
-	this->health = this->health - damage;
-
-	if (this->health < 0)
-	{
-		this->health = 0;
-	}
+	hasQuests = hasQuest;
 }
 
 void Character::setStrength(int strength)
@@ -341,8 +353,8 @@ void Character::setStrengthEffectActive(bool active)
 	strengthEffectActive = active;
 }
 
-void Character::setDefenceEffectActive(bool active) 
-{ 
+void Character::setDefenceEffectActive(bool active)
+{
 	defenceEffectActive = active;
 }
 
@@ -371,11 +383,6 @@ void Character::setDefencePotions(int amount)
 	defencePotions = amount;
 }
 
-const vector<Quest>& Character::getActiveQuests() const
-{
-	return activeQuests;
-}
-
 void Character::setNickName(string name)
 {
 	nickName = name;
@@ -399,9 +406,4 @@ void Character::setGold(int amount)
 void Character::setHealth(int amount)
 {
 	health = amount;
-}
-
-void Character::clearQuests() {
-	activeQuests.clear();
-	hasQuests = false;
 }
