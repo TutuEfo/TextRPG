@@ -15,52 +15,52 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="TextRPG.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Character.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Mage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Quest.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Console.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="SaveLoad.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Combat.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="Header\Character.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Combat.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Console.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Enemy.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Mage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Quest.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\SaveLoad.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Character.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Mage.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Enemy.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Quest.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Console.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="SaveLoad.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Combat.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
+    <ClCompile Include="Source\Character.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Combat.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Enemy.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Mage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Quest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SaveLoad.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\TextRPG.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

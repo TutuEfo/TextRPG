@@ -105,6 +105,7 @@
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <LanguageStandard>stdcpp17</LanguageStandard>
+      <AdditionalIncludeDirectories>C:\Users\tunae\OneDrive\Important\Programming\C++ Games\TextRPG\Header</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,23 +129,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Character.cpp" />
-    <ClCompile Include="Combat.cpp" />
-    <ClCompile Include="Console.cpp" />
-    <ClCompile Include="Enemy.cpp" />
-    <ClCompile Include="Mage.cpp" />
-    <ClCompile Include="Quest.cpp" />
-    <ClCompile Include="SaveLoad.cpp" />
-    <ClCompile Include="TextRPG.cpp" />
+    <ClInclude Include="Header\Character.h" />
+    <ClInclude Include="Header\Combat.h" />
+    <ClInclude Include="Header\Console.h" />
+    <ClInclude Include="Header\Enemy.h" />
+    <ClInclude Include="Header\Mage.h" />
+    <ClInclude Include="Header\Quest.h" />
+    <ClInclude Include="Header\SaveLoad.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Character.h" />
-    <ClInclude Include="Combat.h" />
-    <ClInclude Include="Console.h" />
-    <ClInclude Include="Enemy.h" />
-    <ClInclude Include="Mage.h" />
-    <ClInclude Include="Quest.h" />
-    <ClInclude Include="SaveLoad.h" />
+    <ClCompile Include="Source\Character.cpp" />
+    <ClCompile Include="Source\Combat.cpp" />
+    <ClCompile Include="Source\Console.cpp" />
+    <ClCompile Include="Source\Enemy.cpp" />
+    <ClCompile Include="Source\Mage.cpp" />
+    <ClCompile Include="Source\Quest.cpp" />
+    <ClCompile Include="Source\SaveLoad.cpp" />
+    <ClCompile Include="Source\TextRPG.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

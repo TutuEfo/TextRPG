@@ -1,6 +1,6 @@
 #include "Console.h"
 #include <iostream>
-
+#define WIN32_LEAN_AND_MEAN
 #if defined(_WIN32)
 #include <windows.h>
 #endif
