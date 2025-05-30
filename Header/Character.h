@@ -15,6 +15,7 @@ private:
     int health;
     int strength;
     int defence;
+    int critChance;
 
     int xp;
     int xpToLevelUp;
@@ -63,6 +64,7 @@ public:
     int getHealth() const;
     int getStrength() const;
     int getDefence() const;
+    int getCritChance() const;
     int getLevel() const;
     int getGold() const;
     int getXP() const;
@@ -89,6 +91,7 @@ public:
     void setStrength(int amount);
     void setDefence(int amount);
     void setHealth(int amount);
+    void setCritChance(int amount);
     void setHealthPotions(int amount);
     void setStrengthPotions(int amount);
     void setDefencePotions(int amount);

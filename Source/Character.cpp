@@ -15,6 +15,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	health = 100;
 	strength = 10;
 	defence = 7;
+	critChance = 5;
 
 	level = 1;
 	xp = 0;
@@ -129,22 +130,59 @@ void Character::levelUp()
 {
 	level++;
 
-	int maxHealth = 100 + (10 * (level - 1));
+	int maxHealth = health + level * (10);
+	int skillPoints = 2;
+	int levelChoice = 0;
 
-	// int skillPoints = 2;
+	coloredPrint(Color::Cyan, "\n========== Level Up Menu ==========\n");
 
-	cout << "\n";
-	strength = strength + 2;
-	cout << "#" << nickName << " gets +2 strength!" << endl;
 
-	defence = defence + 1;
-	cout << "#" << nickName << " gets +1 defence!" << endl;
+	while (skillPoints != 0)
+	{
+		cout << "1) Strength (+5)" << endl;
+		cout << "2) Defence (+3)" << endl;
+		cout << "3) Crit Chance (+1)" << endl;
+		cout << ">> Remaining skillpoint(s): " << skillPoints << endl;
+		cout << ">> Choose one: ";
+		cin >> levelChoice;
 
-	health = maxHealth;
-	cout << "#" << nickName << " gets +10 max health!" << endl;
+		switch (levelChoice)
+		{
+		case 1:
+		{
+			strength = strength + 5;
+
+			cout << "# Strength is increased by 5!" << endl;
+			cout << "\n";
+
+			break;
+		}
+		case 2:
+		{
+			defence = defence + 3;
+
+			cout << "# Defence is increased by 3!" << endl;
+			cout << "\n";
+
+			break;
+		}
+		case 3:
+		{
+			critChance = critChance + 1;
+
+			cout << "# Crit chance is increased by 1!" << endl;
+			cout << "\n";
+
+			break;
+		}
+		}
+	}
 
 	healthPotions = healthPotions + 3;
-	cout << "#Potions are refilled!" << endl;
+	cout << "# Potions are refilled!" << endl;
+	cout << "\n";
+
+	cout << "# Max Health is increased by 10!" << endl;
 	cout << "\n";
 
 	cout << ">> " << nickName << " leveled up to Level " << level << "!" << endl;
@@ -292,6 +330,11 @@ int Character::getDefence() const
 	return defence;
 }
 
+int Character::getCritChance() const
+{
+	return critChance;
+}
+
 int Character::getLevel() const
 {
 	return level;
@@ -346,6 +389,11 @@ void Character::setStrength(int strength)
 void Character::setDefence(int defence)
 {
 	this->defence = defence;
+}\
+
+void Character::setCritChance(int crit)
+{
+	critChance = critChance + crit;
 }
 
 void Character::setStrengthEffectActive(bool active)

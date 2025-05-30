@@ -176,13 +176,13 @@ void Combat::playerAttack()
 {
 	int damage = cPlayer.attack();
 
-	bool crit = (rand() % 100) < 10;
+	bool crit = (rand() % 100) < cPlayer.getCritChance();
 
 	if (crit)
 	{
 		damage = 2 * damage;
 
-		coloredPrint(Color::Red, ">> CRITICAL HIT!!!");
+		coloredPrint(Color::Red, ">> CRITICAL HIT!!!\n");
 	}
 
 	int takeDamage = std::max(0, damage - cEnemy.getEnemyDefence());
@@ -234,22 +234,28 @@ void Combat::playerUseItem()
 		if (magePtr)
 		{
 			magePtr->useManaPotion();
+
+			break;
 		}
 
-		playerEscape();
+		int backMenu = chooseAction();
+		performAction(backMenu);
 
 		break;
 	}
 	case 5:
 	{
-		playerEscape();
+		int backMenu = chooseAction();
+		performAction(backMenu);
 
 		break;
 	}
 	default: 
 		break;
-
 	}
+
+	int backMenu = chooseAction();
+	performAction(backMenu);
 }
 
 void Combat::playerCastSpell()
@@ -290,7 +296,7 @@ void Combat::enemyTurn()
 {
 	cout << ">> Enemy attacks!\n";
 
-	int damage = max(0, cEnemy.attackCharacter() - cPlayer.getDefence());
+	int damage = max(0, (cEnemy.attackCharacter() + 5) - cPlayer.getDefence());
 
 	cPlayer.takeDamage(damage);
 	
@@ -307,12 +313,12 @@ int Combat::promptPotionMenu() const
 	{
 		coloredPrint(Color::Cyan, "\n-- Items --\n");
 		cout << "1) Health (" << cPlayer.getHealthPotions() << ")" << endl;
-		cout << "2) Strength (" << cPlayer.getHealthPotions() << ")" << endl;
-		cout << "3) Defence (" << cPlayer.getHealthPotions() << ")" << endl;
+		cout << "2) Strength (" << cPlayer.getStrengthPotions() << ")" << endl;
+		cout << "3) Defence (" << cPlayer.getDefencePotions() << ")" << endl;
 
 		if (magePtr)
 		{
-			cout << "4) Mana (" << cPlayer.getHealthPotions() << ")" << endl;
+			cout << "4) Mana (" << magePtr->getManaPotions() << ")" << endl;
 			cout << "5) Back" << endl;
 		}
 		else

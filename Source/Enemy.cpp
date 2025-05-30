@@ -72,6 +72,34 @@ Enemy Enemy::generateBoss(int level)
 	return Enemy(name, health, defence, strength, enemyLevel);
 }
 
+bool Enemy::isAlive() const
+{
+	if (enemyHealth > 0)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
+int Enemy::attackCharacter()
+{
+	return (enemyStrength + (rand() % enemyStrength));
+}
+
+void Enemy::takeDamage(int damage)
+{
+	this->enemyHealth = this->enemyHealth - damage;
+
+	if (this->enemyHealth < 0)
+	{
+		this->enemyHealth = 0;
+	}
+}
+
+// Getters
 int Enemy::getGoldReward() const
 {
 	return (enemyLevel * (10 + (rand() % 5 + 1)));
@@ -97,23 +125,6 @@ string Enemy::getEnemyName()
 	return enemyName;
 }
 
-bool Enemy::isAlive() const
-{
-	if (enemyHealth > 0)
-	{
-		return 1;
-	}
-	else
-	{
-		return 0;
-	}
-}
-
-int Enemy::attackCharacter()
-{
-	return (enemyStrength + (rand() % enemyStrength));
-}
-
 int Enemy::getEnemyHealth()
 {
 	return enemyHealth;
@@ -132,14 +143,4 @@ int Enemy::getEnemyStrength()
 int Enemy::getEnemyLevel()
 {
 	return enemyLevel;
-}
-
-void Enemy::takeDamage(int damage)
-{
-	this->enemyHealth = this->enemyHealth - damage;
-
-	if (this->enemyHealth < 0)
-	{
-		this->enemyHealth = 0;
-	}
 }
