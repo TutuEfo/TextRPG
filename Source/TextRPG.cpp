@@ -229,12 +229,19 @@ void shopMenu(Character& player)
 
 void mainMenu()
 {
-    cout << "Welcome to the TextRPG!" << endl;
-    cout << "1) New Game" << endl;
-    cout << "2) Load Save" << endl;
-    cout << "3) Delete Save" << endl;
-    cout << "4) Quit" << endl;
-    cout << ">> Enter you choice: ";
+    cout << R"(
+   _____         _    ____________ _____ 
+  |_   _|       | |   | ___ \ ___ \  __ \
+    | | _____  _| |_  | |_/ / |_/ / |  \/
+    | |/ _ \ \/ / __| |    /|  __/| | __ 
+    | |  __/>  <| |_  | |\ \| |   | |_\ \
+    \_/\___/_/\_\\__| \_| \_\_|    \____/
+    )" << endl;
+    coloredPrint(Color::Green, "-|====>  New Game\n");
+    coloredPrint(Color::Cyan, "-|====>  Load Save\n");
+    coloredPrint(Color::Red, "-|====>  Delete Save\n");
+    coloredPrint(Color::Yellow, "-|====>  Quit\n");
+    coloredPrint(Color::Magenta, ">> Enter you choice: ");
 }
 
 void chooseClass()

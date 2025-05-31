@@ -130,6 +130,8 @@ void Character::levelUp()
 {
 	level++;
 
+	xpToLevelUp = 100 + (level * 100);
+
 	int maxHealth = health + level * (10);
 	int skillPoints = 2;
 	int levelChoice = 0;
