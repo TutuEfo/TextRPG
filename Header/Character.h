@@ -13,6 +13,7 @@ private:
     string nickName;
 
     int health;
+    int maxHealth;
     int strength;
     int defence;
     int critChance;

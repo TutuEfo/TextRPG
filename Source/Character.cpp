@@ -6,6 +6,7 @@
 #include "Character.h"
 #include "Quest.h"
 #include "Console.h"
+#include "UI.h"
 
 using namespace std;
 
@@ -23,6 +24,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 
 	gold = 0;
 
+	maxHealth = 100 + ((level - 1) * 10);
 	healthPotions = 3;
 	strengthPotions = 2;
 	defencePotions = 2;
@@ -41,13 +43,17 @@ void Character::displayCharacter() const
 {
 	coloredPrint(Color::Blue, "\n===== CHARACTER STATS =====\n");
 	cout << endl;
-	cout << "Name:        " << nickName << endl;
-	cout << "Health:      " << health << endl;
-	cout << "Strength:    " << strength << endl;
-	cout << "Defence:     " << defence << endl;
-	cout << "Level:       " << level << endl;
-	cout << "XP:          " << xp << "/" << xpToLevelUp << endl;
-	cout << "Gold:        " << gold << endl;
+	cout << "Name: " << nickName << endl;
+	cout << "Health: ";
+	printBar(health, maxHealth, 20);
+	cout << endl;
+	cout << "XP:     ";
+	printBar(xp, xpToLevelUp, 20);
+	cout << endl;
+	cout << "Level: " << level << endl;
+	cout << "Strength: " << strength << endl;
+	cout << "Defence: " << defence << endl;
+	cout << "Gold: " << gold << endl;
 }
 
 void Character::escapeFromBattle()
@@ -130,9 +136,14 @@ void Character::levelUp()
 {
 	level++;
 
+	health = maxHealth;
+
 	xpToLevelUp = 100 + (level * 100);
 
-	int maxHealth = health + level * (10);
+	maxHealth = health + level * (10);
+
+	health = maxHealth;
+
 	int skillPoints = 2;
 	int levelChoice = 0;
 
@@ -178,11 +189,16 @@ void Character::levelUp()
 			break;
 		}
 		}
+
+		skillPoints--;
 	}
 
-	healthPotions = healthPotions + 3;
-	cout << "# Potions are refilled!" << endl;
-	cout << "\n";
+	if (healthPotions == 0)
+	{
+		healthPotions = healthPotions + 3;
+		cout << "# Potions are refilled!" << endl;
+		cout << "\n";
+	}
 
 	cout << "# Max Health is increased by 10!" << endl;
 	cout << "\n";
