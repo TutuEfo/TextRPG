@@ -22,6 +22,8 @@ int Mage::castSpell()
 	return damage;
 }
 
+Mage::Mage(const string& name, int hp, int str, int def, int critCh) : Character(name, hp, str, def, critCh){}
+
 void Mage::displayCharacter() const
 {
 	Character::displayCharacter();

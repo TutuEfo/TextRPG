@@ -38,6 +38,7 @@ private:
     bool hasQuests;
 public:
     Character(const string& nickname);  // Constructor
+    Character(const string& name, int hp, int str, int def, int critCh);
 
     void addGold(int amuntOfGold);
 

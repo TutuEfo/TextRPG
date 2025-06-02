@@ -39,9 +39,39 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	hasQuests = false;
 }
 
+Character::Character(const string& name, int hp, int str, int def, int critCh)
+{
+	nickName = name;
+
+	health = 100 + (10 * hp);
+	strength = str;
+	defence = def;
+	critChance = critCh;
+
+	level = 1;
+	xp = 0;
+	xpToLevelUp = 100;
+
+	gold = 0;
+
+	maxHealth = 100 + ((level - 1) * 10);
+	healthPotions = 3;
+	strengthPotions = 2;
+	defencePotions = 2;
+	strengthPotionDuration = 0;
+	defencePotionDuration = 0;
+	strengthEffectActive = false;
+	defenceEffectActive = false;
+
+	escapeBattle = false;
+
+	activeQuests;
+	hasQuests = false;
+}
+
 void Character::displayCharacter() const
 {
-	coloredPrint(Color::Blue, "\n===== CHARACTER STATS =====\n");
+	coloredPrint(Color::Blue, "\n========== CHARACTER STATS ==========\n");
 	cout << endl;
 	cout << "Name: " << nickName << endl;
 	cout << "Health: ";

@@ -13,6 +13,7 @@ private:
 	int manaPotions = 3;
 public:
 	Mage(const string& name);
+	Mage(const string& name, int hp, int str, int def, int critCh);
 	int getMana();
 	int castSpell();
 	void addManaPotion(int amount);

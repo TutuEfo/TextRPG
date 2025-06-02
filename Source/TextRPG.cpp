@@ -296,8 +296,9 @@ int gameMenu(Character &player)
     Combat battle(player, randomEnemy);
     bool survived = battle.runCombat();
 
+
     // Reward Panel: 
-    if (survived)
+    if (survived && !player.getEscapeBattle())
     {
         player.checkQuestCompletion(randomEnemy.getEnemyName());
 
@@ -316,7 +317,8 @@ int gameMenu(Character &player)
         cout << ">> " << player.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
 
     }
-    else
+    
+    if (!survived)
     {
         cout << "\n======================================" << endl;
         cout << ">> " << player.getNickName() << " has been defeated!" << endl;
@@ -412,9 +414,138 @@ int main()
         cin >> name;
 
         if (classChoice == 1)
-            player = new Character(name);
+        {
+            int skillPoints = 15;
+            int choice = 0;
+            int strengthCounter = 0;
+            int defenceCounter = 0;
+            int critCounter = 0;
+            int healthCounter = 0;
+
+            // Multiple inputs from user, total of 15.
+            cout << "You have 15 skill points to create your character:" << endl;
+
+            while (skillPoints != 0)
+            {
+                cout << "1) Strength" << endl;
+                cout << "2) Defence" << endl;
+                cout << "3) Crit Chance" << endl;
+                cout << "4) Health" << endl;
+                cout << "Skill Points: " << skillPoints << endl;
+                cout << "Choose one of them:";
+                cin >> choice;
+
+                switch(choice)
+                {
+                case 1:
+                {
+                    strengthCounter++;
+
+                    skillPoints--;
+
+                    break;
+                }
+                case 2:
+                {
+                    defenceCounter++;
+
+                    skillPoints--;
+
+                    break;
+                }
+                case 3:
+                {
+                    critCounter++;
+
+                    skillPoints--;
+
+                    break;
+                }
+                case 4:
+                {
+                    healthCounter++;
+
+                    skillPoints--;
+
+                    break;
+                }
+                default:
+                    cout << "Wrong choice!" << endl;
+
+                    break;
+                }
+            }
+
+            player = new Character(name, healthCounter, strengthCounter, defenceCounter, critCounter);
+
+            cout << name << " has been created!\n" << endl;
+        }
         else
-            player = new Mage(name);
+        {
+            int skillPoints = 15;
+            int choice = 0;
+            int strengthCounter = 0;
+            int defenceCounter = 0;
+            int critCounter = 0;
+            int healthCounter = 0;
+
+            cout << "You have 15 skill points to create your character:" << endl;
+
+            while (skillPoints != 0)
+            {
+                cout << "1) Strength" << endl;
+                cout << "2) Defence" << endl;
+                cout << "3) Crit Chance" << endl;
+                cout << "4) Health" << endl;
+                cout << "Skill Points: " << skillPoints << endl;
+                cout << "Choose one of them:";
+                cin >> choice;
+
+                switch (choice)
+                {
+                case 1:
+                {
+                    strengthCounter++;
+
+                    skillPoints--;
+
+                    break;
+                }
+                case 2:
+                {
+                    defenceCounter++;
+
+                    skillPoints--;
+
+                    break;
+                }
+                case 3:
+                {
+                    critCounter++;
+
+                    skillPoints--;
+
+                    break;
+                }
+                case 4:
+                {
+                    healthCounter++;
+
+                    skillPoints--;
+
+                    break;
+                }
+                default:
+                    cout << "Wrong choice!" << endl;
+
+                    break;
+                }
+            }
+
+            player = new Mage(name, healthCounter, strengthCounter, defenceCounter, critCounter);
+
+            cout << name << " has been created!\n" << endl;
+        }
     }
     else if (menuChoice == 2)
     {

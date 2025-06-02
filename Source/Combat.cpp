@@ -46,7 +46,6 @@ void Combat::displayStats() const
 		cPlayer.displayCharacter();
 	}
 
-	coloredPrint(Color::Red, "\n--- Enemy Status ---\n");
 	cEnemy.displayStatus();
 }
 
