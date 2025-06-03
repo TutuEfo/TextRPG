@@ -54,7 +54,7 @@ Character::Character(const string& name, int hp, int str, int def, int critCh)
 
 	gold = 0;
 
-	maxHealth = 100 + ((level - 1) * 10);
+	maxHealth = health + ((level - 1) * 10);
 	healthPotions = 3;
 	strengthPotions = 2;
 	defencePotions = 2;
@@ -80,8 +80,10 @@ void Character::displayCharacter() const
 	cout << "XP:     ";
 	printBar(xp, xpToLevelUp, 20);
 	cout << endl;
+	cout << endl;
 	cout << "Level: " << level << endl;
 	cout << "Strength: " << strength << endl;
+	cout << "Crit Chance: " << critChance << endl;
 	cout << "Defence: " << defence << endl;
 	cout << "Gold: " << gold << endl;
 }

@@ -415,66 +415,18 @@ int main()
 
         if (classChoice == 1)
         {
-            int skillPoints = 15;
-            int choice = 0;
             int strengthCounter = 0;
             int defenceCounter = 0;
             int critCounter = 0;
             int healthCounter = 0;
 
-            // Multiple inputs from user, total of 15.
             cout << "You have 15 skill points to create your character:" << endl;
-
-            while (skillPoints != 0)
-            {
-                cout << "1) Strength" << endl;
-                cout << "2) Defence" << endl;
-                cout << "3) Crit Chance" << endl;
-                cout << "4) Health" << endl;
-                cout << "Skill Points: " << skillPoints << endl;
-                cout << "Choose one of them:";
-                cin >> choice;
-
-                switch(choice)
-                {
-                case 1:
-                {
-                    strengthCounter++;
-
-                    skillPoints--;
-
-                    break;
-                }
-                case 2:
-                {
-                    defenceCounter++;
-
-                    skillPoints--;
-
-                    break;
-                }
-                case 3:
-                {
-                    critCounter++;
-
-                    skillPoints--;
-
-                    break;
-                }
-                case 4:
-                {
-                    healthCounter++;
-
-                    skillPoints--;
-
-                    break;
-                }
-                default:
-                    cout << "Wrong choice!" << endl;
-
-                    break;
-                }
-            }
+            cout << "1) Strength" << endl;
+            cout << "2) Defence" << endl;
+            cout << "3) Crit Chance" << endl;
+            cout << "4) Health" << endl;
+            cout << "Enter the skill point distribution (3 3 3 6): ";
+            cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
 
             player = new Character(name, healthCounter, strengthCounter, defenceCounter, critCounter);
 
@@ -482,67 +434,21 @@ int main()
         }
         else
         {
-            int skillPoints = 15;
-            int choice = 0;
             int strengthCounter = 0;
             int defenceCounter = 0;
             int critCounter = 0;
             int healthCounter = 0;
 
-            cout << "You have 15 skill points to create your character:" << endl;
+            cout << endl;
+            cout << "You have 15 skill points to create your character!" << endl;
+            cout << "1) Strength" << endl;
+            cout << "2) Defence" << endl;
+            cout << "3) Crit Chance" << endl;
+            cout << "4) Health" << endl;
+            cout << "Enter the skill point distribution (3 3 3 6): ";
+            cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
 
-            while (skillPoints != 0)
-            {
-                cout << "1) Strength" << endl;
-                cout << "2) Defence" << endl;
-                cout << "3) Crit Chance" << endl;
-                cout << "4) Health" << endl;
-                cout << "Skill Points: " << skillPoints << endl;
-                cout << "Choose one of them:";
-                cin >> choice;
-
-                switch (choice)
-                {
-                case 1:
-                {
-                    strengthCounter++;
-
-                    skillPoints--;
-
-                    break;
-                }
-                case 2:
-                {
-                    defenceCounter++;
-
-                    skillPoints--;
-
-                    break;
-                }
-                case 3:
-                {
-                    critCounter++;
-
-                    skillPoints--;
-
-                    break;
-                }
-                case 4:
-                {
-                    healthCounter++;
-
-                    skillPoints--;
-
-                    break;
-                }
-                default:
-                    cout << "Wrong choice!" << endl;
-
-                    break;
-                }
-            }
-
-            player = new Mage(name, healthCounter, strengthCounter, defenceCounter, critCounter);
+            player = new Character(name, healthCounter, strengthCounter, defenceCounter, critCounter);
 
             cout << name << " has been created!\n" << endl;
         }

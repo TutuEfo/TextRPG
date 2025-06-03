@@ -35,7 +35,7 @@ void Combat::displayStats() const
 {
 	Mage* magePtr = dynamic_cast<Mage*>(&cPlayer);
 
-	coloredPrint(Color::Cyan, "========== Combat Status ==========");
+	coloredPrint(Color::Cyan, "========== Combat Status ==========\n");
 
 	if (magePtr != nullptr)
 	{

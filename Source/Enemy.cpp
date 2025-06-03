@@ -26,7 +26,7 @@ Enemy::Enemy(const string& name, int health, int defence, int strength, int leve
 
 void Enemy::displayStatus() const
 {
-	cout << "\n========== ENEMY STATS ==========\n";
+	coloredPrint(Color::Red, "\n========== ENEMY STATS ==========\n");
 	cout << "Name:        " << enemyName << endl;
 	cout << "Health:      " << enemyHealth << endl;
 	cout << "Strength:    " << enemyStrength << endl;
