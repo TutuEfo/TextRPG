@@ -80,6 +80,13 @@ namespace SaveLoad
             << player.getStrengthPotions() << '\n'
             << player.getDefencePotions() << '\n';
 
+        if (player.getClassName() == "Mage")
+        {
+            const Mage& m = static_cast<const Mage&>(player);
+            out << m.getMana() << '\n';
+            out << m.getManaPotions() << '\n';
+        }
+
         // Write how many quests we have so that the loader knows how many to read back
         const auto& quests = player.getActiveQuests();
         out << quests.size() << '\n';
@@ -95,7 +102,7 @@ namespace SaveLoad
         }
     }
 
-    bool loadGame(Character& player, const std::string& filename)
+    bool loadGame(Character& player, const string& filename)
     {
         ensureSaveDirExists();
 
@@ -107,7 +114,7 @@ namespace SaveLoad
             slot += ".sav";
         }
 
-        std::ifstream in(SAVE_DIR + slot);
+        ifstream in(SAVE_DIR + slot);
 
         if (!in)
         {
@@ -115,7 +122,9 @@ namespace SaveLoad
         }
 
         string line;
-        while (getline(in, line)) {
+
+        while (getline(in, line))
+        {
             if (line.empty()) break;
         }
 
@@ -146,6 +155,17 @@ namespace SaveLoad
         player.setHealthPotions(healthPotions);
         player.setStrengthPotions(strengthPotions);
         player.setDefencePotions(defencePotions);
+
+        if (player.getClassName() == "Mage")
+        {
+            Mage* m = static_cast<Mage*>(&player);
+
+            int savedMana, savedManaPotions;
+            in >> savedMana >> savedManaPotions;
+
+            m->setMana(savedMana);
+            m->setManaPotions(savedManaPotions);
+        }
 
         // Read the number of quests that were saved; if this fails, throw an error
         size_t questCount;

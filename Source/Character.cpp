@@ -81,11 +81,11 @@ void Character::displayCharacter() const
 	printBar(xp, xpToLevelUp, 20);
 	cout << endl;
 	cout << endl;
-	cout << "Level: " << level << endl;
-	cout << "Strength: " << strength << endl;
-	cout << "Crit Chance: " << critChance << endl;
-	cout << "Defence: " << defence << endl;
-	cout << "Gold: " << gold << endl;
+	cout << "Level:         " << level << endl;
+	cout << "Strength:      " << strength << endl;
+	cout << "Crit Chance:   " << critChance << endl;
+	cout << "Defence:       " << defence << endl;
+	cout << "Gold:          " << gold << endl;
 }
 
 void Character::escapeFromBattle()

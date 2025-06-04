@@ -448,7 +448,7 @@ int main()
             cout << "Enter the skill point distribution (3 3 3 6): ";
             cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
 
-            player = new Character(name, healthCounter, strengthCounter, defenceCounter, critCounter);
+            player = new Mage(name, healthCounter, strengthCounter, defenceCounter, critCounter);
 
             cout << name << " has been created!\n" << endl;
         }

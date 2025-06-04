@@ -2,6 +2,7 @@
 #include <string>
 #include "Character.h"
 #include "Mage.h"
+#include "UI.h"
 
 using namespace std;
 
@@ -14,7 +15,7 @@ int Mage::castSpell()
 
 	if (mana >= 10)
 	{
-		damage = getStrength() + (rand() % (getStrength() - 2));
+		damage = getStrength() + (rand() % getStrength());
 
 		mana -= 10;
 	}
@@ -27,7 +28,10 @@ Mage::Mage(const string& name, int hp, int str, int def, int critCh) : Character
 void Mage::displayCharacter() const
 {
 	Character::displayCharacter();
-	cout << "Mana:        " << mana << endl;
+
+	cout << "Mana:   ";
+	printBar(mana, 100, 20);
+	cout << endl;
 }
 
 void Mage::addManaPotion(int amount)
@@ -35,12 +39,12 @@ void Mage::addManaPotion(int amount)
 	manaPotions = manaPotions + amount;
 }
 
-int Mage::getMana()
+int Mage::getMana() const
 {
 	return mana;
 }
 
-int Mage::getManaPotions()
+int Mage::getManaPotions() const
 {
 	return manaPotions;
 }
@@ -52,4 +56,14 @@ void Mage::useManaPotion()
 	mana = mana + 25;
 
 	cout << ">> " << getNickName() << " used a mana potion and gains 25 Mana!" << endl;
+}
+
+void Mage::setMana(int amount)
+{
+	mana = amount;
+}
+
+void Mage::setManaPotions(int amount)
+{
+	manaPotions = amount;
 }

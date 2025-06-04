@@ -14,13 +14,16 @@ private:
 public:
 	Mage(const string& name);
 	Mage(const string& name, int hp, int str, int def, int critCh);
-	int getMana();
+	int getMana() const;
 	int castSpell();
 	void addManaPotion(int amount);
-	int getManaPotions();
+	int getManaPotions() const;
 	void displayCharacter() const override;
 	void useManaPotion();
 	string getClassName() const override { return "Mage"; }
+
+	void setMana(int amount);
+	void setManaPotions(int amount);
 };
 
 
