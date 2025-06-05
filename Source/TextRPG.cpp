@@ -398,93 +398,110 @@ int main()
 
     Character* player = nullptr;
 
-    int menuChoice;
+    int menuChoice = 0;
 
-    mainMenu();
-    cin >> menuChoice;
-
-    if (menuChoice == 1)
+    while (menuChoice != 1 && menuChoice != 4)
     {
-        int classChoice;
-        chooseClass();
-        cin >> classChoice;
+        mainMenu();
+        cin >> menuChoice;
 
-        string name;
-        cout << ">> Enter your name: ";
-        cin >> name;
-
-        if (classChoice == 1)
+        switch (menuChoice)
         {
-            int strengthCounter = 0;
-            int defenceCounter = 0;
-            int critCounter = 0;
-            int healthCounter = 0;
-
-            cout << "You have 15 skill points to create your character:" << endl;
-            cout << "1) Strength" << endl;
-            cout << "2) Defence" << endl;
-            cout << "3) Crit Chance" << endl;
-            cout << "4) Health" << endl;
-            cout << "Enter the skill point distribution (3 3 3 6): ";
-            cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
-
-            player = new Character(name, healthCounter, strengthCounter, defenceCounter, critCounter);
-
-            cout << name << " has been created!\n" << endl;
-        }
-        else
+        case 1:
         {
-            int strengthCounter = 0;
-            int defenceCounter = 0;
-            int critCounter = 0;
-            int healthCounter = 0;
+            int classChoice;
+            chooseClass();
+            cin >> classChoice;
 
-            cout << endl;
-            cout << "You have 15 skill points to create your character!" << endl;
-            cout << "1) Strength" << endl;
-            cout << "2) Defence" << endl;
-            cout << "3) Crit Chance" << endl;
-            cout << "4) Health" << endl;
-            cout << "Enter the skill point distribution (3 3 3 6): ";
-            cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
+            string name;
+            cout << ">> Enter your name: ";
+            cin >> name;
 
-            player = new Mage(name, healthCounter, strengthCounter, defenceCounter, critCounter);
+            if (classChoice == 1)
+            {
+                int strengthCounter = 0;
+                int defenceCounter = 0;
+                int critCounter = 0;
+                int healthCounter = 0;
 
-            cout << name << " has been created!\n" << endl;
+                while ((strengthCounter + defenceCounter + critCounter + healthCounter) != 15)
+                {
+                    cout << endl;
+                    cout << "You have 15 skill points to create your character!" << endl;
+                    cout << "1) Strength" << endl;
+                    cout << "2) Defence" << endl;
+                    cout << "3) Crit Chance" << endl;
+                    cout << "4) Health" << endl;
+                    cout << "Enter the skill point distribution (3 3 3 6): ";
+                    cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
+
+                    if ((strengthCounter + defenceCounter + critCounter + healthCounter) != 15)
+                    {
+                        cout << "Make the sum of the numbers 15!" << endl;
+                    }
+                }
+
+                player = new Character(name, healthCounter, strengthCounter, defenceCounter, critCounter);
+
+                cout << name << " has been created!\n" << endl;
+            }
+            else
+            {
+                int spellPowerCounter = 0;
+                int defenceCounter = 0;
+                int critCounter = 0;
+                int healthCounter = 0;
+
+                while ((spellPowerCounter + defenceCounter + critCounter + healthCounter) != 15)
+                {
+                    cout << endl;
+                    cout << "You have 15 skill points to create your character!" << endl;
+                    cout << "1) Spell Power" << endl;
+                    cout << "2) Defence" << endl;
+                    cout << "3) Spell Crit Chance" << endl;
+                    cout << "4) Health/Mana" << endl;
+                    cout << "Enter the skill point distribution (3 3 3 6): ";
+                    cin >> spellPowerCounter >> defenceCounter >> critCounter >> healthCounter;
+
+                    if ((spellPowerCounter + defenceCounter + critCounter + healthCounter) != 15)
+                    {
+                        cout << "Make the sum of the numbers 15!" << endl;
+                    }
+                }
+
+                player = new Mage(name, healthCounter, spellPowerCounter, defenceCounter, critCounter);
+
+                cout << name << " has been created!\n" << endl;
+            }
+
+            break;
         }
-    }
-    else if (menuChoice == 2)
-    {
-        showLoadMenu(player);
+        case 2:
+        {
+            showLoadMenu(player);
 
-        if (!player) {
-            cout << ">> No game loaded. Exiting.\n";
+            if (player)
+            {
+                menuChoice = 1;
+            }
+
+            break;
+        }
+        case 3:
+        {
+            doDelete();
+
+            break;
+        }
+        case 4:
+        {
+            cout << ">> Quitting the game!\n";
             return 0;
         }
-    }
-    else if (menuChoice == 3)
-    {
-        doDelete();
-
-        cout << "\n>> Creating a new save file!" << endl;
-
-        int classChoice;
-        chooseClass();
-        cin >> classChoice;
-
-        string name;
-        cout << ">> Enter your name: ";
-        cin >> name;
-
-        if (classChoice == 1)
-            player = new Character(name);
-        else
-            player = new Mage(name);
-    }
-    else
-    {
-        cout << ">> Quitting the game!\n";
-        return 0;
+        default:
+            cout << "Please choose correct!" << endl;
+            break;
+        }
     }
 
     while (gameMenu(*player));

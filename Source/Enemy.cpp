@@ -20,8 +20,8 @@ Enemy::Enemy(const string& name, int health, int defence, int strength, int leve
 	enemyName = name;
 	enemyLevel = max(1, level + (rand() % 3 - 1));
 	enemyHealth = health + (level - 1) * 10;
-	enemyDefence = defence + (level - 1) * 2;
-	enemyStrength = strength + (level - 1) * 3;
+	enemyDefence = defence + (level - 1);
+	enemyStrength = strength + (level - 1);
 }
 
 void Enemy::displayStatus() const

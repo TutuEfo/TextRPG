@@ -1,7 +1,6 @@
 #include "Combat.h"
 #include "Console.h"
 #include "Mage.h"
-
 #include <iostream>
 #include <limits>
 
@@ -35,8 +34,6 @@ void Combat::displayStats() const
 {
 	Mage* magePtr = dynamic_cast<Mage*>(&cPlayer);
 
-	coloredPrint(Color::Cyan, "========== Combat Status ==========\n");
-
 	if (magePtr != nullptr)
 	{
 		magePtr->displayCharacter();
@@ -58,26 +55,27 @@ int Combat::chooseAction() const
 	while (true)
 	{
 		coloredPrint(Color::Yellow, "\n>> Choose action:\n");
-		cout << "1) Attack" << endl;
-		cout << "2) Defend" << endl;
 		
 		if (magePtr)
 		{
-			cout << "3) Use Item" << endl;
-			cout << "4) Cast Spell" << endl;
-			cout << "5) Escape" << endl;
+			std::cout << "1) Cast Spell" << endl;
+			std::cout << "2) Defend" << endl;
+			std::cout << "3) Use Item" << endl;
+			std::cout << "4) Escape" << endl;
 		}
 		else
 		{
-			cout << "3) Use Item" << endl;
-			cout << "4) Escape" << endl;
+			std::cout << "1) Attack" << endl;
+			std::cout << "2) Defend" << endl;
+			std::cout << "3) Use Item" << endl;
+			std::cout << "4) Escape" << endl;
 		}
 
-		cout << "Enter your choice: ";
+		std::cout << "Enter your choice: ";
 
 		if (cin >> choice)
 		{
-			bool validChoice = magePtr ? (choice >= 1 && choice <= 5) : (choice >= 1 && choice <= 4);
+			bool validChoice = (choice >= 1 && choice <= 4);
 
 			if (validChoice)
 			{
@@ -85,7 +83,7 @@ int Combat::chooseAction() const
 			}
 
 			coloredPrint(Color::Red, "Invalid choice.\n");
-			cout << "Enter your choice: " << endl;
+			std::cout << "Enter your choice: " << endl;
 		}
 	}
 
@@ -99,10 +97,18 @@ void Combat::performAction(int choice)
 	switch (choice)
 	{
 	case 1:
+	{
+		if (magePtr)
+		{
+			playerCastSpell();
+			
+			break;
+		}
+
 		playerAttack();
 
 		break;
-
+	}
 	case 2:
 		// playerDefend();
 
@@ -114,25 +120,14 @@ void Combat::performAction(int choice)
 		break;
 
 	case 4:
-
-		if (magePtr == nullptr)
-		{
-			playerEscape();
-
-			break;
-		}
-		playerCastSpell();
-		
-		break;
-
-	case 5:
+	{
 		playerEscape();
 
 		break;
-
+	}
 	default:
-		break;
 
+		break;
 	}
 }
 
@@ -237,9 +232,6 @@ void Combat::playerUseItem()
 			break;
 		}
 
-		int backMenu = chooseAction();
-		performAction(backMenu);
-
 		break;
 	}
 	case 5:
@@ -252,20 +244,30 @@ void Combat::playerUseItem()
 	default: 
 		break;
 	}
-
-	int backMenu = chooseAction();
-	performAction(backMenu);
 }
 
 void Combat::playerCastSpell()
 {
 	Mage* magePtr = dynamic_cast<Mage*>(&cPlayer);
 
+	int damage = 0;
+
 	if (magePtr && magePtr->getMana() >= 10)
 	{
 		cout << ">> Casting spell...\n";
 
-		int damage = max(0, magePtr->castSpell() - cEnemy.getEnemyDefence());
+		damage = magePtr->castSpell();
+
+		bool crit = (rand() % 100) < cPlayer.getCritChance();
+
+		if (crit)
+		{
+			damage = 2 * damage;
+
+			coloredPrint(Color::Red, ">> CRITICAL HIT!!!\n");
+		}
+
+		damage = max(0, damage - cEnemy.getEnemyDefence());
 
 		cEnemy.takeDamage(damage);
 
@@ -293,13 +295,13 @@ void Combat::playerEscape()
 
 void Combat::enemyTurn()
 {
-	cout << ">> Enemy attacks!\n";
+	std::cout << ">> Enemy attacks!\n";
 
 	int damage = max(0, (cEnemy.attackCharacter() + 5) - cPlayer.getDefence());
 
 	cPlayer.takeDamage(damage);
 	
-	cout << ">> You take " << damage << " damage.\n";
+	std::cout << ">> You take " << damage << " damage.\n";
 }
 
 int Combat::promptPotionMenu() const
@@ -311,21 +313,21 @@ int Combat::promptPotionMenu() const
 	while (true)
 	{
 		coloredPrint(Color::Cyan, "\n-- Items --\n");
-		cout << "1) Health (" << cPlayer.getHealthPotions() << ")" << endl;
-		cout << "2) Strength (" << cPlayer.getStrengthPotions() << ")" << endl;
-		cout << "3) Defence (" << cPlayer.getDefencePotions() << ")" << endl;
+		std::cout << "1) Health (" << cPlayer.getHealthPotions() << ")" << endl;
+		std::cout << "2) Strength (" << cPlayer.getStrengthPotions() << ")" << endl;
+		std::cout << "3) Defence (" << cPlayer.getDefencePotions() << ")" << endl;
 
 		if (magePtr)
 		{
-			cout << "4) Mana (" << magePtr->getManaPotions() << ")" << endl;
-			cout << "5) Back" << endl;
+			std::cout << "4) Mana (" << magePtr->getManaPotions() << ")" << endl;
+			std::cout << "5) Back" << endl;
 		}
 		else
 		{
-			cout << "4) Back" << endl;
+			std::cout << "4) Back" << endl;
 		}
 
-		cout << "Choose: ";
+		std::cout << "Choose: ";
 
 		if (cin >> choice)
 		{

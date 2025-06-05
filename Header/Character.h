@@ -9,7 +9,7 @@
 using namespace std;
 
 class Character {
-private:
+protected:
     string nickName;
 
     int health;

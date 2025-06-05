@@ -7,13 +7,15 @@
 
 using namespace std;
 
-class Mage : public Character {
+class Mage : public Character{
 private:
-	int mana = 100;
-	int manaPotions = 3;
+	int maxMana;
+	int mana;
+	int manaPotions;
+	int spellPower;
 public:
 	Mage(const string& name);
-	Mage(const string& name, int hp, int str, int def, int critCh);
+	Mage(const string& name, int hp, int sp, int def, int critCh);
 	int getMana() const;
 	int castSpell();
 	void addManaPotion(int amount);
