@@ -43,7 +43,7 @@ public:
     void addGold(int amuntOfGold);
 
     void gainXP(int amount);
-    void levelUp();
+    virtual void levelUp();
     int getXPToLevelUp() const;
 
     void usePotion(int choice);

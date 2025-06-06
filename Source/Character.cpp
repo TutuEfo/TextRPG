@@ -73,13 +73,17 @@ void Character::displayCharacter() const
 {
 	coloredPrint(Color::Blue, "\n========== CHARACTER STATS ==========\n");
 	cout << endl;
+
 	cout << "Name: " << nickName << endl;
+
 	cout << "Health: ";
 	printBar(health, maxHealth, 20);
 	cout << endl;
+
 	cout << "XP:     ";
 	printBar(xp, xpToLevelUp, 20);
 	cout << endl;
+
 	cout << endl;
 	cout << "Level:         " << level << endl;
 	cout << "Strength:      " << strength << endl;
@@ -92,21 +96,21 @@ void Character::escapeFromBattle()
 {
 	int escape;
 
-	escape = rand() % 2;
+	escape = rand() % 4;
 
 	if (escape == 0)
 	{
-		escapeBattle = false;
+		escapeBattle = true;
 	}
 	else
 	{
-		escapeBattle = true;
+		escapeBattle = false;
 	}
 }
 
 int Character::attack()
 {
-	int damage = strength + (rand() % strength - 1);
+	int damage = strength + (rand() % strength);
 
 	return damage;
 }

@@ -35,6 +35,80 @@ Mage::Mage(const string& name, int hp, int sp, int def, int critCh) : Character(
 	strength = 0;
 }
 
+void Mage::levelUp()
+{
+	level++;
+
+	health = maxHealth;
+
+	xpToLevelUp = 100 + (level * 100);
+
+	maxHealth = health + level * (10);
+
+	health = maxHealth;
+
+	int skillPoints = 2;
+	int levelChoice = 0;
+
+	coloredPrint(Color::Cyan, "\n========== Level Up Menu ==========\n");
+
+
+	while (skillPoints != 0)
+	{
+		cout << "1) Spell Power (+5)" << endl;
+		cout << "2) Defence (+3)" << endl;
+		cout << "3) Spell Crit Chance (+1)" << endl;
+		cout << ">> Remaining skillpoint(s): " << skillPoints << endl;
+		cout << ">> Choose one: ";
+		cin >> levelChoice;
+
+		switch (levelChoice)
+		{
+		case 1:
+		{
+			spellPower = spellPower + 5;
+
+			cout << "# Spell Power is increased by 5!" << endl;
+			cout << "\n";
+
+			break;
+		}
+		case 2:
+		{
+			defence = defence + 3;
+
+			cout << "# Defence is increased by 3!" << endl;
+			cout << "\n";
+
+			break;
+		}
+		case 3:
+		{
+			critChance = critChance + 1;
+
+			cout << "# Crit chance is increased by 1!" << endl;
+			cout << "\n";
+
+			break;
+		}
+		}
+
+		skillPoints--;
+	}
+
+	if (healthPotions == 0)
+	{
+		healthPotions = healthPotions + 3;
+		cout << "# Potions are refilled!" << endl;
+		cout << "\n";
+	}
+
+	cout << "# Max Health is increased by 10!" << endl;
+	cout << "\n";
+
+	cout << ">> " << nickName << " leveled up to Level " << level << "!" << endl;
+}
+
 void Mage::displayCharacter() const
 {
 	coloredPrint(Color::Cyan, "\n========== MAGE STATS ==========\n\n");

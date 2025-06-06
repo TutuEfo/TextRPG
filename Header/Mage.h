@@ -21,6 +21,7 @@ public:
 	void addManaPotion(int amount);
 	int getManaPotions() const;
 	void displayCharacter() const override;
+	void levelUp() override;
 	void useManaPotion();
 	string getClassName() const override { return "Mage"; }
 
