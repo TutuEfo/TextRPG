@@ -23,12 +23,15 @@ private:
     void endOfRoundCleanup();
 
     void playerAttack();
+    void playerDefend();
     void playerUseItem();
     void playerCastSpell();
     void playerEscape();
     void enemyTurn();
 
     int promptPotionMenu() const;
+
+    int damageReduction = 0;
 
 public:
 	Combat(Character& player, Enemy& enemy);

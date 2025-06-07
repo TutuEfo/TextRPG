@@ -110,7 +110,7 @@ void Combat::performAction(int choice)
 		break;
 	}
 	case 2:
-		// playerDefend();
+		playerDefend();
 
 		break;
 
@@ -297,7 +297,16 @@ void Combat::enemyTurn()
 {
 	std::cout << ">> Enemy attacks!\n";
 
-	int damage = max(0, (cEnemy.attackCharacter() + 5) - cPlayer.getDefence());
+	int damage = 0;
+
+	if (damageReduction != 0)
+	{
+		damage = max(0, (cEnemy.attackCharacter() + 5) - cPlayer.getDefence() - damageReduction);
+	}
+	else
+	{
+		damage = max(0, (cEnemy.attackCharacter() + 5) - cPlayer.getDefence());
+	}
 
 	cPlayer.takeDamage(damage);
 	
@@ -343,4 +352,11 @@ int Combat::promptPotionMenu() const
 		coloredPrint(Color::Red, "Invalid choice.\n");
 	}
 	return choice;
+}
+
+void Combat::playerDefend()
+{
+	damageReduction = (rand() % cPlayer.getDefence() + cPlayer.getLevel() + 1);
+
+	cout << cPlayer.getNickName() << " reduce the damage by " << damageReduction << "!" << endl;
 }
