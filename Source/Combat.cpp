@@ -301,16 +301,16 @@ void Combat::enemyTurn()
 
 	if (damageReduction != 0)
 	{
-		damage = max(0, (cEnemy.attackCharacter() + 5) - cPlayer.getDefence() - damageReduction);
+		damage = max(0, cEnemy.attackCharacter() - cPlayer.getDefence() - damageReduction);
 	}
 	else
 	{
-		damage = max(0, (cEnemy.attackCharacter() + 5) - cPlayer.getDefence());
+		damage = max(0, cEnemy.attackCharacter() - cPlayer.getDefence());
 	}
 
 	cPlayer.takeDamage(damage);
 	
-	std::cout << ">> You take " << damage << " damage.\n";
+	std::cout << ">> " << cPlayer.getNickName() <<  " take " << damage << " damage.\n";
 }
 
 int Combat::promptPotionMenu() const

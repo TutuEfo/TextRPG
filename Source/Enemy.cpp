@@ -41,9 +41,9 @@ Enemy Enemy::generateEnemy(int level)
 
 	string name = types[typeIndex];
 
-	int baseHealth = 50 + (rand() % 15);
+	int baseHealth = 50 + (rand() % 10);
 	int baseStrength = 3 + (rand() % 5);
-	int baseDefence = 3 + (rand() % 3);
+	int baseDefence = 2 + (rand() % 3);
 
 	int enemyLevel = max(1, level + (rand() % 3 - 1));
 

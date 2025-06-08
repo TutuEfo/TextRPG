@@ -44,8 +44,8 @@ Character::Character(const string& name, int hp, int str, int def, int critCh)
 	nickName = name;
 
 	health = 100 + (10 * hp);
-	strength = str;
-	defence = def;
+	strength = 2 * str;
+	defence = 2 * def;
 	critChance = critCh;
 
 	level = 1;

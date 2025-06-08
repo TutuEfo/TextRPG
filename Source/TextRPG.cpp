@@ -156,11 +156,11 @@ void doDelete()
 
     if (removed)
     {
-        cout << fname + " " + "removed!" << endl;
+        cout << ">> " << fname + " " + "removed!" << endl;
     }
     else
     {
-        cout << fname + " " + "remove failed!" << endl;
+        cout << ">> " << fname + " " + "remove failed!" << endl;
     }
 }
 
@@ -284,7 +284,7 @@ int gameMenu(Character &player)
     Enemy randomEnemy;
     if (player.getLevel() % 5 == 0)
     {
-        coloredPrint(Color::Red, "\n!! A powerful enemy is approaching...\n");
+        coloredPrint(Color::Red, "\n>> A powerful enemy is approaching...\n");
         randomEnemy = Enemy::generateBoss(player.getLevel());
     }
     else
@@ -428,22 +428,22 @@ int main()
                 {
                     cout << endl;
                     cout << "You have 15 skill points to create your character!" << endl;
-                    cout << "1) Strength" << endl;
-                    cout << "2) Defence" << endl;
-                    cout << "3) Crit Chance" << endl;
-                    cout << "4) Health" << endl;
-                    cout << "Enter the skill point distribution (3 3 3 6): ";
+                    cout << "1) Strength (base strength is 0)" << endl;
+                    cout << "2) Defence (base defence is 0)" << endl;
+                    cout << "3) Crit Chance (base crit chance is 0)" << endl;
+                    cout << "4) Health (base health is 100)" << endl;
+                    cout << ">> Enter the skill point distribution (10 5 0 0): ";
                     cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
 
                     if ((strengthCounter + defenceCounter + critCounter + healthCounter) != 15)
                     {
-                        cout << "Make the sum of the numbers 15!" << endl;
+                        cout << ">> Make the sum of the point distribution 15!" << endl;
                     }
                 }
 
                 player = new Character(name, healthCounter, strengthCounter, defenceCounter, critCounter);
 
-                cout << name << " has been created!\n" << endl;
+                cout << ">> " << name << " has been created!\n" << endl;
             }
             else
             {
@@ -456,22 +456,22 @@ int main()
                 {
                     cout << endl;
                     cout << "You have 15 skill points to create your character!" << endl;
-                    cout << "1) Spell Power" << endl;
-                    cout << "2) Defence" << endl;
-                    cout << "3) Spell Crit Chance" << endl;
-                    cout << "4) Health/Mana" << endl;
-                    cout << "Enter the skill point distribution (3 3 3 6): ";
+                    cout << "1) Spell Power (base spell power is 0)" << endl;
+                    cout << "2) Defence (base defence is 0)" << endl;
+                    cout << "3) Spell Crit Chance (base spell crit chance is 0)" << endl;
+                    cout << "4) Health/Mana (base health/mana is 100)" << endl;
+                    cout << "Enter the skill point distribution (10 5 0 0): ";
                     cin >> spellPowerCounter >> defenceCounter >> critCounter >> healthCounter;
 
                     if ((spellPowerCounter + defenceCounter + critCounter + healthCounter) != 15)
                     {
-                        cout << "Make the sum of the numbers 15!" << endl;
+                        cout << "Make the sum of the point distribution 15!" << endl;
                     }
                 }
 
                 player = new Mage(name, healthCounter, spellPowerCounter, defenceCounter, critCounter);
 
-                cout << name << " has been created!\n" << endl;
+                cout << ">> " << name << " has been created!\n" << endl;
             }
 
             break;
@@ -499,12 +499,15 @@ int main()
             return 0;
         }
         default:
-            cout << "Please choose correct!" << endl;
+            cout << ">> Please choose correct!" << endl;
             break;
         }
     }
 
-    while (gameMenu(*player));
+    if (player != nullptr)
+    {
+        while (gameMenu(*player));
+    }
 
     return 0;
 }

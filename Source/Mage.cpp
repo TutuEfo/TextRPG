@@ -22,7 +22,7 @@ int Mage::castSpell()
 
 	if (mana >= 10)
 	{
-		damage = spellPower + (rand() % spellPower);
+		damage = spellPower + (rand() % spellPower) * level;
 
 		mana -= 10;
 	}
@@ -126,6 +126,7 @@ void Mage::displayCharacter() const
 	printBar(xp, xpToLevelUp, 20);
 	cout << endl;
 
+	cout << endl;
 	cout << "Level:       " << level << "\n";
 	cout << "Spell Power: " << spellPower << "\n";
 	cout << "Crit Chance: " << critChance << "\n";
@@ -152,9 +153,9 @@ void Mage::useManaPotion()
 {
 	manaPotions--;
 
-	mana = mana + 25;
+	mana = mana + 50;
 
-	cout << ">> " << getNickName() << " used a mana potion and gains 25 Mana!" << endl;
+	cout << ">> " << getNickName() << " used a mana potion and gains 50 Mana!" << endl;
 }
 
 void Mage::setMana(int amount)
