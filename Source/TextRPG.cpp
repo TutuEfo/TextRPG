@@ -148,9 +148,51 @@ void doLoad(Character& player)
 
 void doDelete()
 {
-    cout << ">> Enter filename to remove (write .sav extension): ";
+    auto files = SaveLoad::listSaveFiles();
+
+    if (files.empty())
+    {
+        cout << ">> No save files found.\n";
+
+        return;
+    }
+
+    cout << "\n========== Saved Games ==========\n";
+
+    for (size_t i = 0; i < files.size(); ++i)
+    {
+        auto mdOpt = SaveLoad::readMetadata(files[i]);
+
+        if (mdOpt)
+        {
+            cout << "File name: " << files[i] << endl;
+
+            auto& md = *mdOpt;
+
+            cout << setw(2) << (i + 1) << ") "
+                << "[" << md.className << "] "
+                << md.nickName << " "
+                << "(Lvl " << md.level
+                << ", HP " << md.health
+                << ", Gold " << md.gold
+                << ")  [" << md.timestamp
+                << "]\n\n";
+        }
+        else
+        {
+            cout << setw(2) << (i + 1) << ") " << files[i] << "  (Save file corrupted)\n";
+        }
+    }
+
+    cout << ">> Enter filename to remove (0 to cancel): ";
+
     string fname;
     cin >> fname;
+
+    if (fname == "0")
+    {
+        return;
+    }
 
     bool removed = SaveLoad::deleteSave(fname);
 
