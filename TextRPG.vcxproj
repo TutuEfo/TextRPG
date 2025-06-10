@@ -134,6 +134,7 @@
     <ClInclude Include="Header\Console.h" />
     <ClInclude Include="Header\Enemy.h" />
     <ClInclude Include="Header\Mage.h" />
+    <ClInclude Include="Header\Menu.h" />
     <ClInclude Include="Header\Quest.h" />
     <ClInclude Include="Header\SaveLoad.h" />
     <ClInclude Include="Header\UI.h" />
@@ -144,6 +145,7 @@
     <ClCompile Include="Source\Console.cpp" />
     <ClCompile Include="Source\Enemy.cpp" />
     <ClCompile Include="Source\Mage.cpp" />
+    <ClCompile Include="Source\Menu.cpp" />
     <ClCompile Include="Source\Quest.cpp" />
     <ClCompile Include="Source\SaveLoad.cpp" />
     <ClCompile Include="Source\TextRPG.cpp" />

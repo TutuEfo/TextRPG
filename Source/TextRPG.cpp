@@ -4,6 +4,7 @@
 #include "Console.h"
 #include "SaveLoad.h"
 #include "Combat.h"
+#include "Menu.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -269,23 +270,6 @@ void shopMenu(Character& player)
     }
 }
 
-void mainMenu()
-{
-    cout << R"(
-   _____         _    ____________ _____ 
-  |_   _|       | |   | ___ \ ___ \  __ \
-    | | _____  _| |_  | |_/ / |_/ / |  \/
-    | |/ _ \ \/ / __| |    /|  __/| | __ 
-    | |  __/>  <| |_  | |\ \| |   | |_\ \
-    \_/\___/_/\_\\__| \_| \_\_|    \____/
-    )" << endl;
-    coloredPrint(Color::Green, "-|====>  New Game\n");
-    coloredPrint(Color::Cyan, "-|====>  Load Save\n");
-    coloredPrint(Color::Red, "-|====>  Delete Save\n");
-    coloredPrint(Color::Yellow, "-|====>  Quit\n");
-    coloredPrint(Color::Magenta, ">> Enter you choice: ");
-}
-
 void chooseClass()
 {
     cout << "Choose your hero" << endl;
@@ -444,8 +428,9 @@ int main()
 
     while (menuChoice != 1 && menuChoice != 4)
     {
-        mainMenu();
-        cin >> menuChoice;
+        initConsole();
+        vector<string> mainItems = { "-|====>  New Game", "-|====>  Load Save", "-|====>  Delete Save", "-|====>  Quit" };
+        menuChoice = getMenuChoice(mainItems) + 1;
 
         switch (menuChoice)
         {
@@ -456,7 +441,7 @@ int main()
             cin >> classChoice;
 
             string name;
-            cout << ">> Enter your name: ";
+            cout << "\n>> Enter your name: ";
             cin >> name;
 
             if (classChoice == 1)
@@ -537,11 +522,11 @@ int main()
         }
         case 4:
         {
-            cout << ">> Quitting the game!\n";
+            cout << "\n>> Quitting the game!\n";
             return 0;
         }
         default:
-            cout << ">> Please choose correct!" << endl;
+            cout << "\n>> Please choose correct!" << endl;
             break;
         }
     }

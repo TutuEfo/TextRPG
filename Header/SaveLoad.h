@@ -1,3 +1,4 @@
+#pragma once
 #ifndef SAVELOAD_H
 #define SAVELOAD_H
 

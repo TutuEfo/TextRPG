@@ -1,3 +1,4 @@
+#pragma once
 #ifndef MAGE_H
 #define MAGE_H
 
