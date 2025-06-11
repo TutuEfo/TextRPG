@@ -18,7 +18,6 @@ static const string SAVE_DIR = "saves/";
 
 namespace SaveLoad
 {
-
     void saveGame(const Character& player, const std::string& filename) {
         ensureSaveDirExists();
 

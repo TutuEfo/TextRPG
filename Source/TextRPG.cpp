@@ -211,14 +211,16 @@ void shopMenu(Character& player)
 {
     int choice = 0;
 
+    string name = player.getNickName();
+
     while (choice != 3)
     {
         coloredPrint(Color::Yellow, "\n===== SHOP =====");
         cout << endl;
         cout << ">> Gold: " << player.getGold() << endl;
-        cout << "1) Buy Health Potion (20 gold)" << endl;
-        cout << "2) Buy Mana Potion (25 gold)" << endl; // For Mage Class
-        cout << "3) Exit Shop" << endl;
+        cout << "1) Health Potion (20 gold)" << endl;
+        cout << "2) Mana Potion (25 gold)" << endl; // For Mage Class
+        cout << "3) Exit" << endl;
         cout << ">> Choose an option: ";
         cin >> choice;
 
@@ -229,11 +231,11 @@ void shopMenu(Character& player)
             {
                 player.addHealthPotion(1);
                 player.addGold(-20);
-                coloredPrint(Color::Green, ">> You bought 1 Health Potion!");
+                coloredPrint(Color::Green, ">> " + name + " bought Health Potion!\n");
             }
             else
             {
-                coloredPrint(Color::Red, ">> Not enough gold!");
+                coloredPrint(Color::Red, ">> Not enough gold!\n");
             }
 
             break;
@@ -245,16 +247,16 @@ void shopMenu(Character& player)
                 {
                     mage->addManaPotion(1);
                     player.addGold(-25);
-                    coloredPrint(Color::Cyan, ">> You bought 1 Mana Potion!");
+                    coloredPrint(Color::Cyan, ">> " + name + " bought Mana Potion!\n");
                 }
                 else
                 {
-                    coloredPrint(Color::Red, ">> Not enough gold!");
+                    coloredPrint(Color::Red, ">> Not enough gold!\n");
                 }
             }
             else
             {
-                coloredPrint(Color::Red, ">> Only Mages can buy mana potions!");
+                coloredPrint(Color::Red, ">> Only Mages can buy mana potions!\n");
             }
 
             break;
@@ -265,14 +267,14 @@ void shopMenu(Character& player)
             break;
 
         default:
-            coloredPrint(Color::Red, ">> Invalid choice!");
+            coloredPrint(Color::Red, ">> Invalid choice!\n");
         }
     }
 }
 
 void chooseClass()
 {
-    cout << "Choose your hero" << endl;
+    cout << "\nChoose your class" << endl;
     cout << "1) Default" << endl;
     cout << "2) Mage" << endl;
     // cout << "3) Necromancer" << endl;
@@ -282,6 +284,7 @@ void chooseClass()
 int gameMenu(Character &player)
 {
     Quest quest;
+
     // Quest Panel:
     if (!player.getHasQuests())
     {
@@ -310,7 +313,7 @@ int gameMenu(Character &player)
     Enemy randomEnemy;
     if (player.getLevel() % 5 == 0)
     {
-        coloredPrint(Color::Red, "\n>> A powerful enemy is approaching...\n");
+        coloredPrint(Color::Red, "\n>> A powerful BOSS is approaching...\n");
         randomEnemy = Enemy::generateBoss(player.getLevel());
     }
     else
@@ -455,10 +458,11 @@ int main()
                 {
                     cout << endl;
                     cout << "You have 15 skill points to create your character!" << endl;
-                    cout << "1) Strength (base strength is 0)" << endl;
-                    cout << "2) Defence (base defence is 0)" << endl;
-                    cout << "3) Crit Chance (base crit chance is 0)" << endl;
-                    cout << "4) Health (base health is 100)" << endl;
+                    cout << "1) Strength" << endl;
+                    cout << "2) Defence" << endl;
+                    cout << "3) Crit Chance" << endl;
+                    cout << "4) Health" << endl;
+                    cout << ">> Base stats: Health: 100, Strength: 0, Defence: 0, Crit Chance: 0" << endl;
                     cout << ">> Enter the skill point distribution (10 5 0 0): ";
                     cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
 
@@ -483,10 +487,11 @@ int main()
                 {
                     cout << endl;
                     cout << "You have 15 skill points to create your character!" << endl;
-                    cout << "1) Spell Power (base spell power is 0)" << endl;
-                    cout << "2) Defence (base defence is 0)" << endl;
-                    cout << "3) Spell Crit Chance (base spell crit chance is 0)" << endl;
-                    cout << "4) Health/Mana (base health/mana is 100)" << endl;
+                    cout << "1) Spell Power" << endl;
+                    cout << "2) Defence" << endl;
+                    cout << "3) Spell Crit Chance" << endl;
+                    cout << "4) Health/Mana" << endl;
+                    cout << ">> Base stats: Health/Mana: 100, Spell Power: 0, Defence: 0, Spell Crit Chance: 0" << endl;
                     cout << "Enter the skill point distribution (10 5 0 0): ";
                     cin >> spellPowerCounter >> defenceCounter >> critCounter >> healthCounter;
 
