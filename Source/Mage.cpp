@@ -55,8 +55,8 @@ void Mage::levelUp()
 
 	while (skillPoints != 0)
 	{
-		cout << "1) Spell Power (+5)" << endl;
-		cout << "2) Defence (+3)" << endl;
+		cout << "1) Spell Power (+2)" << endl;
+		cout << "2) Defence (+2)" << endl;
 		cout << "3) Spell Crit Chance (+1)" << endl;
 		cout << ">> Remaining skillpoint(s): " << skillPoints << endl;
 		cout << ">> Choose one: ";
@@ -66,18 +66,18 @@ void Mage::levelUp()
 		{
 		case 1:
 		{
-			spellPower = spellPower + 5;
+			spellPower = spellPower + 2;
 
-			cout << "# Spell Power is increased by 5!" << endl;
+			cout << "# Spell Power is increased by 2!" << endl;
 			cout << "\n";
 
 			break;
 		}
 		case 2:
 		{
-			defence = defence + 3;
+			defence = defence + 2;
 
-			cout << "# Defence is increased by 3!" << endl;
+			cout << "# Defence is increased by 2!" << endl;
 			cout << "\n";
 
 			break;

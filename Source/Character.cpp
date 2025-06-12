@@ -44,8 +44,8 @@ Character::Character(const string& name, int hp, int str, int def, int critCh)
 	nickName = name;
 
 	health = 100 + (10 * hp);
-	strength = 2 * str;
-	defence = 2 * def;
+	strength = str;
+	defence = def;
 	critChance = critCh;
 
 	level = 1;
@@ -188,8 +188,8 @@ void Character::levelUp()
 
 	while (skillPoints != 0)
 	{
-		cout << "1) Strength (+5)" << endl;
-		cout << "2) Defence (+3)" << endl;
+		cout << "1) Strength (+2)" << endl;
+		cout << "2) Defence (+2)" << endl;
 		cout << "3) Crit Chance (+1)" << endl;
 		cout << ">> Remaining skillpoint(s): " << skillPoints << endl;
 		cout << ">> Choose one: ";
@@ -199,18 +199,18 @@ void Character::levelUp()
 		{
 		case 1:
 		{
-			strength = strength + 5;
+			strength = strength + 2;
 
-			cout << "# Strength is increased by 5!" << endl;
+			cout << "# Strength is increased by 2!" << endl;
 			cout << "\n";
 
 			break;
 		}
 		case 2:
 		{
-			defence = defence + 3;
+			defence = defence + 2;
 
-			cout << "# Defence is increased by 3!" << endl;
+			cout << "# Defence is increased by 2!" << endl;
 			cout << "\n";
 
 			break;

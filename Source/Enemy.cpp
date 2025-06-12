@@ -18,10 +18,10 @@ Enemy::Enemy()
 Enemy::Enemy(const string& name, int health, int defence, int strength, int level)
 {
 	enemyName = name;
-	enemyLevel = max(1, level + (rand() % 3 - 1));
+	enemyLevel = max(1, level + (rand() % 3));
 	enemyHealth = health + (level - 1) * 10;
-	enemyDefence = defence + (level - 1);
-	enemyStrength = strength + (level - 1);
+	enemyDefence = defence + level;
+	enemyStrength = strength + level;
 }
 
 void Enemy::displayStatus() const
@@ -41,13 +41,13 @@ Enemy Enemy::generateEnemy(int level)
 
 	string name = types[typeIndex];
 
-	int baseHealth = 50 + (rand() % 10);
-	int baseStrength = 3 + (rand() % 5);
-	int baseDefence = 2 + (rand() % 3);
+	int baseHealth = 50 + ((rand() % level) + 10);
+	int baseStrength = 3 + ((rand() % level) + 2);
+	int baseDefence = 2 + ((rand() % level) + 1);
 
 	int enemyLevel = max(1, level + (rand() % 3 - 1));
 
-	int health = baseHealth + (enemyLevel - 1) * 3;
+	int health = baseHealth + (enemyLevel - 1) * 5;
 	int strength = baseStrength + (enemyLevel - 1) * 2;
 	int defence = baseDefence + (enemyLevel - 1);
 
