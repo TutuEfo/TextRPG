@@ -100,7 +100,13 @@ void Combat::performAction(int choice)
 	{
 		if (magePtr)
 		{
-			playerCastSpell();
+			int spellChoice = 0;
+
+			playerDisplaySpells();
+
+			cin >> spellChoice;
+
+			playerCastSpell(spellChoice);
 			
 			break;
 		}
@@ -246,7 +252,20 @@ void Combat::playerUseItem()
 	}
 }
 
-void Combat::playerCastSpell()
+void Combat::playerDisplaySpells()
+{
+	Mage* magePtr = dynamic_cast<Mage*>(&cPlayer);
+
+	cout << "========== Spell List ==========" << endl;
+
+	cout << "1) Fireball  (10 MP)" << endl;
+	cout << "2) Lightning (25 MP)" << endl;
+	cout << "3) Ice Bolts (50 MP)" << endl;
+	cout << ">> Remaining mana: " << magePtr->getMana() << endl;
+	cout << ">> Enter your choice: ";
+}
+
+void Combat::playerCastSpell(int choice)
 {
 	Mage* magePtr = dynamic_cast<Mage*>(&cPlayer);
 
@@ -256,7 +275,7 @@ void Combat::playerCastSpell()
 	{
 		cout << ">> Casting spell...\n";
 
-		damage = magePtr->castSpell();
+		damage = magePtr->castSpell(choice);
 
 		bool crit = (rand() % 100) < cPlayer.getCritChance();
 

@@ -16,15 +16,37 @@ Mage::Mage(const string& name) : Character(name), mana(50), maxMana(100), manaPo
 	health = maxHealth;
 }
 
-int Mage::castSpell()
+int Mage::castSpell(int choice)
 {
 	int damage = 0;
 
-	if (mana >= 10)
+	if (choice == 1 && mana >= 10)
 	{
-		damage = spellPower + (rand() % spellPower) * level;
+		coloredPrint(Color::Red, nickName + " casts FIREBALL!\n");
+
+		damage = spellPower + ((rand() % spellPower) * level);
 
 		mana -= 10;
+	}
+	else if (choice == 2 && mana >= 25)
+	{
+		coloredPrint(Color::Yellow, nickName + " casts LIGHTNING!\n");
+
+		damage = (2 * spellPower) + ((rand() % spellPower) * level);
+
+		mana -= 25;
+	}
+	else if (choice == 3 && mana >= 50)
+	{
+		coloredPrint(Color::Blue, nickName + " casts a ICE BOLTS!\n");
+
+		damage = (3 * spellPower) + ((rand() % spellPower) * level);
+
+		mana -= 50;
+	}
+	else
+	{
+		cout << "Not enough mana" << endl;
 	}
 
 	return damage;

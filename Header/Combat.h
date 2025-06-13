@@ -26,8 +26,9 @@ private:
     void playerAttack();
     void playerDefend();
     void playerUseItem();
-    void playerCastSpell();
+    void playerCastSpell(int choice);
     void playerEscape();
+    void playerDisplaySpells();
     void enemyTurn();
 
     int promptPotionMenu() const;

@@ -18,7 +18,7 @@ public:
 	Mage(const string& name);
 	Mage(const string& name, int hp, int sp, int def, int critCh);
 	int getMana() const;
-	int castSpell();
+	int castSpell(int choice);
 	void addManaPotion(int amount);
 	int getManaPotions() const;
 	void displayCharacter() const override;
