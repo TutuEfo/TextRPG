@@ -65,6 +65,8 @@ Character::Character(const string& name, int hp, int str, int def, int critCh)
 
 	escapeBattle = false;
 
+	// *skillList;
+
 	activeQuests;
 	hasQuests = false;
 }
@@ -113,6 +115,16 @@ int Character::attack()
 	int damage = strength + (rand() % strength);
 
 	return damage;
+}
+
+void Character::abilities()
+{
+	// Ability Ideas based on level progression:
+
+	cout << "Heavy Blow" << endl;			// + 10 damage, level 5
+	cout << "Vengeance" << endl;			// Same damage as the enemy from last turn, level 10
+	cout << "Berserker Stance" << endl;		// Maybe a potion (?), level 15
+	cout << "Defensive Stance" << endl;		// Buff the defense by 10 or no incoming damage this turn, level 20;
 }
 
 void Character::usePotion(int choice)

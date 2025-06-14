@@ -47,6 +47,8 @@ public:
     virtual void levelUp();
     int getXPToLevelUp() const;
 
+    void abilities();
+
     void usePotion(int choice);
     void addHealthPotion(int amount);
     void addStrengthPotion(int amount);

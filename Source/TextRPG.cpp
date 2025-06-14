@@ -325,7 +325,6 @@ int gameMenu(Character &player)
     Combat battle(player, randomEnemy);
     bool survived = battle.runCombat();
 
-
     // Reward Panel: 
     if (survived && !player.getEscapeBattle())
     {
