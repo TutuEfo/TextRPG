@@ -189,7 +189,7 @@ void Combat::playerAttack()
 
 	cEnemy.takeDamage(takeDamage);
 	
-	cout << ">> You deal " << takeDamage << " damage!\n";
+	cout << ">> " << cPlayer.getNickName() << " deals " << takeDamage << " damage!\n";
 }
 
 void Combat::playerUseItem()
@@ -206,7 +206,7 @@ void Combat::playerUseItem()
 		if (!cPlayer.isStrengthEffectActive())
 		{
 			cPlayer.usePotion(2);
-			cPlayer.setStrengthPotionDuration(3);
+			cPlayer.setStrengthPotionDuration(4);
 			cPlayer.setStrengthEffectActive(true);
 		}
 		else
@@ -219,7 +219,7 @@ void Combat::playerUseItem()
 		if (!cPlayer.isDefenceEffectActive())
 		{
 			cPlayer.usePotion(3);
-			cPlayer.setDefencePotionDuration(3);
+			cPlayer.setDefencePotionDuration(4);
 			cPlayer.setDefenceEffectActive(true);
 		}
 		else
@@ -273,7 +273,7 @@ void Combat::playerCastSpell(int choice)
 
 	if (magePtr && magePtr->getMana() >= 10)
 	{
-		cout << ">> Casting spell...\n";
+		cout << ">> " << cPlayer.getNickName() << " casts a spell\n";
 
 		damage = magePtr->castSpell(choice);
 
@@ -327,9 +327,18 @@ void Combat::enemyTurn()
 		damage = max(0, cEnemy.attackCharacter() - cPlayer.getDefence());
 	}
 
+	bool crit = (rand() % 100) < (cEnemy.getEnemyLevel() + 1);
+
+	if (crit)
+	{
+		damage = 2 * damage;
+
+		coloredPrint(Color::Red, ">> CRITICAL HIT!!!\n");
+	}
+
 	cPlayer.takeDamage(damage);
 	
-	std::cout << ">> " << cPlayer.getNickName() <<  " take " << damage << " damage.\n";
+	std::cout << ">> " << cPlayer.getNickName() <<  " takes " << damage << " damage.\n";
 }
 
 int Combat::promptPotionMenu() const
@@ -375,7 +384,7 @@ int Combat::promptPotionMenu() const
 
 void Combat::playerDefend()
 {
-	damageReduction = (rand() % cPlayer.getDefence() + cPlayer.getLevel() + 1);
+	damageReduction = ((rand() % cPlayer.getDefence()) + cPlayer.getLevel());
 
-	cout << cPlayer.getNickName() << " reduce the damage by " << damageReduction << "!" << endl;
+	cout << cPlayer.getNickName() << " reduces the damage by " << damageReduction << "!" << endl;
 }

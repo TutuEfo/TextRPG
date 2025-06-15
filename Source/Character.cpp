@@ -79,11 +79,11 @@ void Character::displayCharacter() const
 	cout << "Name: " << nickName << endl;
 
 	cout << "Health: ";
-	printBar(health, maxHealth, 20);
+	printBar(health, maxHealth, 25);
 	cout << endl;
 
 	cout << "XP:     ";
-	printBar(xp, xpToLevelUp, 20);
+	printBar(xp, xpToLevelUp, 25);
 	cout << endl;
 
 	cout << endl;
@@ -100,7 +100,7 @@ void Character::escapeFromBattle()
 
 	escape = rand() % 4;
 
-	if (escape == 0)
+	if (escape == 1)
 	{
 		escapeBattle = true;
 	}
@@ -163,7 +163,6 @@ void Character::usePotion(int choice)
 	{
 		cout << ">> No potions left!" << endl;
 	}
-	
 }
 
 void Character::gainXP(int amount)

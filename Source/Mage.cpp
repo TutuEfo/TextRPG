@@ -137,15 +137,15 @@ void Mage::displayCharacter() const
 	cout << "Name:        " << nickName << "\n";
 
 	cout << "Health:      ";
-	printBar(health, maxHealth, 20);
+	printBar(health, maxHealth, 25);
 	cout << endl;
 
 	cout << "Mana:        ";
-	printBar(mana, maxMana, 20);
+	printBar(mana, maxMana, 25);
 	cout << endl;
 
 	cout << "XP:          ";
-	printBar(xp, xpToLevelUp, 20);
+	printBar(xp, xpToLevelUp, 25);
 	cout << endl;
 
 	cout << endl;

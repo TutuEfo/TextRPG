@@ -71,7 +71,7 @@ void showLoadMenu(Character*& player)
 
     const string& sel = files[choice - 1];
 
-    cout << ">> Load \"" << sel << "\"? (y/n): ";
+    cout << ">> Load \"" << sel << "\"? (Y/N): ";
     char c; cin >> c;
 
     if (c == 'y' || c == 'Y')
@@ -85,6 +85,7 @@ void showLoadMenu(Character*& player)
         }
 
         auto& md = *mdOpt;
+
         // Delete any old player
         delete player;
 
@@ -369,7 +370,8 @@ int gameMenu(Character &player)
         cout << endl;
         coloredPrint(Color::Magenta, "3) View Quest(s) ");
         cout << endl;
-        cout << "4) Save Game" << endl;
+        coloredPrint(Color::Red, "4) Save Game");
+        cout << endl;
         cout << ">> Enter your choice: ";
         cin >> choice;
 
@@ -399,7 +401,7 @@ int gameMenu(Character &player)
         }
         default:
         {
-            coloredPrint(Color::Red, ">> Invalid choice! Choice again: ");
+            coloredPrint(Color::Red, ">> Invalid choice!");
         }
         }
 
@@ -439,10 +441,12 @@ int main()
         case 1:
         {
             int classChoice;
+
             chooseClass();
             cin >> classChoice;
 
             string name;
+
             cout << "\n>> Enter your name: ";
             cin >> name;
 
