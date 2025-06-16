@@ -9,8 +9,11 @@ using namespace std;
 
 void drawMenu(int sel, const vector<string>& items)
 {
+    // Alternative but not good looking version:
     // \033[2J = clear entire screen; \033[H = move cursor to top-left
-    cout << "\033[2J\033[H";
+    // cout << "\033[2J\033[H";
+
+    system("cls");
 
     cout << R"(
    _____         _    ____________ _____ 
@@ -39,7 +42,7 @@ void drawMenu(int sel, const vector<string>& items)
         }
     }
 
-    cout << "(Use Arrow keys and Enter)";
+    cout << "(Use Up and Down Arrow keys to change option and to select use Enter)";
 }
 
 int getMenuChoice(const vector<string>& items)

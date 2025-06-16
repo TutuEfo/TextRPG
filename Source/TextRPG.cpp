@@ -27,7 +27,7 @@ void showLoadMenu(Character*& player)
         return;
     }
 
-    cout << "\n========== Load Game ==========\n";
+    cout << "\n========== Load Game Menu ==========\n";
 
     for (size_t i = 0; i < files.size(); ++i)
     {
@@ -364,13 +364,13 @@ int gameMenu(Character &player)
         coloredPrint(Color::Green, "\n========== Post Combat Menu ==========");
         cout << endl;
         cout << endl;
-        coloredPrint(Color::Cyan, "1) Move to the Next Battle");
+        coloredPrint(Color::Cyan, "1) Next Battle");
         cout << endl;
-        coloredPrint(Color::Yellow, "2) Open Shop");
+        coloredPrint(Color::Yellow, "2) Shop");
         cout << endl;
-        coloredPrint(Color::Magenta, "3) View Quest(s) ");
+        coloredPrint(Color::Magenta, "3) Quest");
         cout << endl;
-        coloredPrint(Color::Red, "4) Save Game");
+        coloredPrint(Color::Red, "4) Save");
         cout << endl;
         cout << ">> Enter your choice: ";
         cin >> choice;
@@ -414,7 +414,7 @@ int gameMenu(Character &player)
     cout << endl;
     player.setEscapeBattle(false);
 
-    coloredPrint(Color::Cyan, ">> Press Enter to face the next enemy...");
+    coloredPrint(Color::Cyan, ">> Press Enter to face the next enemy.");
     cin.ignore();
     cin.get();
 }
@@ -531,10 +531,11 @@ int main()
         case 4:
         {
             cout << "\n>> Quitting the game!\n";
+            cout << "\n>> Enemies lurk in the shadows. We need you back ASAP!\n";
             return 0;
         }
         default:
-            cout << "\n>> Please choose correct!" << endl;
+            cout << "\n>> Please choose again" << endl;
             break;
         }
     }
