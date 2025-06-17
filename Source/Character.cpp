@@ -121,10 +121,13 @@ void Character::abilities()
 {
 	// Ability Ideas based on level progression:
 
-	cout << "Heavy Blow" << endl;			// + 10 damage, level 5
-	cout << "Vengeance" << endl;			// Same damage as the enemy from last turn, level 10
-	cout << "Berserker Stance" << endl;		// Maybe a potion (?), level 15
-	cout << "Defensive Stance" << endl;		// Buff the defense by 10 or no incoming damage this turn, level 20;
+	cout << "Deadly Scatter" << endl;				// + 10 damage, level 5
+	cout << "Vengeful Punishment" << endl;			// Same damage as the enemy from last turn, level 10
+	cout << "Warrior's Surge" << endl;				// Maybe a potion (?), level 15
+	cout << "Defensive Stance" << endl;				// Buff the defense by 10 or no incoming damage this turn, level 20;
+
+	// TODO:
+	// Level based ability application will be added
 }
 
 void Character::usePotion(int choice)
@@ -161,7 +164,7 @@ void Character::usePotion(int choice)
 	}
 	else
 	{
-		cout << ">> No potions left!" << endl;
+		cout << ">> No potions left, buy some more from shop!" << endl;
 	}
 }
 
@@ -244,11 +247,9 @@ void Character::levelUp()
 	{
 		healthPotions = healthPotions + 3;
 		cout << "# Potions are refilled!" << endl;
-		cout << "\n";
 	}
 
 	cout << "# Max Health is increased by 10!" << endl;
-	cout << "\n";
 
 	cout << ">> " << nickName << " leveled up to Level " << level << "!" << endl;
  }

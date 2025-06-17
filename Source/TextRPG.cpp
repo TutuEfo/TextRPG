@@ -349,10 +349,10 @@ int gameMenu(Character &player)
     
     if (!survived)
     {
-        cout << "\n======================================" << endl;
-        cout << ">> " << player.getNickName() << " has been defeated!" << endl;
-        cout << ">> GAME OVER!!" << endl;
-        cout << "======================================" << endl;
+        coloredPrint(Color::Red, "\n======================================\n");
+        coloredPrint(Color::Red, ">> " + player.getNickName() + " has been defeated!\n");
+        coloredPrint(Color::Red, ">> GAME OVER!!\n");
+        coloredPrint(Color::Red, "\n======================================\n");
 
         return 0;
     }

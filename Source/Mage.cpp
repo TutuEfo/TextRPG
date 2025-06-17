@@ -22,7 +22,7 @@ int Mage::castSpell(int choice)
 
 	if (choice == 1 && mana >= 10)
 	{
-		coloredPrint(Color::Red, nickName + " casts FIREBALL!\n");
+		coloredPrint(Color::Red, nickName + " casts a FIREBALL!\n");
 
 		damage = spellPower + ((rand() % spellPower) * level);
 
@@ -30,7 +30,7 @@ int Mage::castSpell(int choice)
 	}
 	else if (choice == 2 && mana >= 25)
 	{
-		coloredPrint(Color::Yellow, nickName + " casts LIGHTNING!\n");
+		coloredPrint(Color::Yellow, nickName + " casts a LIGHTNING!\n");
 
 		damage = (2 * spellPower) + ((rand() % spellPower) * level);
 
@@ -38,7 +38,7 @@ int Mage::castSpell(int choice)
 	}
 	else if (choice == 3 && mana >= 50)
 	{
-		coloredPrint(Color::Blue, nickName + " casts a ICE BOLTS!\n");
+		coloredPrint(Color::Blue, nickName + " casts ICE BOLTS!\n");
 
 		damage = (3 * spellPower) + ((rand() % spellPower) * level);
 
@@ -122,11 +122,9 @@ void Mage::levelUp()
 	{
 		healthPotions = healthPotions + 3;
 		cout << "# Potions are refilled!" << endl;
-		cout << "\n";
 	}
 
 	cout << "# Max Health is increased by 10!" << endl;
-	cout << "\n";
 
 	cout << ">> " << nickName << " leveled up to Level " << level << "!" << endl;
 }
