@@ -49,12 +49,12 @@ void showLoadMenu(Character*& player)
         else
         {
             cout << setw(2) << (i + 1) << ") "
-                << files[i] << "  (Save file corrupted)\n";
+                << files[i] << " (Save file corrupted)\n";
         }
     }
 
     int choice;
-    cout << "\n>> Enter number to load (0 to cancel): ";
+    cout << "\n>> Enter a number to load (0 to cancel): ";
 
     while (!(cin >> choice) || choice < 0 || choice > (int)files.size())
     {
@@ -80,7 +80,7 @@ void showLoadMenu(Character*& player)
 
         if (!mdOpt)
         {
-            cout << ">> Error: could not read save metadata.\n";
+            cout << ">> Error: Could not read save metadata.\n";
             return;
         }
 
@@ -121,7 +121,7 @@ void doSave(const Character& player)
     try
     {
         SaveLoad::saveGame(player, fname);
-        cout << ">> Game saved to " << fname << "\n";
+        cout << ">> Game saved to " << fname + ".sav" << "\n";
     }
     catch (exception& e){
         // 3) If something goes wrong (e.g. disk error), report it
@@ -132,19 +132,19 @@ void doSave(const Character& player)
 void doLoad(Character& player)
 {
     // 1) Ask the user for the savefile name
-    cout << ">> Enter filename to load: ";
+    cout << ">> Enter \"filename.sav\" to load: ";
     string fname;
     cin >> fname;
 
     // 2) Call loadGame, which returns true on success
     if (SaveLoad::loadGame(player, fname))
     {
-        cout << ">> Loaded " << fname << "\n";
+        cout << ">> Loaded " << fname + ".sav" << "\n";
     }
     else
     {
         // 3) If open or parsing failed, let the user know
-        cerr << ">> Load failed: could not open!" << fname << "\n";
+        cerr << ">> Load failed: could not open!" << fname + ".sav" << "\n";
     }
 }
 
@@ -182,7 +182,7 @@ void doDelete()
         }
         else
         {
-            cout << setw(2) << (i + 1) << ") " << files[i] << "  (Save file corrupted)\n";
+            cout << setw(2) << (i + 1) << ") " << files[i] << " (Save file corrupted)\n";
         }
     }
 
