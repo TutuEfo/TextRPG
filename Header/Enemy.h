@@ -11,6 +11,7 @@ class Enemy {
 private:
 	string enemyName;
 	int enemyHealth;
+	int enemyMaxHealth;
 	int enemyDefence;
 	int enemyStrength;
 	int enemyLevel;

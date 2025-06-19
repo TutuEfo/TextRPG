@@ -36,7 +36,6 @@ void printBar(int current, int maximum, int barWidth, char fillChar, char emptyC
         filledWidth = 0;
     }
 
-
     cout << "|";
 
     for (int i = 0; i < filledWidth; ++i)

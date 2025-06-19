@@ -195,10 +195,9 @@ void Character::levelUp()
 	health = maxHealth;
 
 	int skillPoints = 2;
-	int levelChoice = 0;
+	int levelUpChoice = 0;
 
 	coloredPrint(Color::Cyan, "\n========== Level Up Menu ==========\n");
-
 
 	while (skillPoints != 0)
 	{
@@ -207,9 +206,9 @@ void Character::levelUp()
 		cout << "3) Crit Chance (+1)" << endl;
 		cout << ">> Remaining skillpoint(s): " << skillPoints << endl;
 		cout << ">> Choose one: ";
-		cin >> levelChoice;
+		cin >> levelUpChoice;
 
-		switch (levelChoice)
+		switch (levelUpChoice)
 		{
 		case 1:
 		{

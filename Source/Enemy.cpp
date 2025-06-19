@@ -3,6 +3,7 @@
 #include <string>
 #include "Enemy.h"
 #include "Console.h"
+#include "UI.h"
 
 using namespace std;
 
@@ -11,6 +12,7 @@ Enemy::Enemy()
 	enemyName = "Undefined";
 	enemyLevel = 0;
 	enemyHealth = 0;
+	enemyMaxHealth = enemyHealth;
 	enemyDefence = 0;
 	enemyStrength = 0;
 }
@@ -22,13 +24,16 @@ Enemy::Enemy(const string& name, int health, int defence, int strength, int leve
 	enemyHealth = health + (level - 1) * 10;
 	enemyDefence = defence + level;
 	enemyStrength = strength + level;
+	enemyMaxHealth = enemyHealth;
 }
 
 void Enemy::displayStatus() const
 {
 	coloredPrint(Color::Red, "\n========== ENEMY STATS ==========\n");
 	cout << "Name:        " << enemyName << endl;
-	cout << "Health:      " << enemyHealth << endl;
+	cout << endl;
+	printBar(enemyHealth, enemyMaxHealth, 25);
+	cout << endl;
 	cout << "Strength:    " << enemyStrength << endl;
 	cout << "Defence:     " << enemyDefence << endl;
 	cout << "Level:       " << enemyLevel << endl;
@@ -57,7 +62,7 @@ Enemy Enemy::generateEnemy(int level)
 Enemy Enemy::generateBoss(int level)
 {
 	const string bossAdjectives[] = { "Ancient", "Savage", "Unholy", "Wrathful", "Doombringer", "Infernal" };
-	const string bossNames[] = { "Goblin", "Orc", "Bandit", "Troll" };
+	const string bossNames[] = { "Goblin Boss", "Orc Boss", "Bandit Boss", "Troll Boss" };
 
 	int bossAdjIndex = rand() % 5;
 	int bossNamesIndex = rand() % 4;

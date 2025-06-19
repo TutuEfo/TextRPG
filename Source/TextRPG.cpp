@@ -447,7 +447,7 @@ int main()
 
             string name;
 
-            cout << "\n>> Enter your name: ";
+            cout << ">> Enter your name: ";
             cin >> name;
 
             if (classChoice == 1)

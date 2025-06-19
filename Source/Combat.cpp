@@ -170,6 +170,8 @@ void Combat::endOfRoundCleanup() {
 	cout << ">> Press Enter to continue...";
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	cin.get();
+
+	system("cls");
 }
 
 void Combat::playerAttack()
