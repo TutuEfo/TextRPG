@@ -194,52 +194,59 @@ void Character::levelUp()
 
 	health = maxHealth;
 
-	int skillPoints = 2;
-	int levelUpChoice = 0;
+	int levelUpChoice1 = 0;
+	int levelUpChoice2 = 0;
 
 	coloredPrint(Color::Cyan, "\n========== Level Up Menu ==========\n");
 
-	while (skillPoints != 0)
+	cout << "1) Strength (+2)" << endl;
+	cout << "2) Defence (+2)" << endl;
+	cout << "3) Crit Chance (+1)" << endl;
+	cout << ">> Choose your upgrades: ";
+	cin >> levelUpChoice1 >> levelUpChoice2;
+
+	if (levelUpChoice1 == 1)
 	{
-		cout << "1) Strength (+2)" << endl;
-		cout << "2) Defence (+2)" << endl;
-		cout << "3) Crit Chance (+1)" << endl;
-		cout << ">> Remaining skillpoint(s): " << skillPoints << endl;
-		cout << ">> Choose one: ";
-		cin >> levelUpChoice;
+		strength = strength + 2;
 
-		switch (levelUpChoice)
-		{
-		case 1:
-		{
-			strength = strength + 2;
+		cout << "# Strength is increased by 2!" << endl;
+		cout << "\n";
+	}
+	else if(levelUpChoice1 == 2)
+	{
+		defence = defence + 2;
 
-			cout << "# Strength is increased by 2!" << endl;
-			cout << "\n";
+		cout << "# Defence is increased by 2!" << endl;
+		cout << "\n";
+	}
+	else if (levelUpChoice1 == 3)
+	{
+		critChance = critChance + 1;
 
-			break;
-		}
-		case 2:
-		{
-			defence = defence + 2;
+		cout << "# Crit chance is increased by 1!" << endl;
+		cout << "\n";
+	}
 
-			cout << "# Defence is increased by 2!" << endl;
-			cout << "\n";
+	if (levelUpChoice2 == 1)
+	{
+		strength = strength + 2;
 
-			break;
-		}
-		case 3:
-		{
-			critChance = critChance + 1;
+		cout << "# Strength is increased by 2!" << endl;
+		cout << "\n";
+	}
+	else if (levelUpChoice2 == 2)
+	{
+		defence = defence + 2;
 
-			cout << "# Crit chance is increased by 1!" << endl;
-			cout << "\n";
+		cout << "# Defence is increased by 2!" << endl;
+		cout << "\n";
+	}
+	else if (levelUpChoice2 == 3)
+	{
+		critChance = critChance + 1;
 
-			break;
-		}
-		}
-
-		skillPoints--;
+		cout << "# Crit chance is increased by 1!" << endl;
+		cout << "\n";
 	}
 
 	if (healthPotions == 0)
