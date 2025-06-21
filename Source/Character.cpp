@@ -10,6 +10,8 @@
 
 using namespace std;
 
+static const std::string QUEST_TYPES[] = { "Goblin", "Orc", "Bandit", "Troll" };
+
 Character::Character(const string& name) /* : nickName(name), health(0), strength(5), defence(1), level(1) */ {
 	nickName = name;
 
@@ -36,7 +38,6 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 	escapeBattle = false;
 
 	activeQuests;
-	hasQuests = false;
 }
 
 Character::Character(const string& name, int hp, int str, int def, int critCh)
@@ -68,7 +69,6 @@ Character::Character(const string& name, int hp, int str, int def, int critCh)
 	// *skillList;
 
 	activeQuests;
-	hasQuests = false;
 }
 
 void Character::displayCharacter() const
@@ -304,10 +304,45 @@ void Character::checkQuestCompletion(const string& enemyName)
 
 				gainXP(q.rewardXP);
 				addGold(q.rewardGold);
-
-				hasQuests = false;
 			}
 		}
+	}
+}
+
+void Character::generateRandomQuest()
+{
+	int typeIndex = rand() % (sizeof(QUEST_TYPES) / sizeof(*QUEST_TYPES));
+	int count = rand() % 3 + 5;
+	int randomXP = rand() % 26 + 25;
+	int randomGold = rand() % 41 + 10;
+
+	std::string name = QUEST_TYPES[typeIndex];
+	Quest q
+	{
+		"Defeat " + std::to_string(count) + " " + name,
+		name,
+		count,
+		0,
+		randomXP,
+		randomGold
+	};
+
+	activeQuests.push_back(q);
+
+	std::cout << ">> New quest added: " << q.description << " (Reward: " << q.rewardXP << " XP, " << q.rewardGold << " gold)\n";
+}
+
+void Character::requestQuest()
+{
+	const int maxQuest = 3;
+
+	if (activeQuests.size() >= maxQuest)
+	{
+		cout << ">> You already have " << maxQuest << " quests in progress!\n";
+	}
+	else
+	{
+		generateRandomQuest();
 	}
 }
 
@@ -361,9 +396,9 @@ void Character::takeDamage(int damage)
 	}
 }
 
-void Character::clearQuests() {
+void Character::clearQuests()
+{
 	activeQuests.clear();
-	hasQuests = false;
 }
 
 // Getters
@@ -437,20 +472,11 @@ bool Character::getEscapeBattle()
 	return escapeBattle;
 }
 
-bool Character::getHasQuests()
-{
-	return hasQuests;
-}
 
 // Setters
 void Character::setEscapeBattle(bool escape)
 {
 	escapeBattle = escape;
-}
-
-void Character::setHasQuests(bool hasQuest)
-{
-	hasQuests = hasQuest;
 }
 
 void Character::setStrength(int strength)

@@ -284,32 +284,6 @@ void chooseClass()
 
 int gameMenu(Character &player)
 {
-    Quest quest;
-
-    // Quest Panel:
-    if (!player.getHasQuests())
-    {
-        const string types[] = { "Goblin", "Orc", "Bandit", "Troll" };
-        int typeIndex = rand() % 4;
-
-        string name = types[typeIndex];
-
-        int count;
-        count = rand() % 3 + 5;
-
-        int randomXP;
-        randomXP = rand() % 26 + 25;
-
-        int randomGold;
-        randomGold = rand() % 41 + 10;
-
-        quest = { "Defeat " + to_string(count) + " " + name, name, count, 0, randomXP, randomGold };
-
-        player.addQuest(quest);
-
-        player.setHasQuests(true);
-    }
-
     // Normal Enemy & Boss:
     Enemy randomEnemy;
     if (player.getLevel() % 5 == 0)
@@ -389,7 +363,25 @@ int gameMenu(Character &player)
         }
         case 3:
         {
-            player.displayQuests();
+            int choiceQ;
+
+            cout << "1) New Quest (Max: 3)" << endl;
+            cout << "2) Display Quest" << endl;
+            cin >> choiceQ;
+
+            if (choiceQ == 1)
+            {
+                player.requestQuest();
+                player.displayQuests();
+            }
+            else if (choiceQ == 2)
+            {
+                player.displayQuests();
+            }
+            else
+            {
+                cout << "Wrong input, moving on!" << endl;
+            }
 
             break;
         }

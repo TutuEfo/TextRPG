@@ -42,7 +42,7 @@ void drawMenu(int sel, const vector<string>& items)
         }
     }
 
-    cout << "(Use Up and Down Arrow keys to change option and to select use Enter)";
+    cout << "(Use Up and Down Arrow keys to change option and select with Enter)";
 }
 
 int getMenuChoice(const vector<string>& items)

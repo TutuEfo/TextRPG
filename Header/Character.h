@@ -36,7 +36,6 @@ protected:
     bool escapeBattle;
 
     vector<Quest> activeQuests;
-    bool hasQuests;
 public:
     Character(const string& nickname);  // Constructor
     Character(const string& name, int hp, int str, int def, int critCh);
@@ -64,6 +63,8 @@ public:
     void addQuest(const Quest& q);
     void checkQuestCompletion(const string& enemyName);
     void displayQuests() const;
+    void requestQuest();
+    void generateRandomQuest();
 
     string getNickName() const;
     int getHealth() const;
