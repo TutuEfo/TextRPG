@@ -220,11 +220,6 @@ namespace SaveLoad
             player.addQuest(q);
         }
 
-        if (questCount > 0)
-        {
-            player.setHasQuests(true);
-        }
-
         return true;
     }
 

@@ -91,8 +91,6 @@ public:
     void setDefenceEffectActive(bool active);
 
     bool getEscapeBattle();
-    bool getHasQuests();
-    void setHasQuests(bool hasQuest);
     void setEscapeBattle(bool escape);
     void setStrength(int amount);
     void setDefence(int amount);

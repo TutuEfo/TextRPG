@@ -77,7 +77,7 @@ void Mage::levelUp()
 	cout << "1) Strength (+2)" << endl;
 	cout << "2) Defence (+2)" << endl;
 	cout << "3) Crit Chance (+1)" << endl;
-	cout << ">> Choose your upgrades: ";
+	cout << ">> Choose your upgrades (1 3):";
 	cin >> levelUpChoice1 >> levelUpChoice2;
 
 	if (levelUpChoice1 == 1)
@@ -85,21 +85,18 @@ void Mage::levelUp()
 		spellPower = spellPower + 2;
 
 		cout << "# Spell Power is increased by 2!" << endl;
-		cout << "\n";
 	}
 	else if (levelUpChoice1 == 2)
 	{
 		defence = defence + 2;
 
 		cout << "# Defence is increased by 2!" << endl;
-		cout << "\n";
 	}
 	else if (levelUpChoice1 == 3)
 	{
 		critChance = critChance + 1;
 
 		cout << "# Spell Crit Chance is increased by 1!" << endl;
-		cout << "\n";
 	}
 
 	if (levelUpChoice2 == 1)
@@ -107,21 +104,18 @@ void Mage::levelUp()
 		spellPower = spellPower + 2;
 
 		cout << "# Spell Power is increased by 2!" << endl;
-		cout << "\n";
 	}
 	else if (levelUpChoice2 == 2)
 	{
 		defence = defence + 2;
 
 		cout << "# Defence is increased by 2!" << endl;
-		cout << "\n";
 	}
 	else if (levelUpChoice2 == 3)
 	{
 		critChance = critChance + 1;
 
 		cout << "# Spell Crit Chance is increased by 1!" << endl;
-		cout << "\n";
 	}
 
 	if (healthPotions == 0)

@@ -9,6 +9,8 @@ Combat::Combat(Character& player, Enemy& enemy) : cPlayer(player), cEnemy(enemy)
 
 bool Combat::runCombat()
 {
+	system("cls");
+
 	cPlayer.setEscapeBattle(false);
 
 	while (cPlayer.getHealth() > 0 && cEnemy.isAlive() && !cPlayer.getEscapeBattle())
@@ -170,8 +172,6 @@ void Combat::endOfRoundCleanup() {
 	cout << ">> Press Enter to continue...";
 	cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 	cin.get();
-
-	system("cls");
 }
 
 void Combat::playerAttack()
