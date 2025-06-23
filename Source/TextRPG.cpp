@@ -146,6 +146,10 @@ void doLoad(Character& player)
         // 3) If open or parsing failed, let the user know
         cerr << ">> Load failed: could not open!" << fname + ".sav" << "\n";
     }
+
+    coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
+    cin.ignore();
+    cin.get();
 }
 
 void doDelete()
@@ -206,6 +210,10 @@ void doDelete()
     {
         cout << ">> " << fname + " " + "remove failed!" << endl;
     }
+
+    coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
+    cin.ignore();
+    cin.get();
 }
 
 void shopMenu(Character& player)
@@ -367,6 +375,7 @@ int gameMenu(Character &player)
 
             cout << "1) New Quest (Max: 3)" << endl;
             cout << "2) Display Quest" << endl;
+            cout << "Enter your choice (You have " + to_string(player.getQuestCount()) + " active quests): ";
             cin >> choiceQ;
 
             if (choiceQ == 1)

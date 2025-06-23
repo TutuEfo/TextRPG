@@ -37,6 +37,7 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 
 	escapeBattle = false;
 
+	questCount = 0;
 	activeQuests;
 }
 
@@ -68,6 +69,7 @@ Character::Character(const string& name, int hp, int str, int def, int critCh)
 
 	// *skillList;
 
+	questCount = 0;
 	activeQuests;
 }
 
@@ -298,9 +300,16 @@ void Character::checkQuestCompletion(const string& enemyName)
 
 				gainXP(q.rewardXP);
 				addGold(q.rewardGold);
+			
+				questCount--;
 			}
 		}
 	}
+}
+
+int Character::getQuestCount()
+{
+	return questCount;
 }
 
 void Character::generateRandomQuest()
@@ -337,6 +346,8 @@ void Character::requestQuest()
 	else
 	{
 		generateRandomQuest();
+
+		questCount++;
 	}
 }
 
