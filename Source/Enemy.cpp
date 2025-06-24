@@ -20,17 +20,17 @@ Enemy::Enemy()
 Enemy::Enemy(const string& name, int health, int defence, int strength, int level)
 {
 	enemyName = name;
-	enemyLevel = max(1, level + (rand() % 3));
-	enemyHealth = health + (level - 1) * 10;
-	enemyDefence = defence + level;
-	enemyStrength = strength + level;
+	enemyLevel = level;
+	enemyHealth = health;
+	enemyDefence = defence;
+	enemyStrength = strength;
 	enemyMaxHealth = enemyHealth;
 }
 
 void Enemy::displayStatus() const
 {
 	coloredPrint(Color::Red, "\n========== ENEMY STATS ==========\n");
-	cout << "Name:        " << enemyName << endl;
+	cout << "Name: " << enemyName << endl;
 	cout << endl;
 	printBar(enemyHealth, enemyMaxHealth, 25);
 	cout << endl;

@@ -22,7 +22,10 @@ void showLoadMenu(Character*& player)
 
     if (files.empty())
     {
-        cout << ">> No save files found.\n";
+        cout << "\n>> No save files found.\n";
+
+        coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
+        cin.get();
 
         return;
     }
@@ -108,6 +111,9 @@ void showLoadMenu(Character*& player)
             cout << ">> Failed to load \"" << sel << "\".\n";
         }
     }
+
+    coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
+    cin.get();
 }
 
 void doSave(const Character& player)
@@ -158,7 +164,10 @@ void doDelete()
 
     if (files.empty())
     {
-        cout << ">> No save files found.\n";
+        cout << "\n>> No save files found.\n";
+
+        coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
+        cin.get();
 
         return;
     }
@@ -197,6 +206,9 @@ void doDelete()
 
     if (fname == "0")
     {
+        coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
+        cin.get();
+
         return;
     }
 
@@ -212,7 +224,6 @@ void doDelete()
     }
 
     coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
-    cin.ignore();
     cin.get();
 }
 
@@ -283,7 +294,7 @@ void shopMenu(Character& player)
 
 void chooseClass()
 {
-    cout << "\nChoose your class" << endl;
+    cout << "\n\nChoose your class:" << endl;
     cout << "1) Default" << endl;
     cout << "2) Mage" << endl;
     // cout << "3) Necromancer" << endl;
@@ -540,6 +551,10 @@ int main()
             break;
         }
     }
+
+    coloredPrint(Color::Cyan, ">> Press Enter to begin your adventure.");
+    cin.ignore();
+    cin.get();
 
     if (player != nullptr)
     {

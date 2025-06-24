@@ -190,7 +190,7 @@ void Character::levelUp()
 
 	health = maxHealth;
 
-	xpToLevelUp = 100 + (level * 100);
+	xpToLevelUp = (level * 100);
 
 	maxHealth = health + level * (10);
 
