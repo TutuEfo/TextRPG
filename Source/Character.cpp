@@ -248,7 +248,7 @@ void Character::levelUp()
 	if (healthPotions == 0)
 	{
 		healthPotions = healthPotions + 3;
-		cout << "# Potions are refilled!" << endl;
+		cout << "# Health potions are refilled!" << endl;
 	}
 
 	cout << "# Max Health is increased by 10!" << endl;

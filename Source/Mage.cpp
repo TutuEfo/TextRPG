@@ -61,11 +61,11 @@ void Mage::levelUp()
 {
 	level++;
 
-	health = maxHealth;
-
 	xpToLevelUp = 100 + (level * 100);
 
-	maxHealth = health + level * (10);
+	maxHealth = maxHealth + (level - 1) * (10);
+
+	maxMana = maxMana + (level - 1) * 50;
 
 	health = maxHealth;
 
@@ -74,9 +74,9 @@ void Mage::levelUp()
 
 	coloredPrint(Color::Cyan, "\n========== Level Up Menu ==========\n");
 
-	cout << "1) Strength (+2)" << endl;
+	cout << "1) Spell Power (+2)" << endl;
 	cout << "2) Defence (+2)" << endl;
-	cout << "3) Crit Chance (+1)" << endl;
+	cout << "3) Spell Crit Chance (+1)" << endl;
 	cout << ">> Choose your upgrades (1 3):";
 	cin >> levelUpChoice1 >> levelUpChoice2;
 
@@ -120,8 +120,14 @@ void Mage::levelUp()
 
 	if (healthPotions == 0)
 	{
-		healthPotions = healthPotions + 3;
-		cout << "# Potions are refilled!" << endl;
+		healthPotions = 3;
+		cout << "# Health potions are refilled!" << endl;
+	}
+
+	if (manaPotions == 0)
+	{
+		manaPotions = 3;
+		cout << "# Mana potions are refilled!" << endl;
 	}
 
 	cout << "# Max Health is increased by 10!" << endl;
@@ -173,9 +179,16 @@ void Mage::useManaPotion()
 {
 	manaPotions--;
 
-	mana = mana + 50;
+	if (mana >= maxMana)
+	{
+		mana = maxMana;
+	}
+	else
+	{
+		mana = mana + 50;
+	}
 
-	cout << ">> " << getNickName() << " used a mana potion and gains 50 Mana!" << endl;
+	cout << ">> " << getNickName() << " used a mana potion and gained 50 Mana!" << endl;
 }
 
 void Mage::setMana(int amount)

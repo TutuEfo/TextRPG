@@ -151,7 +151,7 @@ void Combat::endOfRoundCleanup() {
 		{
 			cPlayer.setStrength(cPlayer.getStrength() - 5);
 			cPlayer.setStrengthEffectActive(false);
-			coloredPrint(Color::Green, "Strength buff wore off.\n");
+			coloredPrint(Color::Green, "! Strength buff wore off.\n");
 		}
 	}
 
@@ -165,7 +165,7 @@ void Combat::endOfRoundCleanup() {
 		{
 			cPlayer.setDefence(cPlayer.getDefence() - 3);
 			cPlayer.setDefenceEffectActive(false);
-			coloredPrint(Color::Green, "Defence buff wore off.\n");
+			coloredPrint(Color::Green, "! Defence buff wore off.\n");
 		}
 	}
 
@@ -213,7 +213,7 @@ void Combat::playerUseItem()
 		}
 		else
 		{
-			coloredPrint(Color::Yellow, "Strength buff active.\n");
+			coloredPrint(Color::Yellow, "# Strength buff active.\n");
 		}
 
 		break;
@@ -226,7 +226,7 @@ void Combat::playerUseItem()
 		}
 		else
 		{
-			coloredPrint(Color::Yellow, "Defence buff active.\n");
+			coloredPrint(Color::Yellow, "# Defence buff active.\n");
 		}
 
 		break;
