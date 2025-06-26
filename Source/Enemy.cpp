@@ -46,15 +46,15 @@ Enemy Enemy::generateEnemy(int level)
 
 	string name = types[typeIndex];
 
-	int baseHealth = 50 + ((rand() % level) + 10);
-	int baseStrength = 3 + ((rand() % level) + 2);
-	int baseDefence = 2 + ((rand() % level) + 1);
+	int baseHealth = 50 + (level * 10);
+	int baseStrength = 3 + (level * 2);
+	int baseDefence = 2 + (level * 1);
 
 	int enemyLevel = max(1, level + (rand() % 3 - 1));
 
-	int health = baseHealth + (enemyLevel - 1) * 5;
-	int strength = baseStrength + (enemyLevel - 1) * 2;
-	int defence = baseDefence + (enemyLevel - 1);
+	int health = baseHealth + (enemyLevel * 50);
+	int strength = baseStrength + enemyLevel;
+	int defence = baseDefence + enemyLevel;
 
 	return Enemy(name, health, defence, strength, enemyLevel);
 }
@@ -96,7 +96,7 @@ int Enemy::attackCharacter()
 
 void Enemy::takeDamage(int damage)
 {
-	this->enemyHealth = this->enemyHealth - damage;
+	this->enemyHealth = this->enemyHealth - max(0, damage - enemyDefence);
 
 	if (this->enemyHealth < 0)
 	{
