@@ -7,6 +7,7 @@
 #include "Quest.h"
 #include "Console.h"
 #include "UI.h"
+#include "Ability.h"
 
 using namespace std;
 
@@ -119,17 +120,84 @@ int Character::attack()
 	return damage;
 }
 
+void Character::unlockAbilitiesByLevel()
+{
+	if (level == 5)
+	{
+		unlockedAbilities.push_back({ "Deadly Scatter", "Deals +10 bonus damage", 5 });
+	}
+	else if (level == 10)
+	{
+		unlockedAbilities.push_back({ "Vengeful Punishment", "Reflects damage from last turn", 10 });
+	}
+	else if (level == 15)
+	{
+		unlockedAbilities.push_back({ "Warrior's Surge", "Fully restores health", 15 });
+	}
+	else if (level == 20)
+	{
+		unlockedAbilities.push_back({ "Defensive Stance", "Negates all damage this turn", 20 });
+	}
+}
+
 void Character::abilities()
 {
 	// Ability Ideas based on level progression:
 
-	cout << "Deadly Scatter" << endl;				// + 10 damage, level 5
-	cout << "Vengeful Punishment" << endl;			// Same damage as the enemy from last turn, level 10
-	cout << "Warrior's Surge" << endl;				// Maybe a potion (?), level 15
-	cout << "Defensive Stance" << endl;				// Buff the defense by 10 or no incoming damage this turn, level 20;
+	if (unlockedAbilities.empty())
+	{
+		cout << ">> No abilities unlocked yet." << endl;
+
+		return;
+	}
+
+	coloredPrint(Color::Yellow, "\n=== Abilities ===\n");
+
+	for (size_t i = 0; i < unlockedAbilities.size(); ++i)
+	{
+		cout << (i + 1) << ") " << unlockedAbilities[i].name << " - " << unlockedAbilities[i].description << endl;
+	}
+
+	int choice;
+
+	cout << "Choose an ability to use (0 to cancel): ";
+	cin >> choice;
+
+	if (choice > 0 && choice <= (int)unlockedAbilities.size())
+	{
+		useAbility(choice - 1);
+	}
+	else
+	{
+		cout << ">> Ability use cancelled.\n";
+	}
 
 	// TODO:
 	// Level based ability application will be added
+}
+
+void Character::useAbility(int index)
+{
+	const Ability& ab = unlockedAbilities[index];
+	cout << ">> " << nickName << " used " << ab.name << "!\n";
+
+	if (ab.name == "Deadly Scatter") {
+
+	}
+	else if (ab.name == "Vengeful Punishment")
+	{
+
+	}
+	else if (ab.name == "Warrior's Surge")
+	{
+		health = maxHealth;
+		cout << ">> Fully healed to " << maxHealth << " HP!\n";
+	}
+	else if (ab.name == "Defensive Stance")
+	{
+
+		cout << ">> All damage will be blocked this turn.\n";
+	}
 }
 
 void Character::usePotion(int choice)

@@ -129,6 +129,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="Header\Ability.h" />
     <ClInclude Include="Header\Character.h" />
     <ClInclude Include="Header\Combat.h" />
     <ClInclude Include="Header\Console.h" />

@@ -6,6 +6,7 @@
 #include <iostream>
 #include <vector>
 #include "Quest.h"
+#include "Ability.h"
 
 using namespace std;
 
@@ -35,6 +36,8 @@ protected:
 
     bool escapeBattle;
 
+    vector<Ability> unlockedAbilities;
+
     int questCount;
     vector<Quest> activeQuests;
 public:
@@ -48,6 +51,8 @@ public:
     int getXPToLevelUp() const;
 
     void abilities();
+    void unlockAbilitiesByLevel();
+    void useAbility(int input);
 
     void usePotion(int choice);
     void addHealthPotion(int amount);
