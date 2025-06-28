@@ -8,6 +8,7 @@
 #include "Console.h"
 #include "UI.h"
 #include "Ability.h"
+#include "Enemy.h"
 
 using namespace std;
 
@@ -40,6 +41,9 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 
 	questCount = 0;
 	activeQuests;
+
+	lastDamageTaken = 0;
+	damageReduction = false;
 }
 
 Character::Character(const string& name, int hp, int str, int def, int critCh)
@@ -68,10 +72,11 @@ Character::Character(const string& name, int hp, int str, int def, int critCh)
 
 	escapeBattle = false;
 
-	// *skillList;
-
 	questCount = 0;
 	activeQuests;
+
+	lastDamageTaken = 0;
+	damageReduction = false;
 }
 
 void Character::displayCharacter() const
@@ -142,8 +147,6 @@ void Character::unlockAbilitiesByLevel()
 
 void Character::abilities()
 {
-	// Ability Ideas based on level progression:
-
 	if (unlockedAbilities.empty())
 	{
 		cout << ">> No abilities unlocked yet." << endl;
@@ -157,36 +160,25 @@ void Character::abilities()
 	{
 		cout << (i + 1) << ") " << unlockedAbilities[i].name << " - " << unlockedAbilities[i].description << endl;
 	}
-
-	int choice;
-
-	cout << "Choose an ability to use (0 to cancel): ";
-	cin >> choice;
-
-	if (choice > 0 && choice <= (int)unlockedAbilities.size())
-	{
-		useAbility(choice - 1);
-	}
-	else
-	{
-		cout << ">> Ability use cancelled.\n";
-	}
-
-	// TODO:
-	// Level based ability application will be added
 }
 
-void Character::useAbility(int index)
+void Character::useAbility(int index, Enemy& target)
 {
 	const Ability& ab = unlockedAbilities[index];
 	cout << ">> " << nickName << " used " << ab.name << "!\n";
 
-	if (ab.name == "Deadly Scatter") {
+	if (ab.name == "Deadly Scatter")
+	{
+		int damage = strength + 15;
+		cout << ">> " << nickName << "uses Deadly Scatter ability and deals " << damage << " damage!\n";
 
+		target.takeDamage(damage);
 	}
 	else if (ab.name == "Vengeful Punishment")
 	{
+		cout << ">> " << nickName << "uses Vengeful Punishment ability and reflects " << lastDamageTaken << " damage!\n";
 
+		target.takeDamage(lastDamageTaken);
 	}
 	else if (ab.name == "Warrior's Surge")
 	{
@@ -195,7 +187,7 @@ void Character::useAbility(int index)
 	}
 	else if (ab.name == "Defensive Stance")
 	{
-
+		damageReduction = true;
 		cout << ">> All damage will be blocked this turn.\n";
 	}
 }
@@ -322,7 +314,9 @@ void Character::levelUp()
 	cout << "# Max Health is increased by 10!" << endl;
 
 	cout << ">> " << nickName << " leveled up to Level " << level << "!" << endl;
- }
+
+	unlockAbilitiesByLevel();
+}
 
 void Character::addGold(int amount)
 {
@@ -465,11 +459,19 @@ bool Character::isDefenceEffectActive() const
 
 void Character::takeDamage(int damage)
 {
-	this->health = this->health - damage;
-
-	if (this->health < 0)
+	if (damageReduction)
 	{
-		this->health = 0;
+		cout << ">> " << nickName << " blocked all damage with Defensive Stance!\n";
+		damageReduction = false;
+		return;
+	}
+
+	lastDamageTaken = damage;
+	health = health - damage;
+
+	if (health < 0) 
+	{
+		health = 0;
 	}
 }
 

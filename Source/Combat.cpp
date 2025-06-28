@@ -70,7 +70,8 @@ int Combat::chooseAction() const
 			std::cout << "1) Attack" << endl;
 			std::cout << "2) Defend" << endl;
 			std::cout << "3) Use Item" << endl;
-			std::cout << "4) Escape" << endl;
+			std::cout << "4) Abilities" << endl;
+			std::cout << "5) Escape" << endl;
 		}
 
 		std::cout << "Enter your choice: ";
@@ -128,6 +129,26 @@ void Combat::performAction(int choice)
 		break;
 
 	case 4:
+	{
+		if (magePtr)
+		{
+			playerEscape();
+		}
+		else
+		{
+			cPlayer.abilities();
+
+			int choice;
+
+			cout << "Choose an ability to use: ";
+			cin >> choice;
+
+			cPlayer.useAbility(choice - 1, cEnemy);
+		}
+
+		break;
+	}
+	case 5:
 	{
 		playerEscape();
 

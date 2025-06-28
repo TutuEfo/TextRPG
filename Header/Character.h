@@ -37,6 +37,8 @@ protected:
     bool escapeBattle;
 
     vector<Ability> unlockedAbilities;
+    int lastDamageTaken;
+    bool damageReduction;
 
     int questCount;
     vector<Quest> activeQuests;
@@ -52,7 +54,7 @@ public:
 
     void abilities();
     void unlockAbilitiesByLevel();
-    void useAbility(int input);
+    void useAbility(int input, Enemy& target);
 
     void usePotion(int choice);
     void addHealthPotion(int amount);
