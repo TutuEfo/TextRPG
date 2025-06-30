@@ -4,6 +4,10 @@
 
 using namespace std;
 
+class Character;
+class Enemy;
+class Combat;
+
 class Map{
 private:
 	vector<vector<char>> grid;
@@ -19,4 +23,5 @@ public:
     int getPlayerX() const;
     int getPlayerY() const;
     char getTile(int x, int y) const;
+    void triggerTile(char tile);
 };

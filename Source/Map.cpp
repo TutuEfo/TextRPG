@@ -3,9 +3,13 @@
 #include <ctime>
 
 #include "Map.h"
+#include "Combat.h"
+#include "Enemy.h"
 
 Map::Map()
 {
+    srand(static_cast<unsigned>(time(nullptr)));
+
     int x = rand() % 15 + 1;
     int y = rand() % 15 + 1;
 
@@ -102,41 +106,84 @@ void Map::movePlayer(char direction)
     }
     }
 
-    if (grid[newX][newY] == '.')
-    {
-        grid[playerX][playerY] = '.';
-        playerX = newX;
-        playerY = newY;
-        grid[playerX][playerY] = 'P';
-    }
-    else if (grid[newX][newY] == 'W')
+    char tile = grid[newX][newY];
+
+    if (grid[newX][newY] == 'W')
     {
         grid[playerX][playerY] = 'P';
 
         cout << ">> Can't move there! It is a wall." << endl;
+
+        return;
     }
-    else if (grid[newX][newY] == 'S')
+
+    grid[playerX][playerY] = '.';
+    playerX = newX;
+    playerY = newY;
+    grid[playerX][playerY] = 'P';
+    
+    triggerTile(tile);
+}
+
+int Map::getPlayerX() const
+{
+    return playerX;
+}
+
+int Map::getPlayerY() const
+{
+    return playerY;
+}
+
+char Map::getTile(int x, int y) const
+{
+    return grid[x][y];
+}
+
+void Map::triggerTile(char tile)
+{
+    switch (tile)
     {
-        cout << "Welcome to the Shop!" << endl;
+    case 'E':
+    {
+        
+        break;
     }
-    else if (grid[newX][newY] == 'D')
+    case 'B':
     {
-        cout << ">> Entering the dungeon!" << endl;
+        
+        break;
     }
-    else if (grid[newX][newY] == 'B')
+    case 'T':
     {
-        cout << ">> A powerful BOSS is approaching!" << endl;
+        cout << ">> Trap! –10 HP\n";
+
+        break;
     }
-    else if (grid[newX][newY] == 'N')
+    case 'S':
     {
-        cout << "Moving on to the next room!" << endl;
+        cout << ">> Shop time!\n";
+
+        break;
     }
-    else if (grid[newX][newY] == 'T')
+    case 'N':
     {
-        cout << ">> It is a trap!" << endl;
+
+        cout << ">> Descending to next level...\n";
+
+        generateRandomMap(rand() % 10 + 10, rand() % 10 + 10);
+
+        break;
     }
-    else 
+    case 'D':
     {
-        cout << "How did you get here!" << endl;
+        cout << ">> You step into the dungeon depths.\n";
+
+        break;
+    }
+    default:
+    {
+        break;
+    }
     }
 }
