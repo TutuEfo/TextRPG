@@ -7,6 +7,7 @@
 #include <vector>
 #include "Quest.h"
 #include "Ability.h"
+#include "Enemy.h"
 
 using namespace std;
 

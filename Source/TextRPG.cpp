@@ -5,6 +5,7 @@
 #include "SaveLoad.h"
 #include "Combat.h"
 #include "Menu.h"
+#include "Map.h"
 
 #include <iostream>
 #include <cstdlib>
@@ -227,71 +228,6 @@ void doDelete()
     cin.get();
 }
 
-void shopMenu(Character& player)
-{
-    int choice = 0;
-
-    string name = player.getNickName();
-
-    while (choice != 3)
-    {
-        coloredPrint(Color::Yellow, "\n===== SHOP =====");
-        cout << endl;
-        cout << ">> Gold: " << player.getGold() << endl;
-        cout << "1) Health Potion (20 gold)" << endl;
-        cout << "2) Mana Potion (25 gold)" << endl; // For Mage Class
-        cout << "3) Exit" << endl;
-        cout << ">> Choose an option: ";
-        cin >> choice;
-
-        switch (choice)
-        {
-        case 1:
-            if (player.getGold() >= 20)
-            {
-                player.addHealthPotion(1);
-                player.addGold(-20);
-                coloredPrint(Color::Green, ">> " + name + " bought Health Potion!\n");
-            }
-            else
-            {
-                coloredPrint(Color::Red, ">> Not enough gold!\n");
-            }
-
-            break;
-
-        case 2:
-            if (Mage* mage = dynamic_cast<Mage*>(&player))
-            {
-                if (player.getGold() >= 25)
-                {
-                    mage->addManaPotion(1);
-                    player.addGold(-25);
-                    coloredPrint(Color::Cyan, ">> " + name + " bought Mana Potion!\n");
-                }
-                else
-                {
-                    coloredPrint(Color::Red, ">> Not enough gold!\n");
-                }
-            }
-            else
-            {
-                coloredPrint(Color::Red, ">> Only Mages can buy mana potions!\n");
-            }
-
-            break;
-
-        case 3:
-            cout << ">> Leaving the shop..." << endl;
-
-            break;
-
-        default:
-            coloredPrint(Color::Red, ">> Invalid choice!\n");
-        }
-    }
-}
-
 void chooseClass()
 {
     cout << "\n\nChoose your class:" << endl;
@@ -376,7 +312,6 @@ int gameMenu(Character &player)
         }
         case 2:
         {
-            shopMenu(player);
 
             break;
         }
@@ -521,6 +456,10 @@ int main()
                 cout << ">> " << name << " has been created!\n" << endl;
             }
 
+            cout << ">> Press Enter to start the game...";
+            cin.ignore();
+            cin.get();
+
             break;
         }
         case 2:
@@ -552,13 +491,19 @@ int main()
         }
     }
 
-    coloredPrint(Color::Cyan, ">> Press Enter to begin your adventure.");
-    cin.ignore();
-    cin.get();
+    Map map(player);
 
-    if (player != nullptr)
+    while (player && player->getHealth() > 0)
     {
-        while (gameMenu(*player));
+        system("cls");
+        map.display();
+
+        cout << "\nMove (W/A/S/D): ";
+
+        char in;
+        cin >> in;
+
+        map.movePlayer(in);
     }
 
     return 0;

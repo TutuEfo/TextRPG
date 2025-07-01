@@ -13,8 +13,12 @@ private:
 	vector<vector<char>> grid;
 	int playerX;
 	int playerY;
+
+    Character* player = nullptr;
 public:
-    Map();
+    Map(Character *player);
+
+    void setPlayer(Character* p);
 
     void generateRandomMap(int x, int y);
     void display() const;
@@ -24,4 +28,5 @@ public:
     int getPlayerY() const;
     char getTile(int x, int y) const;
     void triggerTile(char tile);
+    void shopMenu(Character *p);
 };
