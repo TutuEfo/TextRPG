@@ -16,7 +16,15 @@ static const string ANSI_CODES[] = {
     "\033[34m",     // Color Blue
     "\033[35m",     // Color Magenta
     "\033[36m",     // Color Cyan
-    "\033[37m"      // Color White
+    "\033[37m",     // Color White
+    "\033[90m",     // Bright Black (gray)
+    "\033[91m",     // Bright Red
+    "\033[92m",     // Bright Green
+    "\033[93m",     // Bright Yellow
+    "\033[94m",     // Bright Blue
+    "\033[95m",     // Bright Magenta
+    "\033[96m",     // Bright Cyan
+    "\033[97m",     // Bright White
 };
 
 void initConsole()

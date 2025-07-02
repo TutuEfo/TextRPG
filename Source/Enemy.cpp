@@ -31,7 +31,7 @@ void Enemy::displayStatus() const
 {
 	coloredPrint(Color::Red, "\n========== ENEMY STATS ==========\n");
 	cout << "Name: " << enemyName << endl;
-	cout << endl;
+	cout << "Health: ";
 	printBar(enemyHealth, enemyMaxHealth, 25);
 	cout << endl;
 	cout << "Strength:    " << enemyStrength << endl;

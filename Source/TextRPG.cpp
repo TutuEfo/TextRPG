@@ -498,10 +498,44 @@ int main()
         system("cls");
         map.display();
 
-        cout << "\nMove (W/A/S/D): ";
+        coloredPrint(Color::Red, "Enter your inputs one by one\n");
+        coloredPrint(Color::Red, "# -> Wall, T -> Trap, S -> Shop, B -> Boss, D -> Dungeon, N -> Next Room\n");
+
+        cout << "\nMove (W/A/S/D), Save (F), Quit (Q): ";
 
         char in;
         cin >> in;
+
+        if (in == 'f')
+        {
+            cout << "\nSave filename: ";
+
+            string fname;
+            cin >> fname;
+            
+            try
+            {
+                SaveLoad::saveGame(*player, fname);
+                cout << "Saved!\n";
+
+                system("pause");
+            }
+            catch (const std::exception& e)
+            {
+                cerr << e.what() << "\n";
+
+                system("pause");
+            }
+
+            continue;
+        }
+        else if (in == 'q')
+        {
+            cout << "\n>> Quitting the game!\n";
+            cout << "\n>> Enemies lurk in the shadows. We need you back ASAP!\n";
+
+            break;
+        }
 
         map.movePlayer(in);
     }

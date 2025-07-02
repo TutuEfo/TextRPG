@@ -14,7 +14,15 @@ enum class Color {
     Blue,
     Magenta,
     Cyan,
-    White
+    White,
+    BrightBlack,
+    BrightRed,
+    BrightGreen,
+    BrightYellow,
+    BrightBlue,
+    BrightMagenta,
+    BrightCyan,
+    BrightWhite
 };
 
 // Initialize console for ANSI

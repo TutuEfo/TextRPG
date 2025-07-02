@@ -7,6 +7,58 @@
 #include "Enemy.h"
 #include "Console.h"
 
+static void printTile(char tile)
+{
+    switch (tile)
+    {
+    case '#':
+    {
+        coloredPrint(Color::Blue, "# ");
+        break;
+    }
+    case '.':
+    {
+        cout << ". ";
+        break;
+    }
+    case 'D':
+    {
+        coloredPrint(Color::BrightBlue, "D ");
+        break;
+    }
+    case 'T':
+    {
+        coloredPrint(Color::BrightRed, "T ");
+        break;
+    }
+    case 'S':
+    {
+        coloredPrint(Color::Yellow, "S ");
+        break;
+    }
+    case 'B':
+    {
+        coloredPrint(Color::Red, "B ");
+        break;
+    }
+    case 'N':
+    {
+        coloredPrint(Color::BrightCyan, "N ");
+        break;
+    }
+    case 'P':
+    {
+        coloredPrint(Color::Cyan, "P ");
+        break;
+    }
+    default:
+    {
+        cout << tile << ' ';
+        break;
+    }
+    }
+}
+
 Map::Map(Character *p) : player(p)
 {
     srand(static_cast<unsigned>(time(nullptr)));
@@ -72,7 +124,7 @@ void Map::display() const
     {
         for (char tile : row)
         {
-            cout << tile << ' ';
+            printTile(tile);
         }
 
         cout << '\n';
