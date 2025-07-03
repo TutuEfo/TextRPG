@@ -3,6 +3,7 @@
 #define SAVELOAD_H
 
 #include "Character.h"
+#include "Map.h"
 
 #include <string>
 #include <optional>
@@ -19,8 +20,8 @@ struct SaveMetadata {
 
 namespace SaveLoad {
 
-    void saveGame(const Character& player, const std::string& filename);
-    bool loadGame(Character& player, const std::string& filename);
+    void saveGame(const Character& player, const MapSnapshot& mapSnap, const std::string& filename);
+    bool loadGame(Character& player, MapSnapshot& mapSnap, const std::string& filename);
     bool deleteSave(const std::string& filename);
     std::vector<std::string> listSaveFiles();
     std::optional<SaveMetadata> readMetadata(const std::string& filename);

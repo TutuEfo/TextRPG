@@ -206,18 +206,6 @@ void Map::triggerTile(char tile)
 {
     switch (tile)
     {
-    case 'E':
-    {
-        Enemy e = Enemy::generateEnemy(player->getLevel());
-        Combat battle(*player, e);
-
-        if (!battle.runCombat())
-        {
-            exit (0);
-        }
-
-        break;
-    }
     case 'B':
     {
         Enemy boss = Enemy::generateBoss(player->getLevel());
@@ -227,6 +215,10 @@ void Map::triggerTile(char tile)
         {
             exit(0);
         }
+
+        cout << ">> Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
 
         break;
     }
@@ -268,6 +260,10 @@ void Map::triggerTile(char tile)
 
         grid[playerX][playerY] = 'P';
 
+        cout << ">> Press Enter to continue to the next level...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
+
         break;
     }
     case 'D':
@@ -288,6 +284,10 @@ void Map::triggerTile(char tile)
 
             count--;
         }
+
+        cout << ">> You escaped the dungeon. Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cin.get();
 
         break;
     }
@@ -361,4 +361,44 @@ void Map::shopMenu(Character *player)
             coloredPrint(Color::Red, ">> Invalid choice!\n");
         }
     }
+
+    cout << ">> Press Enter to continue...";
+    cin.ignore(numeric_limits<streamsize>::max(), '\n');
+    cin.get();
+}
+
+MapSnapshot Map::makeSnapshot() const
+{
+    MapSnapshot snap;
+
+    snap.rows = grid.size();
+    snap.cols = grid[0].size();
+    snap.playerX = playerX;
+    snap.playerY = playerY;
+
+    // Allocate space for each row’s string
+    snap.rowsData.resize(snap.rows);
+    
+    for (int i = 0; i < snap.rows; ++i)
+    {
+        // Convert the row’s vector<char> into a single string
+        snap.rowsData[i].assign(grid[i].begin(), grid[i].end());
+    }
+        
+    return snap;
+}
+
+void Map::loadSnapshot(const MapSnapshot& s)
+{
+    // Resize the grid to the saved dimensions
+    grid.resize(s.rows, vector<char>(s.cols));
+
+    for (int i = 0; i < s.rows; ++i)
+    {
+        // Copy characters from the saved string into the grid’s row vector
+        copy(s.rowsData[i].begin(), s.rowsData[i].end(), grid[i].begin());
+    }
+        
+    playerX = s.playerX;
+    playerY = s.playerY;
 }

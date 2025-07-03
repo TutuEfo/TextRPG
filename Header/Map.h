@@ -8,6 +8,14 @@ class Character;
 class Enemy;
 class Combat;
 
+struct MapSnapshot
+{
+    int rows, cols;
+    int playerX, playerY;
+
+    vector<string> rowsData;
+};
+
 class Map{
 private:
 	vector<vector<char>> grid;
@@ -29,4 +37,7 @@ public:
     char getTile(int x, int y) const;
     void triggerTile(char tile);
     void shopMenu(Character *p);
+
+    MapSnapshot makeSnapshot() const;
+    void loadSnapshot(const MapSnapshot&);
 };

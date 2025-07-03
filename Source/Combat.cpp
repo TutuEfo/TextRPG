@@ -78,7 +78,7 @@ int Combat::chooseAction() const
 
 		if (cin >> choice)
 		{
-			bool validChoice = (choice >= 1 && choice <= 4);
+			bool validChoice = (choice >= 1 && choice <= 5);
 
 			if (validChoice)
 			{

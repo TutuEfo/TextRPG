@@ -56,6 +56,9 @@ public:
     void abilities();
     void unlockAbilitiesByLevel();
     void useAbility(int input, Enemy& target);
+    void clearAbilities();
+    void addAbility(const Ability& a);
+    const vector<Ability>& getAbilities() const;
 
     void usePotion(int choice);
     void addHealthPotion(int amount);

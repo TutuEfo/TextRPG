@@ -1,6 +1,7 @@
 #include "SaveLoad.h"
 #include "Quest.h"
 #include "Mage.h"
+#include "Map.h"
 
 #include <fstream>
 #include <filesystem>
@@ -18,7 +19,8 @@ static const string SAVE_DIR = "saves/";
 
 namespace SaveLoad
 {
-    void saveGame(const Character& player, const std::string& filename) {
+    void saveGame(const Character& player, const MapSnapshot& mapSnap, const std::string& filename)
+    {
         ensureSaveDirExists();
 
         // Normalize slot name to always have .sav
@@ -99,9 +101,28 @@ namespace SaveLoad
             out << q.rewardXP << '\n';
             out << q.rewardGold << '\n';
         }
+
+        const auto& abs = player.getAbilities();
+
+        out << abs.size() << '\n';
+        for (auto& a : abs)
+        {
+            out << a.name.length() << ' ' << a.name << '\n';
+            out << a.description.length() << ' ' << a.description << '\n';
+            out << a.requiredLevel << '\n';
+        }
+
+        // Write map dimensions and player position in one line: rows cols playerX playerY
+        out << mapSnap.rows << ' ' << mapSnap.cols << ' ' << mapSnap.playerX << ' ' << mapSnap.playerY << '\n';
+
+        // Write each row of the saved map as its own line
+        for (auto& row : mapSnap.rowsData)
+        {
+            out << row << '\n';
+        }
     }
 
-    bool loadGame(Character& player, const string& filename)
+    bool loadGame(Character& player, MapSnapshot& mapSnap, const string& filename)
     {
         ensureSaveDirExists();
 
@@ -219,6 +240,38 @@ namespace SaveLoad
             // Add quest to the back of the list.
             player.addQuest(q);
         }
+
+        size_t aCount;
+
+
+        in >> aCount;
+        in.ignore(numeric_limits<streamsize>::max(), '\n');
+
+        for (size_t i = 0; i < aCount; ++i)
+        {
+            size_t len; string name, desc; int lvl;
+            in >> len; in.ignore(1);
+
+            name.resize(len); in.read(&name[0], len); in.ignore(1);
+            in >> len; in.ignore(1);
+
+            desc.resize(len); in.read(&desc[0], len); in.ignore(1);
+            in >> lvl; in.ignore(1);
+
+            player.addAbility({ name, desc, lvl });
+        }
+
+        in >> mapSnap.rows >> mapSnap.cols >> mapSnap.playerX >> mapSnap.playerY;
+        // Discard the trailing newline before reading row data
+        in.ignore(1);
+
+        mapSnap.rowsData.resize(mapSnap.rows);
+
+        for (int i = 0; i < mapSnap.rows; ++i)
+        {
+            getline(in, mapSnap.rowsData[i]);
+        }
+            
 
         return true;
     }

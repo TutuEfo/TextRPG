@@ -80,6 +80,9 @@ void showLoadMenu(Character*& player)
 
     if (c == 'y' || c == 'Y')
     {
+        Map map(player);
+        MapSnapshot snap;
+
         auto mdOpt = SaveLoad::readMetadata(sel);
 
         if (!mdOpt)
@@ -103,7 +106,7 @@ void showLoadMenu(Character*& player)
             player = new Character(md.nickName);
         }
 
-        if (SaveLoad::loadGame(*player, sel))
+        if (SaveLoad::loadGame(*player, snap, sel))
         {
             cout << ">> Loaded \"" << sel << "\" successfully.\n";
         }
@@ -111,47 +114,6 @@ void showLoadMenu(Character*& player)
         {
             cout << ">> Failed to load \"" << sel << "\".\n";
         }
-    }
-
-    coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
-    cin.get();
-}
-
-void doSave(const Character& player)
-{
-    // 1) Ask the user for a filename
-    cout << ">> Enter save filename: ";
-    string fname;
-    cin >> fname;
-
-    // 2) Try to write the player's data to that file
-    try
-    {
-        SaveLoad::saveGame(player, fname);
-        cout << ">> Game saved to " << fname + ".sav" << "\n";
-    }
-    catch (exception& e){
-        // 3) If something goes wrong (e.g. disk error), report it
-        cerr << ">> Save failed: " << e.what() << "\n";
-    }
-}
-
-void doLoad(Character& player)
-{
-    // 1) Ask the user for the savefile name
-    cout << ">> Enter \"filename.sav\" to load: ";
-    string fname;
-    cin >> fname;
-
-    // 2) Call loadGame, which returns true on success
-    if (SaveLoad::loadGame(player, fname))
-    {
-        cout << ">> Loaded " << fname + ".sav" << "\n";
-    }
-    else
-    {
-        // 3) If open or parsing failed, let the user know
-        cerr << ">> Load failed: could not open!" << fname + ".sav" << "\n";
     }
 
     coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
@@ -225,6 +187,7 @@ void doDelete()
     }
 
     coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
+    cin.ignore();
     cin.get();
 }
 
@@ -235,135 +198,6 @@ void chooseClass()
     cout << "2) Mage" << endl;
     // cout << "3) Necromancer" << endl;
     cout << ">> Enter you choice: ";
-}
-
-int gameMenu(Character &player)
-{
-    // Normal Enemy & Boss:
-    Enemy randomEnemy;
-    if (player.getLevel() % 5 == 0)
-    {
-        coloredPrint(Color::Red, "\n>> A powerful BOSS is approaching...\n");
-        randomEnemy = Enemy::generateBoss(player.getLevel());
-    }
-    else
-    {
-        randomEnemy = Enemy::generateEnemy(player.getLevel());
-    }
-
-    // Combat loop:
-    Combat battle(player, randomEnemy);
-    bool survived = battle.runCombat();
-
-    // Reward Panel: 
-    if (survived && !player.getEscapeBattle())
-    {
-        player.checkQuestCompletion(randomEnemy.getEnemyName());
-
-        if (player.getLevel() % 5 == 0)
-        {
-            player.gainXP(randomEnemy.getXPRewardBoss());
-            player.addGold(randomEnemy.getGoldRewardBoss());
-
-        }
-        else
-        {
-            player.gainXP(randomEnemy.getXPReward());
-            player.addGold(randomEnemy.getGoldReward());
-        }
-
-        cout << ">> " << player.getNickName() << " defeated the " << randomEnemy.getEnemyName() << "!" << endl;
-
-    }
-    
-    if (!survived)
-    {
-        coloredPrint(Color::Red, "\n======================================\n");
-        coloredPrint(Color::Red, ">> " + player.getNickName() + " has been defeated!\n");
-        coloredPrint(Color::Red, ">> GAME OVER!!\n");
-        coloredPrint(Color::Red, "\n======================================\n");
-
-        return 0;
-    }
-
-    // Post Combat Panel:
-    int choice = 0;
-    while (choice < 1 || choice > 3)
-    {
-        coloredPrint(Color::Green, "\n========== Post Combat Menu ==========");
-        cout << endl;
-        cout << endl;
-        coloredPrint(Color::Cyan, "1) Next Battle");
-        cout << endl;
-        coloredPrint(Color::Yellow, "2) Shop");
-        cout << endl;
-        coloredPrint(Color::Magenta, "3) Quest");
-        cout << endl;
-        coloredPrint(Color::Red, "4) Save");
-        cout << endl;
-        cout << ">> Enter your choice: ";
-        cin >> choice;
-
-        switch (choice)
-        {
-        case 1:
-        {
-            break;
-        }
-        case 2:
-        {
-
-            break;
-        }
-        case 3:
-        {
-            int choiceQ;
-
-            cout << "1) New Quest (Max: 3)" << endl;
-            cout << "2) Display Quest" << endl;
-            cout << "Enter your choice (You have " + to_string(player.getQuestCount()) + " active quests): ";
-            cin >> choiceQ;
-
-            if (choiceQ == 1)
-            {
-                player.requestQuest();
-                player.displayQuests();
-            }
-            else if (choiceQ == 2)
-            {
-                player.displayQuests();
-            }
-            else
-            {
-                cout << "Wrong input, moving on!" << endl;
-            }
-
-            break;
-        }
-        case 4:
-        {
-            doSave(player);
-
-            break;
-        }
-        default:
-        {
-            coloredPrint(Color::Red, ">> Invalid choice!");
-        }
-        }
-
-        if (choice == 1)
-        {
-            continue;
-        }
-    }
-
-    cout << endl;
-    player.setEscapeBattle(false);
-
-    coloredPrint(Color::Cyan, ">> Press Enter to face the next enemy.");
-    cin.ignore();
-    cin.get();
 }
 
 int main()
@@ -508,6 +342,8 @@ int main()
 
         if (in == 'f')
         {
+            MapSnapshot snap = map.makeSnapshot();
+
             cout << "\nSave filename: ";
 
             string fname;
@@ -515,7 +351,7 @@ int main()
             
             try
             {
-                SaveLoad::saveGame(*player, fname);
+                SaveLoad::saveGame(*player, snap, fname);
                 cout << "Saved!\n";
 
                 system("pause");

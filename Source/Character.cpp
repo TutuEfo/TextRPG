@@ -192,6 +192,21 @@ void Character::useAbility(int index, Enemy& target)
 	}
 }
 
+void Character::clearAbilities()
+{
+	unlockedAbilities.clear();
+}
+
+void Character::addAbility(const Ability& a)
+{
+	unlockedAbilities.push_back(a);
+}
+
+const vector<Ability>& Character::getAbilities() const
+{
+	return unlockedAbilities;
+}
+
 void Character::usePotion(int choice)
 {
 	int maxHealth = 100 + (10 * (level - 1));
