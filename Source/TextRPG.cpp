@@ -17,7 +17,7 @@
 
 using namespace std;
 
-void showLoadMenu(Character*& player)
+bool showLoadMenu(Character*& player, MapSnapshot& outSnap)
 {
     auto files = SaveLoad::listSaveFiles();
 
@@ -28,7 +28,7 @@ void showLoadMenu(Character*& player)
         coloredPrint(Color::Cyan, ">> Press Enter to return main menu.");
         cin.get();
 
-        return;
+        return false;
     }
 
     cout << "\n========== Load Game Menu ==========\n";
@@ -70,7 +70,7 @@ void showLoadMenu(Character*& player)
 
     if (choice == 0)
     {
-        return;
+        return false;
     }
 
     const string& sel = files[choice - 1];
@@ -80,15 +80,12 @@ void showLoadMenu(Character*& player)
 
     if (c == 'y' || c == 'Y')
     {
-        Map map(player);
-        MapSnapshot snap;
-
         auto mdOpt = SaveLoad::readMetadata(sel);
 
         if (!mdOpt)
         {
             cout << ">> Error: Could not read save metadata.\n";
-            return;
+            return false;
         }
 
         auto& md = *mdOpt;
@@ -106,13 +103,17 @@ void showLoadMenu(Character*& player)
             player = new Character(md.nickName);
         }
 
-        if (SaveLoad::loadGame(*player, snap, sel))
+        if (SaveLoad::loadGame(*player, outSnap, sel))
         {
             cout << ">> Loaded \"" << sel << "\" successfully.\n";
+
+            return true;
         }
         else
         {
             cout << ">> Failed to load \"" << sel << "\".\n";
+            
+            return false;
         }
     }
 
@@ -209,6 +210,10 @@ int main()
 
     Character* player = nullptr;
 
+    Map map(player);
+    MapSnapshot loadedSnap;
+    bool mapWasLoaded = false;
+
     int menuChoice = 0;
 
     while (menuChoice != 1 && menuChoice != 4)
@@ -298,9 +303,14 @@ int main()
         }
         case 2:
         {
-            showLoadMenu(player);
+            mapWasLoaded = showLoadMenu(player, loadedSnap);
 
             if (player)
+            {
+                menuChoice = 1;
+            }
+
+            if (mapWasLoaded)
             {
                 menuChoice = 1;
             }
@@ -325,7 +335,10 @@ int main()
         }
     }
 
-    Map map(player);
+    if (mapWasLoaded)
+    {
+        map.loadSnapshot(loadedSnap);
+    }
 
     while (player && player->getHealth() > 0)
     {

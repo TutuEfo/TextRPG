@@ -127,6 +127,7 @@ namespace SaveLoad
         ensureSaveDirExists();
 
         player.clearQuests();
+        player.clearAbilities();
 
         // Normalize slot name
         string slot = filename;
@@ -263,15 +264,19 @@ namespace SaveLoad
 
         in >> mapSnap.rows >> mapSnap.cols >> mapSnap.playerX >> mapSnap.playerY;
         // Discard the trailing newline before reading row data
-        in.ignore(1);
+        in.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
 
         mapSnap.rowsData.resize(mapSnap.rows);
 
         for (int i = 0; i < mapSnap.rows; ++i)
         {
             getline(in, mapSnap.rowsData[i]);
+
+            if (!mapSnap.rowsData[i].empty() && mapSnap.rowsData[i].back() == '\r')
+            {
+                mapSnap.rowsData[i].pop_back();
+            }
         }
-            
 
         return true;
     }

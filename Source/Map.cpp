@@ -390,15 +390,20 @@ MapSnapshot Map::makeSnapshot() const
 
 void Map::loadSnapshot(const MapSnapshot& s)
 {
-    // Resize the grid to the saved dimensions
-    grid.resize(s.rows, vector<char>(s.cols));
+    grid.assign(s.rows, vector<char>(s.cols));
 
-    for (int i = 0; i < s.rows; ++i)
-    {
-        // Copy characters from the saved string into the grid’s row vector
-        copy(s.rowsData[i].begin(), s.rowsData[i].end(), grid[i].begin());
+    // Copy every saved character into the newly-sized grid
+    for (int i = 0; i < s.rows; ++i) {
+        for (int j = 0; j < s.cols; ++j) {
+            grid[i][j] = s.rowsData[i][j];
+        }
     }
         
     playerX = s.playerX;
     playerY = s.playerY;
 }
+
+// I introduced a MapSnapshot struct to capture the dungeon’s size, the player’s X / Y, and each row of tiles as a string via makeSnapshot().
+// When you hit Save, I write your character data first, then dump those snapshot fields—rows, cols, playerX, playerY—and each row string into the file.
+// On load, I read everything back into a new MapSnapshot, then call map.loadSnapshot(), which does grid.assign(rows, vector<char>(cols)) to rebuild an
+// exact size grid and copies each saved character into it, restoring the exact map layout and player position you had.
