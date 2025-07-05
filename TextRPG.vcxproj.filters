@@ -42,10 +42,19 @@
     <ClInclude Include="Header\Menu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Header\Ability.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="Header\Map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Ability.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Equipment.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Header\Inventory.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

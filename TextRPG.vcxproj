@@ -134,6 +134,9 @@
     <ClInclude Include="Header\Combat.h" />
     <ClInclude Include="Header\Console.h" />
     <ClInclude Include="Header\Enemy.h" />
+    <ClInclude Include="Header\Equipment.h" />
+    <ClInclude Include="Header\Inventory.h" />
+    <ClInclude Include="Header\Item.h" />
     <ClInclude Include="Header\Mage.h" />
     <ClInclude Include="Header\Map.h" />
     <ClInclude Include="Header\Menu.h" />
