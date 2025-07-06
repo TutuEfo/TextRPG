@@ -8,6 +8,8 @@
 #include "Quest.h"
 #include "Ability.h"
 #include "Enemy.h"
+#include "Inventory.h"
+#include "Equipment.h"
 
 using namespace std;
 
@@ -43,6 +45,9 @@ protected:
 
     int questCount;
     vector<Quest> activeQuests;
+
+    Inventory inventory;
+    Equipment equipment;
 public:
     Character(const string& nickname);  // Constructor
     Character(const string& name, int hp, int str, int def, int critCh);
@@ -118,6 +123,11 @@ public:
     void setGold(int amount);
     const vector<Quest>& getActiveQuests() const;
     void clearQuests();
+
+    Inventory& getInventory();
+    Equipment& getEquipment();
+    virtual void applyItemBonus(const Item& it);
+    virtual void removeItemBonus(const Item& it);
 };
 
 #endif // CHARACTER_H

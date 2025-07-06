@@ -201,6 +201,177 @@ void chooseClass()
     cout << ">> Enter you choice: ";
 }
 
+static const char* slotName(EquipSlot s)
+{
+    switch (s)
+    {
+    case EquipSlot::Weapon:
+        return "Weapon";
+    case EquipSlot::Helmet:
+        return "Helmet";
+    case EquipSlot::Chestplate:
+        return "Chestplate";
+    case EquipSlot::Leggings:
+        return "Leggings";
+    case EquipSlot::Boots:
+        return "Boots";
+    case EquipSlot::Accessory:
+        return "Accessory";
+    }
+}
+
+optional<EquipSlot> toSlot(ItemType t)
+{
+    switch (t)
+    {
+    case ItemType::Sword:
+        return EquipSlot::Weapon;
+    case ItemType::Wand:
+        return EquipSlot::Weapon;
+    case ItemType::Helmet:
+        return EquipSlot::Helmet;
+    case ItemType::Chestplate:
+        return EquipSlot::Chestplate;
+    case ItemType::Leggings:
+        return EquipSlot::Leggings;
+    case ItemType::Boots:
+        return EquipSlot::Boots;
+    case ItemType::Shield:
+        return EquipSlot::Accessory;
+    case ItemType::Cloak:
+        return EquipSlot::Accessory;
+    default:
+        return nullopt;
+    }
+}
+
+void showInventoryMenu(Inventory& inv, Equipment& eq)
+{
+    while (true)
+    {
+        cout << "\n=== Inventory ===" << endl;
+        auto& items = inv.getItems();
+
+        if (items.empty())
+        {
+            cout << " (empty)\n";
+
+            cout << ">> Press Enter to continue...";
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cin.get();
+
+            return;
+        }
+        else
+        {
+            for (size_t i = 0; i < items.size(); i++)
+            {
+                cout << " " << (i + 1) << ") " << items[i].name << endl;
+            }
+        }
+
+        cout << "\nEquipped:\n";
+        if (eq.getEquipped().empty())
+        {
+            cout << " (nothing)\n";
+
+            cout << ">> Press Enter to continue...";
+            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            cin.get();
+
+            return;
+        }
+        else
+        {
+            for (auto& p : eq.getEquipped())
+            {
+                cout << " - " << slotName(p.first) << ": " << p.second.name << endl;
+            }
+        }
+
+        cout << "\nOptions:\n" << " 1) Equip item\n" << " 2) Unequip slot\n" << " 3) Exit" << endl;
+        cout << "Choice: ";
+        int choice; cin >> choice;
+
+        if (choice == 3)
+        {
+            break;
+        }
+
+        if (choice == 1)
+        {
+            cout << "Enter inventory number to equip: ";
+
+            size_t idx;
+            cin >> idx;
+
+            if (idx == 0 || idx > items.size())
+            {
+                cout << "Invalid." << endl;
+                continue;
+            }
+            Item it = items[idx - 1];
+
+            auto oslot = toSlot(it.type);
+
+            if (!oslot)
+            {
+                cout << "Cannot equip that." << endl;
+                continue;
+            }
+
+            inv.removeItem(idx - 1);
+            auto old = eq.equip(*oslot, it);
+
+            if (old)
+            {
+                inv.addItem(*old);
+                cout << "Swapped out " << old->name << "." << endl;
+            }
+        }
+        else if (choice == 2)
+        {
+            auto& emap = eq.getEquipped();
+
+            if (emap.empty())
+            {
+                cout << "Nothing to unequip." << endl;
+                continue;
+            }
+
+            vector<EquipSlot> slots;
+            int n = 1;
+
+            for (auto& p : emap)
+            {
+                cout << " " << n << ") " << slotName(p.first) << endl;
+                slots.push_back(p.first);
+                n++;
+            }
+            cout << "Choose slot to unequip: ";
+            int s;
+            cin >> s;
+            
+            if (s < 1 || s >(int)slots.size())
+            {
+                cout << "Invalid." << endl;
+                continue;
+            }
+
+            auto old = eq.unequip(slots[s - 1]);
+            if (old)
+            {
+                inv.addItem(*old);
+                cout << "Unequipped " << old->name << "." << endl;
+            }
+        }
+        else
+        {
+            cout << "Invalid choice." << endl;
+        }
+    }
+}
+
 int main()
 {
     initConsole();
@@ -348,7 +519,7 @@ int main()
         coloredPrint(Color::Red, "Enter your inputs one by one\n");
         coloredPrint(Color::Red, "# -> Wall, T -> Trap, S -> Shop, B -> Boss, D -> Dungeon, N -> Next Room\n");
 
-        cout << "\nMove (W/A/S/D), Save (F), Quit (Q): ";
+        cout << "\nMove (W/A/S/D), Save (F), Quit (Q), Inventory (I): ";
 
         char in;
         cin >> in;
@@ -378,6 +549,10 @@ int main()
 
             continue;
         }
+        else if (in == 'i')
+        {
+            showInventoryMenu(player->getInventory(), player->getEquipment());
+        }
         else if (in == 'q')
         {
             cout << "\n>> Quitting the game!\n";
@@ -385,7 +560,6 @@ int main()
 
             break;
         }
-
         map.movePlayer(in);
     }
 

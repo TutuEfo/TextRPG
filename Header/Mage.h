@@ -28,6 +28,9 @@ public:
 
 	void setMana(int amount);
 	void setManaPotions(int amount);
+
+	void applyItemBonus(const Item& it);
+	void removeItemBonus(const Item& it);
 };
 
 

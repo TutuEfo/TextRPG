@@ -340,6 +340,106 @@ void Character::addGold(int amount)
 	cout << ">> " << nickName << " received " << amount << " gold!" << endl;
 }
 
+Inventory& Character::getInventory()
+{
+	return inventory;
+}
+
+Equipment& Character::getEquipment()
+{
+	return equipment;
+}
+
+void Character::applyItemBonus(const Item& it)
+{
+	switch(it.type)
+	{
+	case ItemType::Sword:
+	{
+		strength += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Shield:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Helmet:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Chestplate:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Leggings:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Boots:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void Character::removeItemBonus(const Item& it)
+{
+	switch (it.type)
+	{
+	case ItemType::Sword:
+	{
+		strength -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Shield:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Helmet:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Chestplate:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Leggings:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Boots:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	default:
+		break;
+	}
+}
+
 void Character::addHealthPotion(int amount)
 {
 	healthPotions = healthPotions + amount;
@@ -494,6 +594,7 @@ void Character::clearQuests()
 {
 	activeQuests.clear();
 }
+
 
 // Getters
 const vector<Quest>& Character::getActiveQuests() const

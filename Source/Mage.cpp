@@ -200,3 +200,93 @@ void Mage::setManaPotions(int amount)
 {
 	manaPotions = amount;
 }
+
+void Mage::applyItemBonus(const Item& it)
+{
+	switch (it.type)
+	{
+	case ItemType::Wand:
+	{
+		spellPower += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Shield:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Helmet:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Chestplate:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Leggings:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Boots:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void Mage::removeItemBonus(const Item& it)
+{
+	switch (it.type)
+	{
+	case ItemType::Wand:
+	{
+		spellPower -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Shield:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Helmet:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Chestplate:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Leggings:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Boots:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	default:
+		break;
+	}
+}
