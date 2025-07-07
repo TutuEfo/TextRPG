@@ -17,13 +17,12 @@ enum class EquipSlot {
 class Equipment {
 private:
     std::map<EquipSlot, Item> equipped;
-
 public:
     optional<Item> equip(EquipSlot slot, const Item& it)
     {
         auto old = equipped.count(slot) ? optional<Item>{equipped[slot]} : nullopt;
         equipped[slot] = it;
-        
+
         return old;
     }
 
@@ -33,6 +32,7 @@ public:
         {
             return nullopt;
         }
+
         auto old = equipped[slot];
         equipped.erase(slot);
         

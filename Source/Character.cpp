@@ -9,6 +9,8 @@
 #include "UI.h"
 #include "Ability.h"
 #include "Enemy.h"
+#include "Inventory.h"
+#include "Equipment.h"
 
 using namespace std;
 
@@ -44,6 +46,9 @@ Character::Character(const string& name) /* : nickName(name), health(0), strengt
 
 	lastDamageTaken = 0;
 	damageReduction = false;
+
+	inventory;
+	equipment;
 }
 
 Character::Character(const string& name, int hp, int str, int def, int critCh)
@@ -145,13 +150,13 @@ void Character::unlockAbilitiesByLevel()
 	}
 }
 
-void Character::abilities()
+bool Character::abilities()
 {
 	if (unlockedAbilities.empty())
 	{
 		cout << ">> No abilities unlocked yet." << endl;
 
-		return;
+		return false;
 	}
 
 	coloredPrint(Color::Yellow, "\n=== Abilities ===\n");
@@ -160,6 +165,8 @@ void Character::abilities()
 	{
 		cout << (i + 1) << ") " << unlockedAbilities[i].name << " - " << unlockedAbilities[i].description << endl;
 	}
+
+	return true;
 }
 
 void Character::useAbility(int index, Enemy& target)
@@ -213,7 +220,7 @@ void Character::usePotion(int choice)
 
 	if (healthPotions > 0 && choice == 1)
 	{
-		health += 20;
+		health += 20 * (level + 1);
 		healthPotions--;
 
 		if (health >= maxHealth)
@@ -438,6 +445,11 @@ void Character::removeItemBonus(const Item& it)
 	default:
 		break;
 	}
+}
+
+void Character::addItem(Item it)
+{
+	inventory.addItem(it);
 }
 
 void Character::addHealthPotion(int amount)

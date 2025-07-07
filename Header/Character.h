@@ -58,7 +58,7 @@ public:
     virtual void levelUp();
     int getXPToLevelUp() const;
 
-    void abilities();
+    bool abilities();
     void unlockAbilitiesByLevel();
     void useAbility(int input, Enemy& target);
     void clearAbilities();
@@ -126,6 +126,9 @@ public:
 
     Inventory& getInventory();
     Equipment& getEquipment();
+
+    void addItem(Item it);
+
     virtual void applyItemBonus(const Item& it);
     virtual void removeItemBonus(const Item& it);
 };

@@ -136,7 +136,10 @@ void Combat::performAction(int choice)
 		}
 		else
 		{
-			cPlayer.abilities();
+			if (!cPlayer.abilities())
+			{
+				break;
+			}
 
 			int choice;
 

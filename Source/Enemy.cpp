@@ -3,6 +3,7 @@
 #include <string>
 #include "Enemy.h"
 #include "Console.h"
+#include "Item.h"
 #include "UI.h"
 
 using namespace std;
@@ -123,6 +124,300 @@ int Enemy::getGoldRewardBoss() const
 int Enemy::getXPRewardBoss()
 {
 	return (60 + ((rand() % 20) + 1));
+}
+
+Item Enemy::getItemReward()
+{
+	Item it;
+	int itemType;
+
+	itemType = (rand() % 10);
+	
+	if (itemType == 0)
+	{
+		it.type = ItemType::HealthPotion;
+		it.name = "Health Potion";
+
+		it.bonusStat = 20;
+		it.description = "+20 HP";
+	}
+	else if (itemType == 1)
+	{
+		it.type = ItemType::ManaPotion;
+		it.name = "Mana Potion";
+
+		it.bonusStat = 50;
+		it.description = "+50 MP";
+	}
+	else if (itemType == 2)
+	{
+		it.type = ItemType::Sword;
+
+		int swordStat;
+		swordStat = rand() % 5 + (enemyLevel + 2);
+
+		const string swordAdjectives[] = { "Rusty", "Sharp", "Holly", "Vicious" };
+		int swordAdj;
+		swordAdj = rand() % 4;
+
+		it.name = swordAdjectives[swordAdj] + " Sword";
+		it.bonusStat = swordStat;
+		it.description = "+" + to_string(swordStat) + " Strength";
+	}
+	else if (itemType == 3)
+	{
+		it.type = ItemType::Shield;
+
+		int shieldStat;
+		shieldStat = rand() % 5 + (enemyLevel + 2);
+
+		const string shieldAdjectives[] = { "Round", "Large", "Protective", "Annoying Wooden" };
+		int shieldAdj;
+		shieldAdj = rand() % 4;
+
+		it.name = shieldAdjectives[shieldAdj] + " Shield";
+		it.bonusStat = shieldStat;
+		it.description = "+" + to_string(shieldStat) + " Defence";
+	}
+	else if (itemType == 4)
+	{
+		it.type = ItemType::Wand;
+
+		int wandStat;
+		wandStat = rand() % 5 + (enemyLevel + 2);
+
+		const string wandAdjectives[] = { "Miserable", "Fairy", "Crystal", "Scarlet" };
+		int wandAdj;
+		wandAdj = rand() % 4;
+
+		it.name = wandAdjectives[wandAdj] + " Wand";
+		it.bonusStat = wandStat;
+		it.description = "+" + to_string(wandStat) + " Spell Power";
+	}
+	else if (itemType == 5)
+	{
+		it.type = ItemType::Cloak;
+
+		int cloakStat;
+		cloakStat = rand() % 5 + (enemyLevel + 2);
+
+		const string cloakAdjectives[] = { "Dry", "Shiny", "fur-lined Crimson", "Dusky Yellow" };
+		int cloakAdj;
+		cloakAdj = rand() % 4;
+
+		it.name = cloakAdjectives[cloakAdj] + " Wand";
+		it.bonusStat = cloakStat;
+		it.description = "+" + to_string(cloakStat) + " MP";
+	}
+	else if (itemType == 6)
+	{
+		it.type = ItemType::Helmet;
+
+		int helmetStat;
+		helmetStat = rand() % 5 + (enemyLevel + 2);
+
+		const string helmetAdjectives[] = { "White", "Armored", "Marvelously Protective", "Dusky Yellow" };
+		int helmetAdj;
+		helmetAdj = rand() % 4;
+
+		it.name = helmetAdjectives[helmetAdj] + " Helmet";
+		it.bonusStat = helmetStat;
+		it.description = "+" + to_string(helmetStat) + " Defence";
+	}
+	else if (itemType == 7)
+	{
+		it.type = ItemType::Chestplate;
+
+		int chestPlateStat;
+		chestPlateStat = rand() % 5 + (enemyLevel + 2);
+
+		const string chestPlateAdjectives[] = { "Cumbersome", "Armored", "Molten", "Massive" };
+		int chestPlateAdj;
+		chestPlateAdj = rand() % 4;
+
+		it.name = chestPlateAdjectives[chestPlateAdj] + " Chestplate";
+		it.bonusStat = chestPlateStat;
+		it.description = "+" + to_string(chestPlateStat) + " Defence";
+	}
+	else if (itemType == 8)
+	{
+		it.type = ItemType::Leggings;
+
+		int leggingsStat;
+		leggingsStat = rand() % 5 + (enemyLevel + 2);
+
+		const string leggingsAdjectives[] = { "Well-Worn", "Armored", "Gaudy Blue", "Clean" };
+		int leggingsAdj;
+		leggingsAdj = rand() % 4;
+
+		it.name = leggingsAdjectives[leggingsAdj] + " Leggings";
+		it.bonusStat = leggingsStat;
+		it.description = "+" + to_string(leggingsStat) + " Defence";
+	}
+	else if (itemType == 9)
+	{
+		it.type = ItemType::Boots;
+
+		int BootsStat;
+		BootsStat = rand() % 5 + (enemyLevel + 2);
+
+		const string BootsAdjectives[] = { "Traditional Cheap", "Armored", "Weighted Lunar", "Harmless" };
+		int BootsAdj;
+		BootsAdj = rand() % 4;
+
+		it.name = BootsAdjectives[BootsAdj] + " Boots";
+		it.bonusStat = BootsStat;
+		it.description = "+" + to_string(BootsStat) + " Defence";
+	}
+
+	return it;
+}
+
+Item Enemy::getItemRewardBoss()
+{
+	Item it;
+	int itemType;
+
+	itemType = (rand() % 10);
+
+	if (itemType == 0)
+	{
+		it.type = ItemType::HealthPotion;
+		it.name = "Health Potion";
+
+		it.bonusStat = 20;
+		it.description = "+20 HP";
+	}
+	else if (itemType == 1)
+	{
+		it.type = ItemType::ManaPotion;
+		it.name = "Mana Potion";
+
+		it.bonusStat = 50;
+		it.description = "+50 MP";
+	}
+	else if (itemType == 2)
+	{
+		it.type = ItemType::Sword;
+
+		int swordStat;
+		swordStat = rand() % 5 + (enemyLevel + 2) + 5;
+
+		const string swordAdjectives[] = { "Rusty", "Sharp", "Holly", "Vicious" };
+		int swordAdj;
+		swordAdj = rand() % 4;
+
+		it.name = swordAdjectives[swordAdj] + " Sword";
+		it.bonusStat = swordStat;
+		it.description = "+" + to_string(swordStat) + " Strength";
+	}
+	else if (itemType == 3)
+	{
+		it.type = ItemType::Shield;
+
+		int shieldStat;
+		shieldStat = rand() % 5 + (enemyLevel + 2) + 5;
+
+		const string shieldAdjectives[] = { "Round", "Large", "Protective", "Annoying Wooden" };
+		int shieldAdj;
+		shieldAdj = rand() % 4;
+
+		it.name = shieldAdjectives[shieldAdj] + " Shield";
+		it.bonusStat = shieldStat;
+		it.description = "+" + to_string(shieldStat) + " Defence";
+	}
+	else if (itemType == 4)
+	{
+		it.type = ItemType::Wand;
+
+		int wandStat;
+		wandStat = rand() % 5 + (enemyLevel + 2) + 5;
+
+		const string wandAdjectives[] = { "Miserable", "Fairy", "Crystal", "Scarlet" };
+		int wandAdj;
+		wandAdj = rand() % 4;
+
+		it.name = wandAdjectives[wandAdj] + " Wand";
+		it.bonusStat = wandStat;
+		it.description = "+" + to_string(wandStat) + " Spell Power";
+	}
+	else if (itemType == 5)
+	{
+		it.type = ItemType::Cloak;
+
+		int cloakStat;
+		cloakStat = rand() % 5 + (enemyLevel + 2) + 5;
+
+		const string cloakAdjectives[] = { "Dry", "Shiny", "fur-lined Crimson", "Dusky Yellow" };
+		int cloakAdj;
+		cloakAdj = rand() % 4;
+
+		it.name = cloakAdjectives[cloakAdj] + " Wand";
+		it.bonusStat = cloakStat;
+		it.description = "+" + to_string(cloakStat) + " MP";
+	}
+	else if (itemType == 6)
+	{
+		it.type = ItemType::Helmet;
+
+		int helmetStat;
+		helmetStat = rand() % 5 + (enemyLevel + 2) + 5;
+
+		const string helmetAdjectives[] = { "White", "Armored", "Marvelously Protective", "Dusky Yellow" };
+		int helmetAdj;
+		helmetAdj = rand() % 4;
+
+		it.name = helmetAdjectives[helmetAdj] + " Helmet";
+		it.bonusStat = helmetStat;
+		it.description = "+" + to_string(helmetStat) + " Defence";
+	}
+	else if (itemType == 7)
+	{
+		it.type = ItemType::Chestplate;
+
+		int chestPlateStat;
+		chestPlateStat = rand() % 5 + (enemyLevel + 2) + 5;
+
+		const string chestPlateAdjectives[] = { "Cumbersome", "Armored", "Molten", "Massive" };
+		int chestPlateAdj;
+		chestPlateAdj = rand() % 4;
+
+		it.name = chestPlateAdjectives[chestPlateAdj] + " Chestplate";
+		it.bonusStat = chestPlateStat;
+		it.description = "+" + to_string(chestPlateStat) + " Defence";
+	}
+	else if (itemType == 8)
+	{
+		it.type = ItemType::Leggings;
+
+		int leggingsStat;
+		leggingsStat = rand() % 5 + (enemyLevel + 2) + 5;
+
+		const string leggingsAdjectives[] = { "Well-Worn", "Armored", "Gaudy Blue", "Clean" };
+		int leggingsAdj;
+		leggingsAdj = rand() % 4;
+
+		it.name = leggingsAdjectives[leggingsAdj] + " Leggings";
+		it.bonusStat = leggingsStat;
+		it.description = "+" + to_string(leggingsStat) + " Defence";
+	}
+	else if (itemType == 9)
+	{
+		it.type = ItemType::Boots;
+
+		int BootsStat;
+		BootsStat = rand() % 5 + (enemyLevel + 2) + 5;
+
+		const string BootsAdjectives[] = { "Traditional Cheap", "Armored", "Weighted Lunar", "Harmless" };
+		int BootsAdj;
+		BootsAdj = rand() % 4;
+
+		it.name = BootsAdjectives[BootsAdj] + " Boots";
+		it.bonusStat = BootsStat;
+		it.description = "+" + to_string(BootsStat) + " Defence";
+	}
+
+	return it;
 }
 
 string Enemy::getEnemyName()

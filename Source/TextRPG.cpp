@@ -245,7 +245,7 @@ optional<EquipSlot> toSlot(ItemType t)
     }
 }
 
-void showInventoryMenu(Inventory& inv, Equipment& eq)
+void showInventoryMenu(Inventory& inv, Equipment& eq, Character *player)
 {
     while (true)
     {
@@ -255,12 +255,6 @@ void showInventoryMenu(Inventory& inv, Equipment& eq)
         if (items.empty())
         {
             cout << " (empty)\n";
-
-            cout << ">> Press Enter to continue...";
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            cin.get();
-
-            return;
         }
         else
         {
@@ -274,12 +268,6 @@ void showInventoryMenu(Inventory& inv, Equipment& eq)
         if (eq.getEquipped().empty())
         {
             cout << " (nothing)\n";
-
-            cout << ">> Press Enter to continue...";
-            cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
-            cin.get();
-
-            return;
         }
         else
         {
@@ -328,6 +316,8 @@ void showInventoryMenu(Inventory& inv, Equipment& eq)
                 inv.addItem(*old);
                 cout << "Swapped out " << old->name << "." << endl;
             }
+
+            player->applyItemBonus(it);
         }
         else if (choice == 2)
         {
@@ -361,6 +351,7 @@ void showInventoryMenu(Inventory& inv, Equipment& eq)
             auto old = eq.unequip(slots[s - 1]);
             if (old)
             {
+                player->removeItemBonus(*old);
                 inv.addItem(*old);
                 cout << "Unequipped " << old->name << "." << endl;
             }
@@ -381,7 +372,6 @@ int main()
 
     Character* player = nullptr;
 
-    Map map(player);
     MapSnapshot loadedSnap;
     bool mapWasLoaded = false;
 
@@ -414,21 +404,21 @@ int main()
                 int critCounter = 0;
                 int healthCounter = 0;
 
-                while ((strengthCounter + defenceCounter + critCounter + healthCounter) != 15)
+                while ((strengthCounter + defenceCounter + critCounter + healthCounter) != 500)
                 {
                     cout << endl;
-                    cout << "You have 15 skill points to create your character!" << endl;
+                    cout << "You have 25 skill points to create your character!" << endl;
                     cout << "1) Strength" << endl;
                     cout << "2) Defence" << endl;
                     cout << "3) Crit Chance" << endl;
                     cout << "4) Health" << endl;
                     cout << ">> Base stats: Health: 100, Strength: 0, Defence: 0, Crit Chance: 0" << endl;
-                    cout << ">> Enter the skill point distribution (10 5 0 0): ";
+                    cout << ">> Enter the skill point distribution (20 5 0 0): ";
                     cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
 
-                    if ((strengthCounter + defenceCounter + critCounter + healthCounter) != 15)
+                    if ((strengthCounter + defenceCounter + critCounter + healthCounter) != 500)
                     {
-                        cout << ">> Make the sum of the point distribution 15!" << endl;
+                        cout << ">> Make the sum of the point distribution 25!" << endl;
                     }
                 }
 
@@ -443,19 +433,19 @@ int main()
                 int critCounter = 0;
                 int healthCounter = 0;
 
-                while ((spellPowerCounter + defenceCounter + critCounter + healthCounter) != 15)
+                while ((spellPowerCounter + defenceCounter + critCounter + healthCounter) != 25)
                 {
                     cout << endl;
-                    cout << "You have 15 skill points to create your character!" << endl;
+                    cout << "You have 25 skill points to create your character!" << endl;
                     cout << "1) Spell Power" << endl;
                     cout << "2) Defence" << endl;
                     cout << "3) Spell Crit Chance" << endl;
                     cout << "4) Health/Mana" << endl;
                     cout << ">> Base stats: Health/Mana: 100, Spell Power: 0, Defence: 0, Spell Crit Chance: 0" << endl;
-                    cout << "Enter the skill point distribution (10 5 0 0): ";
+                    cout << "Enter the skill point distribution (20 5 0 0): ";
                     cin >> spellPowerCounter >> defenceCounter >> critCounter >> healthCounter;
 
-                    if ((spellPowerCounter + defenceCounter + critCounter + healthCounter) != 15)
+                    if ((spellPowerCounter + defenceCounter + critCounter + healthCounter) != 25)
                     {
                         cout << "Make the sum of the point distribution 15!" << endl;
                     }
@@ -506,6 +496,8 @@ int main()
         }
     }
 
+    Map map(player);
+
     if (mapWasLoaded)
     {
         map.loadSnapshot(loadedSnap);
@@ -551,7 +543,7 @@ int main()
         }
         else if (in == 'i')
         {
-            showInventoryMenu(player->getInventory(), player->getEquipment());
+            showInventoryMenu(player->getInventory(), player->getEquipment(), player);
         }
         else if (in == 'q')
         {

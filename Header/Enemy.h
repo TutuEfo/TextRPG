@@ -4,6 +4,7 @@
 
 #include <string>
 #include <iostream>
+#include "Item.h"
 
 using namespace std;
 
@@ -33,6 +34,8 @@ public:
 	void takeDamage(int damage);
 	void displayStatus() const;
 	bool isAlive() const;
+	Item getItemReward();
+	Item getItemRewardBoss();
 };
 
 #endif ENEMY_H

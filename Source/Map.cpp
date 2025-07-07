@@ -183,7 +183,7 @@ void Map::movePlayer(char direction)
     playerX = newX;
     playerY = newY;
     grid[playerX][playerY] = 'P';
-    
+
     triggerTile(tile);
 }
 
@@ -216,6 +216,19 @@ void Map::triggerTile(char tile)
             exit(0);
         }
 
+        player->addGold(boss.getGoldRewardBoss() + 5);
+        player->setXP(boss.getXPRewardBoss() + 5);
+
+        int itemChance;
+        itemChance = rand() % 5;
+
+        if (itemChance == 2)
+        {
+            cout << "ITEM DROP!" << endl;
+
+            player->addItem(boss.getItemRewardBoss());
+        }
+
         cout << ">> Press Enter to continue...";
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.get();
@@ -224,12 +237,12 @@ void Map::triggerTile(char tile)
     }
     case 'T':
     {
-        cout << ">> Trap! -10 HP\n";
+        cout << ">> Trap! -10 HP";
 
         player->takeDamage(10);
 
-        cout << ">> Press Enter to continue...";
-        cin.ignore();
+        cout << "\n>> Press Enter to continue...";
+        cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.get();
 
         break;
@@ -240,18 +253,14 @@ void Map::triggerTile(char tile)
         
         shopMenu(player);
 
-        cout << ">> Press Enter to continue...";
-        cin.ignore();
-        cin.get();
-
         break;
     }
     case 'N':
     {
         cout << ">> Descending to next level...\n";
 
-        int newWidth = rand() % 10 + 10;
-        int newHeight = rand() % 10 + 10;
+        int newWidth = rand() % 15 + 15;
+        int newHeight = rand() % 15 + 15;
 
         generateRandomMap(newWidth, newHeight);
 
@@ -260,7 +269,7 @@ void Map::triggerTile(char tile)
 
         grid[playerX][playerY] = 'P';
 
-        cout << ">> Press Enter to continue to the next level...";
+        cout << ">> Press Enter to continue...";
         cin.ignore(numeric_limits<streamsize>::max(), '\n');
         cin.get();
 
@@ -282,11 +291,29 @@ void Map::triggerTile(char tile)
                 exit(0);
             }
 
+            player->addGold(e.getGoldReward() + 5);
+
+            int xp;
+            player->gainXP(e.getXPReward() + 5);
+
+            int itemChance;
+            itemChance = rand() % 4;
+
+            if (itemChance == 0)
+            {
+                cout << "ITEM DROP!" << endl;
+
+                player->addItem(e.getItemReward());
+            }
+
+            cout << ">> Press Enter to continue to the next enemy...";
+
+            cin.get();
+
             count--;
         }
 
-        cout << ">> You escaped the dungeon. Press Enter to continue...";
-        cin.ignore(numeric_limits<streamsize>::max(), '\n');
+        cout << ">> Press Enter to exit dungeon...";
         cin.get();
 
         break;
