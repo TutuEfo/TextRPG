@@ -76,7 +76,7 @@ void Map::setPlayer(Character* p)
 
 void Map::generateRandomMap(int x, int y)
 {
-    grid.resize(x, vector<char>(y, '.'));
+    grid.assign(x, vector<char>(y, '.'));
 
     for (int i = 0; i < x; ++i)
     {
@@ -224,7 +224,7 @@ void Map::triggerTile(char tile)
 
         if (itemChance == 2)
         {
-            cout << "ITEM DROP!" << endl;
+            coloredPrint(Color::Yellow, "\n>> ITEM DROP!\n");
 
             player->addItem(boss.getItemRewardBoss());
         }
@@ -297,11 +297,11 @@ void Map::triggerTile(char tile)
             player->gainXP(e.getXPReward() + 5);
 
             int itemChance;
-            itemChance = rand() % 4;
+            itemChance = rand() % 5;
 
-            if (itemChance == 0)
+            if (itemChance == 2)
             {
-                cout << "ITEM DROP!" << endl;
+                coloredPrint(Color::Yellow, "\n>> ITEM DROP!\n");
 
                 player->addItem(e.getItemReward());
             }

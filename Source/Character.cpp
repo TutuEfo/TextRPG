@@ -449,6 +449,13 @@ void Character::removeItemBonus(const Item& it)
 
 void Character::addItem(Item it)
 {
+	if (it.type == ItemType::Wand)
+	{
+		cout << ">> Can't add wand!" << endl;
+
+		return;
+	}
+
 	inventory.addItem(it);
 }
 

@@ -254,26 +254,26 @@ void showInventoryMenu(Inventory& inv, Equipment& eq, Character *player)
 
         if (items.empty())
         {
-            cout << " (empty)\n";
+            cout << "(Empty)\n";
         }
         else
         {
             for (size_t i = 0; i < items.size(); i++)
             {
-                cout << " " << (i + 1) << ") " << items[i].name << endl;
+                cout << " " << (i + 1) << ") " << items[i].name << " " << items[i].description << endl;
             }
         }
 
         cout << "\nEquipped:\n";
         if (eq.getEquipped().empty())
         {
-            cout << " (nothing)\n";
+            cout << "(Nothing)\n";
         }
         else
         {
             for (auto& p : eq.getEquipped())
             {
-                cout << " - " << slotName(p.first) << ": " << p.second.name << endl;
+                cout << " - " << slotName(p.first) << ": " << p.second.name << " " << p.second.description << endl;
             }
         }
 
@@ -404,7 +404,7 @@ int main()
                 int critCounter = 0;
                 int healthCounter = 0;
 
-                while ((strengthCounter + defenceCounter + critCounter + healthCounter) != 500)
+                while ((strengthCounter + defenceCounter + critCounter + healthCounter) != 25)
                 {
                     cout << endl;
                     cout << "You have 25 skill points to create your character!" << endl;
@@ -416,7 +416,13 @@ int main()
                     cout << ">> Enter the skill point distribution (20 5 0 0): ";
                     cin >> strengthCounter >> defenceCounter >> critCounter >> healthCounter;
 
-                    if ((strengthCounter + defenceCounter + critCounter + healthCounter) != 500)
+                    if (strengthCounter == 250 && defenceCounter == 250 && critCounter == 250 && healthCounter == 250)
+                    {
+                        // OP Character Secret!
+                        break;
+                    }
+
+                    if ((strengthCounter + defenceCounter + critCounter + healthCounter) != 25)
                     {
                         cout << ">> Make the sum of the point distribution 25!" << endl;
                     }
@@ -444,6 +450,12 @@ int main()
                     cout << ">> Base stats: Health/Mana: 100, Spell Power: 0, Defence: 0, Spell Crit Chance: 0" << endl;
                     cout << "Enter the skill point distribution (20 5 0 0): ";
                     cin >> spellPowerCounter >> defenceCounter >> critCounter >> healthCounter;
+
+                    if (spellPowerCounter == 250 && defenceCounter == 250 && critCounter == 250 && healthCounter == 250)
+                    {
+                        // OP Mage Secret!
+                        break;
+                    }
 
                     if ((spellPowerCounter + defenceCounter + critCounter + healthCounter) != 25)
                     {
