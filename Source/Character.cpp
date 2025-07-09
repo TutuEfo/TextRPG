@@ -516,7 +516,7 @@ void Character::generateRandomQuest()
 	int randomGold = rand() % 41 + 10;
 
 	std::string name = QUEST_TYPES[typeIndex];
-	Quest q
+	/*Quest q
 	{
 		"Defeat " + std::to_string(count) + " " + name,
 		name,
@@ -529,6 +529,7 @@ void Character::generateRandomQuest()
 	activeQuests.push_back(q);
 
 	std::cout << ">> New quest added: " << q.description << " (Reward: " << q.rewardXP << " XP, " << q.rewardGold << " gold)\n";
+	*/
 }
 
 void Character::requestQuest()
