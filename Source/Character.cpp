@@ -347,12 +347,12 @@ void Character::addGold(int amount)
 	cout << ">> " << nickName << " received " << amount << " gold!" << endl;
 }
 
-Inventory& Character::getInventory()
+const Inventory& Character::getInventory() const
 {
 	return inventory;
 }
 
-Equipment& Character::getEquipment()
+const Equipment& Character::getEquipment() const
 {
 	return equipment;
 }

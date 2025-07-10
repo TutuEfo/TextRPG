@@ -2,6 +2,8 @@
 #include "Quest.h"
 #include "Mage.h"
 #include "Map.h"
+#include "Inventory.h"
+#include "Equipment.h"
 
 #include <fstream>
 #include <filesystem>
@@ -88,6 +90,8 @@ namespace SaveLoad
             out << m.getManaPotions() << '\n';
         }
 
+            
+
         // Write how many quests we have so that the loader knows how many to read back
         const auto& quests = player.getActiveQuests();
         out << quests.size() << '\n';
@@ -110,6 +114,31 @@ namespace SaveLoad
             out << a.name.length() << ' ' << a.name << '\n';
             out << a.description.length() << ' ' << a.description << '\n';
             out << a.requiredLevel << '\n';
+        }
+
+        const auto& inv = player.getInventory().getItems();
+        out << inv.size() << '\n';
+
+        for (auto& it : inv)
+        {
+            out << static_cast<int>(it.type) << ' ';
+
+            out << it.name.length() << ' ' << it.name << ' ';
+            out << it.description.length() << ' ' << it.description << ' ';
+            out << it.bonusStat << '\n';
+        }
+
+        const auto& eq = player.getEquipment().getEquipped();
+        out << eq.size() << '\n';
+
+        for (auto& [slot, it] : eq)
+        {
+            out << static_cast<int>(slot) << ' ';
+            out << static_cast<int>(it.type) << ' ';
+
+            out << it.name.length() << ' ' << it.name << ' ';
+            out << it.description.length() << ' ' << it.description << ' ';
+            out << it.bonusStat << '\n';
         }
 
         // Write map dimensions and player position in one line: rows cols playerX playerY
