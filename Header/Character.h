@@ -124,6 +124,8 @@ public:
     const vector<Quest>& getActiveQuests() const;
     void clearQuests();
 
+    Inventory& getInventory();
+    Equipment& getEquipment();
     const Inventory& getInventory() const;
     const Equipment& getEquipment() const;
 

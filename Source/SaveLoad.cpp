@@ -107,8 +107,8 @@ namespace SaveLoad
         }
 
         const auto& abs = player.getAbilities();
-
         out << abs.size() << '\n';
+
         for (auto& a : abs)
         {
             out << a.name.length() << ' ' << a.name << '\n';
@@ -273,7 +273,6 @@ namespace SaveLoad
 
         size_t aCount;
 
-
         in >> aCount;
         in.ignore(numeric_limits<streamsize>::max(), '\n');
 
@@ -289,6 +288,72 @@ namespace SaveLoad
             in >> lvl; in.ignore(1);
 
             player.addAbility({ name, desc, lvl });
+        }
+
+        size_t invCount;
+        in >> invCount;
+
+        for (size_t i = 0; i < invCount; i++)
+        {
+            int typeInt, bonus;
+            size_t nlen, dlen;
+            string name, desc;
+
+            in >> typeInt >> nlen;
+            in.ignore(1);
+            name.resize(nlen);
+            in.read(&name[0], nlen);
+            in.ignore(1);
+
+            in >> dlen;
+            in.ignore(1);
+            desc.resize(dlen);
+            in.read(&desc[0], dlen);
+            in.ignore(1);
+
+            in >> bonus;
+            in.ignore(1);
+
+            Item it;
+            it.type = static_cast<ItemType>(typeInt);
+            it.name = move(name);
+            it.description = move(desc);
+            it.bonusStat = bonus;
+
+            player.addItem(it);
+        }
+
+        size_t eqCount;
+        in >> eqCount;
+
+        for (size_t i = 0; i < eqCount; i++)
+        {
+            int slotInt, typeInt, bonus;
+            size_t nlen, dlen;
+            string name, desc;
+
+            in >> slotInt >> typeInt >> nlen; in.ignore(1);
+            name.resize(nlen);
+            in.read(&name[0], nlen);
+            in.ignore(1);
+
+            in >> dlen; in.ignore(1);
+            desc.resize(dlen);
+            in.read(&desc[0], dlen);
+            in.ignore(1);
+
+            in >> bonus;
+            in.ignore(1);
+
+            Item it;
+            it.type = static_cast<ItemType>(typeInt);
+            it.name = move(name);
+            it.description = move(desc);
+            it.bonusStat = bonus;
+
+            auto slot = static_cast<EquipSlot>(slotInt);
+            player.getEquipment().equip(slot, it);
+            player.applyItemBonus(it);
         }
 
         in >> mapSnap.rows >> mapSnap.cols >> mapSnap.playerX >> mapSnap.playerY;
