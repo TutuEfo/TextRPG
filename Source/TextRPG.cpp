@@ -523,7 +523,7 @@ int main()
         coloredPrint(Color::Red, "Enter your inputs one by one\n");
         coloredPrint(Color::Red, "# -> Wall, T -> Trap, S -> Shop, B -> Boss, D -> Dungeon, N -> Next Room\n");
 
-        cout << "\nMove (W/A/S/D), Save (F), Quit (Q), Inventory (I): ";
+        cout << "\nMove (W/A/S/D), Save (F), Exit (E), Inventory (I), Quest (Q): ";
 
         char in;
         cin >> in;
@@ -557,12 +557,35 @@ int main()
         {
             showInventoryMenu(player->getInventory(), player->getEquipment(), player);
         }
-        else if (in == 'q')
+        else if (in == 'e')
         {
             cout << "\n>> Quitting the game!\n";
             cout << "\n>> Enemies lurk in the shadows. We need you back ASAP!\n";
 
             break;
+        }
+        else if (in == 'q')
+        {
+            int qChoice;
+            cout << "Active Quests: " << player->getQuestCount() << endl;
+            cout << ">> 1) Request a new quest" << endl;
+            cout << ">> 2) Display active quests" << endl;
+            cout << ">> Enter your choice: ";
+            cin >> qChoice;
+
+            if (qChoice == 1)
+            {
+                player->requestQuest();
+            }
+            else if (qChoice == 2)
+            {
+                player->displayQuests();
+            }
+
+            cout << ">> Press Enter to return the menu";
+            cin.ignore();
+            cin.get();
+
         }
         map.movePlayer(in);
     }

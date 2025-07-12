@@ -29,6 +29,8 @@ bool Combat::runCombat()
 		endOfRoundCleanup();
 	}
 
+	cPlayer.checkQuestCompletion(cEnemy.getEnemyName());
+
 	return (cPlayer.getHealth() > 0);
 }
 
