@@ -133,6 +133,8 @@ public:
 
     virtual void applyItemBonus(const Item& it);
     virtual void removeItemBonus(const Item& it);
+
+    int getQuestProgress(const string& questID) const;
 };
 
 #endif // CHARACTER_H

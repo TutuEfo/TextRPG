@@ -110,7 +110,7 @@ void Map::generateRandomMap(int x, int y)
     }
 
     grid[x / 2][y / 2] = 'S';
-    grid[1][(y - 2) + 1] = 'N';
+    grid[1][(y - 2) + 1] = 'R';
     grid[1][y - 2] = 'B';
 
     grid[x - 2][y - 2] = 'P';

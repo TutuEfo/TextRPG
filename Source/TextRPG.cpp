@@ -521,9 +521,10 @@ int main()
         map.display();
 
         coloredPrint(Color::Red, "Enter your inputs one by one\n");
-        coloredPrint(Color::Red, "# -> Wall, T -> Trap, S -> Shop, B -> Boss, D -> Dungeon, N -> Next Room\n");
+        coloredPrint(Color::Red, "# -> Wall, T -> Trap, S -> Shop, B -> Boss, D -> Dungeon, R -> Next Room, N -> NPC\n");
 
-        cout << "\nMove (W/A/S/D), Save (F), Exit (E), Inventory (I), Quest (Q): ";
+        cout << "\nMove (W/A/S/D), Save (F), Exit (E), Inventory (I), Quest (Q)\n";
+        cout << ">> ";
 
         char in;
         cin >> in;
@@ -553,18 +554,18 @@ int main()
 
             continue;
         }
-        else if (in == 'i')
+        else if (in == 'i' || in == 'I')
         {
             showInventoryMenu(player->getInventory(), player->getEquipment(), player);
         }
-        else if (in == 'e')
+        else if (in == 'e' || in == 'E')
         {
             cout << "\n>> Quitting the game!\n";
             cout << "\n>> Enemies lurk in the shadows. We need you back ASAP!\n";
 
             break;
         }
-        else if (in == 'q')
+        else if (in == 'q' || in == 'Q')
         {
             int qChoice;
             cout << "Active Quests: " << player->getQuestCount() << endl;

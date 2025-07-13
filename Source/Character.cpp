@@ -783,3 +783,16 @@ void Character::setHealth(int amount)
 {
 	health = amount;
 }
+
+int Character::getQuestProgress(const string& questID) const
+{
+	for (auto const& q : activeQuests)
+	{
+		if (q.id == questID)
+		{
+			return q.progress;
+		}
+	}
+
+	return 0;
+}
