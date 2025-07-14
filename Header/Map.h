@@ -1,6 +1,7 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "NPC.h"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ private:
 	vector<vector<char>> grid;
 	int playerX;
 	int playerY;
+    vector<NPC> npcs;
 
     Character* player = nullptr;
 public:
@@ -40,4 +42,5 @@ public:
 
     MapSnapshot makeSnapshot() const;
     void loadSnapshot(const MapSnapshot&);
+    void addNPC(const NPC& n);
 };

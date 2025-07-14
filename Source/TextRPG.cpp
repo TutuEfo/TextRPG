@@ -515,6 +515,12 @@ int main()
         map.loadSnapshot(loadedSnap);
     }
 
+
+    NPC villageElder("elder001", "Elder", 5, 5);
+    villageElder.addDialogLine(">> Ah, adventurer! Our town has so much bandits, can you help us with that?");
+    villageElder.setQuest(player->generateRandomQuest("Elder"));
+    map.addNPC(villageElder);
+
     while (player && player->getHealth() > 0)
     {
         system("cls");

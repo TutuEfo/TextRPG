@@ -81,7 +81,7 @@ public:
     void checkQuestCompletion(const string& enemyName);
     void displayQuests() const;
     void requestQuest();
-    void generateRandomQuest();
+    Quest generateRandomQuest(const string& name);
     int getQuestCount();
 
     string getNickName() const;

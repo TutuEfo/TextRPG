@@ -430,6 +430,11 @@ void Map::loadSnapshot(const MapSnapshot& s)
     playerY = s.playerY;
 }
 
+void Map::addNPC(const NPC &n)
+{
+    npcs.push_back(n);
+}
+
 // I introduced a MapSnapshot struct to capture the dungeon’s size, the player’s X / Y, and each row of tiles as a string via makeSnapshot().
 // When you hit Save, I write your character data first, then dump those snapshot fields—rows, cols, playerX, playerY—and each row string into the file.
 // On load, I read everything back into a new MapSnapshot, then call map.loadSnapshot(), which does grid.assign(rows, vector<char>(cols)) to rebuild an

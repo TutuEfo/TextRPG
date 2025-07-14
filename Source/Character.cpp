@@ -518,7 +518,7 @@ int Character::getQuestCount()
 	return questCount;
 }
 
-void Character::generateRandomQuest()
+Quest Character::generateRandomQuest(const string& name)
 {
 	int questID = rand() % 100 + 1;
 	int typeIndex = rand() % (sizeof(QUEST_TYPES) / sizeof(*QUEST_TYPES));
@@ -526,25 +526,24 @@ void Character::generateRandomQuest()
 	int randomXP = rand() % 26 + 25;
 	int randomGold = rand() % 41 + 10;
 
-	string name = QUEST_TYPES[typeIndex];
+	string questName = QUEST_TYPES[typeIndex];
 	Quest q
 	{
 		to_string(questID),
 		QuestStatus::InProgress,
 		QuestType::Main,
-		"Vilager",
-		"Defeat " + std::to_string(count) + " " + name,
 		name,
+		"Defeat " + std::to_string(count) + " " + name,
+		questName,
 		count,
 		0,
 		randomXP,
 		randomGold
 	};
 
-	activeQuests.push_back(q);
-
 	cout << ">> New quest added: " << q.description << " (Reward: " << q.rewardXP << " XP, " << q.rewardGold << " gold)\n";
 	
+	return q;
 }
 
 void Character::requestQuest()
@@ -557,9 +556,9 @@ void Character::requestQuest()
 	}
 	else
 	{
-		generateRandomQuest();
+		/*generateRandomQuest();
 
-		questCount++;
+		questCount++;*/
 	}
 }
 
