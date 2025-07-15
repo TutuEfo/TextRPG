@@ -129,7 +129,7 @@ public:
     const Inventory& getInventory() const;
     const Equipment& getEquipment() const;
 
-    void addItem(Item it);
+    virtual void addItem(Item it);
 
     virtual void applyItemBonus(const Item& it);
     virtual void removeItemBonus(const Item& it);

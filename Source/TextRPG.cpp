@@ -517,7 +517,7 @@ int main()
 
 
     NPC villageElder("elder001", "Elder", 5, 5);
-    villageElder.addDialogLine(">> Ah, adventurer! Our town has so much bandits, can you help us with that?");
+    villageElder.addDialogLine(">> Ah, adventurer! Our town has so much monsters, can you help us with that?");
     villageElder.setQuest(player->generateRandomQuest("Elder"));
     map.addNPC(villageElder);
 

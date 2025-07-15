@@ -111,9 +111,9 @@ void Character::escapeFromBattle()
 {
 	int escape;
 
-	escape = rand() % 4;
+	escape = rand() % 5;
 
-	if (escape == 1)
+	if (escape == 2)
 	{
 		escapeBattle = true;
 	}
@@ -459,10 +459,9 @@ void Character::removeItemBonus(const Item& it)
 
 void Character::addItem(Item it)
 {
-	if (it.type == ItemType::Wand)
+	if (it.type == ItemType::Wand || it.type == ItemType::Cloak)
 	{
-		cout << ">> Can't add wand!" << endl;
-
+		cout << ">> Default heroes can't use " << it.name << "!" << endl;
 		return;
 	}
 

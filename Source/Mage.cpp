@@ -290,3 +290,14 @@ void Mage::removeItemBonus(const Item& it)
 		break;
 	}
 }
+
+void Mage::addItem(Item it)
+{
+	if (it.type == ItemType::Sword || it.type == ItemType::Shield)
+	{
+		cout << ">> Mages can't wield " << it.name << "!" << endl;
+		return;
+	}
+
+	Character::addItem(it);
+}

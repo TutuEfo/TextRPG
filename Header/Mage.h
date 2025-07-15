@@ -31,6 +31,7 @@ public:
 
 	void applyItemBonus(const Item& it);
 	void removeItemBonus(const Item& it);
+	void addItem(Item it) override;
 };
 
 
