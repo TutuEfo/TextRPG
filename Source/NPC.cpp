@@ -28,11 +28,11 @@ void NPC::interact(Character& player)
     {
         player.addQuest(*assignedQuest);
         assignedQuest->start();
-        cout << "> You have new quest: " << assignedQuest->description << "\n";
+        cout << ">> You have new quest: " << assignedQuest->description << "\n";
     }
     else if (assignedQuest && !assignedQuest->isComplete())
     {
-        cout << "> Quest in progress: " << player.getQuestProgress(assignedQuest->id) << " / " << assignedQuest->targetCount << "\n";
+        cout << ">> Quest in progress: " << player.getQuestProgress(assignedQuest->id) << " / " << assignedQuest->targetCount << "\n";
     }
     else if (assignedQuest && assignedQuest->isComplete())
     {

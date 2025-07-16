@@ -510,16 +510,15 @@ int main()
 
     Map map(player);
 
-    if (mapWasLoaded)
-    {
-        map.loadSnapshot(loadedSnap);
-    }
-
-
     NPC villageElder("elder001", "Elder", 5, 5);
     villageElder.addDialogLine(">> Ah, adventurer! Our town has so much monsters, can you help us with that?");
     villageElder.setQuest(player->generateRandomQuest("Elder"));
     map.addNPC(villageElder);
+
+    if (mapWasLoaded)
+    {
+        map.loadSnapshot(loadedSnap);
+    }
 
     while (player && player->getHealth() > 0)
     {

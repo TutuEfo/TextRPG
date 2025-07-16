@@ -529,10 +529,10 @@ Quest Character::generateRandomQuest(const string& name)
 	Quest q
 	{
 		to_string(questID),
-		QuestStatus::InProgress,
+		QuestStatus::NotStarted,
 		QuestType::Main,
 		name,
-		"Defeat " + std::to_string(count) + " " + name,
+		"Defeat " + std::to_string(count) + " " + questName,
 		questName,
 		count,
 		0,

@@ -43,12 +43,17 @@ static void printTile(char tile)
     }
     case 'N':
     {
-        coloredPrint(Color::BrightCyan, "N ");
+        coloredPrint(Color::Yellow, "N ");
         break;
     }
     case 'P':
     {
         coloredPrint(Color::Cyan, "P ");
+        break;
+    }
+    case 'R':
+    {
+        coloredPrint(Color::BrightCyan, "R ");
         break;
     }
     default:
@@ -120,14 +125,27 @@ void Map::generateRandomMap(int x, int y)
 
 void Map::display() const
 {
-    for (const auto& row : grid)
+    for (int i = 0; i < (int)grid.size(); ++i)
     {
-        for (char tile : row)
+        for (int j = 0; j < (int)grid[i].size(); ++j)
         {
-            printTile(tile);
-        }
+            bool drawn = false;
+            for (auto const& npc : npcs)
+            {
+                if (npc.getX() == i && npc.getY() == j)
+                {
+                    printTile(npc.getSymbol());
+                    drawn = true;
+                    break;
+                }
+            }
 
-        cout << '\n';
+            if (!drawn)
+            {
+                printTile(grid[i][j]);
+            }
+        }
+        std::cout << '\n';
     }
 }
 
@@ -163,6 +181,21 @@ void Map::movePlayer(char direction)
         break;
     }
     }
+
+    for (auto& npc : npcs)
+    {
+        if (npc.getX() == newX && npc.getY() == newY)
+        {
+            npc.interact(*player);
+
+            std::cout << ">> Press Enter to continue...";
+            std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+            std::cin.get();
+
+            return;
+        }
+    }
+
 
     char tile = grid[newX][newY];
 
@@ -255,7 +288,7 @@ void Map::triggerTile(char tile)
 
         break;
     }
-    case 'N':
+    case 'R':
     {
         cout << ">> Descending to next level...\n";
 
