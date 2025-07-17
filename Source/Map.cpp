@@ -325,8 +325,6 @@ void Map::triggerTile(char tile)
             }
 
             player->addGold(e.getGoldReward() + 5);
-
-            int xp;
             player->gainXP(e.getXPReward() + 5);
 
             int itemChance;
@@ -371,7 +369,9 @@ void Map::shopMenu(Character *player)
         cout << ">> Gold: " << player->getGold() << endl;
         cout << "1) Health Potion (20 gold)" << endl;
         cout << "2) Mana Potion (25 gold)" << endl; // For Mage Class
-        cout << "3) Exit" << endl;
+        cout << "3) Strength Potion (30 gold)" << endl;
+        cout << "4) Defence Potions (30 gold)" << endl;
+        cout << "5) Exit" << endl;
         cout << ">> Choose an option: ";
         cin >> choice;
 
@@ -382,7 +382,7 @@ void Map::shopMenu(Character *player)
             {
                 player->addHealthPotion(1);
                 player->addGold(-20);
-                coloredPrint(Color::Green, ">> " + name + " bought Health Potion!\n");
+                coloredPrint(Color::Green, ">> " + name + " bought a Health Potion!\n");
             }
             else
             {
@@ -398,7 +398,7 @@ void Map::shopMenu(Character *player)
                 {
                     mage->addManaPotion(1);
                     player->addGold(-25);
-                    coloredPrint(Color::Cyan, ">> " + name + " bought Mana Potion!\n");
+                    coloredPrint(Color::Cyan, ">> " + name + " bought a Mana Potion!\n");
                 }
                 else
                 {
@@ -407,12 +407,37 @@ void Map::shopMenu(Character *player)
             }
             else
             {
-                coloredPrint(Color::Red, ">> Only Mages can buy mana potions!\n");
+                coloredPrint(Color::Red, ">> Only Mages can buy a mana potions!\n");
             }
 
             break;
-
         case 3:
+            if (player->getGold() >= 30)
+            {
+                player->addStrengthPotion(1);
+                player->addGold(-30);
+                coloredPrint(Color::Green, ">> " + name + " bought a Strength Potion!\n");
+            }
+            else
+            {
+                coloredPrint(Color::Red, ">> Not enough gold!\n");
+            }
+
+            break;
+        case 4:
+            if (player->getGold() >= 30)
+            {
+                player->addDefencePotion(1);
+                player->addGold(-30);
+                coloredPrint(Color::Green, ">> " + name + " bought a Defence Potion!\n");
+            }
+            else
+            {
+                coloredPrint(Color::Red, ">> Not enough gold!\n");
+            }
+
+            break;
+        case 5:
             cout << ">> Leaving the shop..." << endl;
 
             break;
