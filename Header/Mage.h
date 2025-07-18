@@ -14,6 +14,8 @@ private:
 	int mana;
 	int manaPotions;
 	int spellPower;
+
+	vector<Ability> unlockedAbilities;
 public:
 	Mage(const string& name);
 	Mage(const string& name, int hp, int sp, int def, int critCh);
@@ -25,6 +27,8 @@ public:
 	void levelUp() override;
 	void useManaPotion();
 	string getClassName() const override { return "Mage"; }
+
+	void unlockAbilitiesByLevel() override;
 
 	void setMana(int amount);
 	void setManaPotions(int amount);

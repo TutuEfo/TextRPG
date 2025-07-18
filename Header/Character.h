@@ -59,7 +59,7 @@ public:
     int getXPToLevelUp() const;
 
     bool abilities();
-    void unlockAbilitiesByLevel();
+    virtual void unlockAbilitiesByLevel();
     void useAbility(int input, Enemy& target);
     void clearAbilities();
     void addAbility(const Ability& a);

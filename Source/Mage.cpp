@@ -301,3 +301,23 @@ void Mage::addItem(Item it)
 
 	Character::addItem(it);
 }
+
+void Character::unlockAbilitiesByLevel()
+{
+	if (level == 5)
+	{
+		unlockedAbilities.push_back({ "Arcane Overload", "Temporarily boosts your Spell Power by 10", 10 });
+	}
+	else if (level == 10)
+	{
+		unlockedAbilities.push_back({ "Mana Well", "Instantly restores 100 mana", 100 });
+	}
+	else if (level == 15)
+	{
+		unlockedAbilities.push_back({ "Ethereal Veil", "Grants 1 turn of invulnerability", 10000 * level }); // Gets 10k defence, based on level.
+	}
+	else if (level == 20)
+	{
+		// Thinking.
+	}
+}
