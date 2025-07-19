@@ -366,6 +366,8 @@ void Map::shopMenu(Character *player)
     {
         coloredPrint(Color::Yellow, "\n===== SHOP =====");
         cout << endl;
+
+        int option, amount;
         cout << ">> Gold: " << player->getGold() << endl;
         cout << "1) Health Potion (20 gold)" << endl;
         cout << "2) Mana Potion (25 gold)" << endl; // For Mage Class
@@ -373,16 +375,20 @@ void Map::shopMenu(Character *player)
         cout << "4) Defence Potions (30 gold)" << endl;
         cout << "5) Exit" << endl;
         cout << ">> Choose an option: ";
-        cin >> choice;
+        cin >> option;
 
-        switch (choice)
+        switch (option)
         {
         case 1:
-            if (player->getGold() >= 20)
+
+            cout << "Enter amount: ";
+            cin >> amount;
+
+            if (player->getGold() >= 20 * amount)
             {
-                player->addHealthPotion(1);
-                player->addGold(-20);
-                coloredPrint(Color::Green, ">> " + name + " bought a Health Potion!\n");
+                player->addHealthPotion(amount);
+                player->addGold(-20 * amount);
+                coloredPrint(Color::Green, ">> " + name + " bought " + to_string(amount) + " Health Potion(s)!\n");
             }
             else
             {
@@ -392,13 +398,17 @@ void Map::shopMenu(Character *player)
             break;
 
         case 2:
+
+            cout << "Enter amount: ";
+            cin >> amount;
+            
             if (Mage* mage = dynamic_cast<Mage*>(player))
             {
-                if (player->getGold() >= 25)
+                if (player->getGold() >= 25 * amount)
                 {
-                    mage->addManaPotion(1);
-                    player->addGold(-25);
-                    coloredPrint(Color::Cyan, ">> " + name + " bought a Mana Potion!\n");
+                    mage->addManaPotion(amount);
+                    player->addGold(-25 * amount);
+                    coloredPrint(Color::Cyan, ">> " + name + " bought " + to_string(amount) + " Mana Potion(s)!\n");
                 }
                 else
                 {
@@ -412,11 +422,15 @@ void Map::shopMenu(Character *player)
 
             break;
         case 3:
-            if (player->getGold() >= 30)
+
+            cout << "Enter amount: ";
+            cin >> amount;
+
+            if (player->getGold() >= 30 * amount)
             {
-                player->addStrengthPotion(1);
-                player->addGold(-30);
-                coloredPrint(Color::Green, ">> " + name + " bought a Strength Potion!\n");
+                player->addStrengthPotion(amount);
+                player->addGold(-30 * amount);
+                coloredPrint(Color::Green, ">> " + name + " bought " + to_string(amount) + " Strength Potion(s)!\n");
             }
             else
             {
@@ -425,11 +439,15 @@ void Map::shopMenu(Character *player)
 
             break;
         case 4:
-            if (player->getGold() >= 30)
+
+            cout << "Enter amount: ";
+            cin >> amount;
+
+            if (player->getGold() >= 30 * amount)
             {
-                player->addDefencePotion(1);
-                player->addGold(-30);
-                coloredPrint(Color::Green, ">> " + name + " bought a Defence Potion!\n");
+                player->addDefencePotion(amount);
+                player->addGold(-30 * amount);
+                coloredPrint(Color::Green, ">> " + name + " bought " + to_string(amount) + " Defence Potion(s)!\n");
             }
             else
             {
@@ -440,7 +458,7 @@ void Map::shopMenu(Character *player)
         case 5:
             cout << ">> Leaving the shop..." << endl;
 
-            break;
+            return;
 
         default:
             coloredPrint(Color::Red, ">> Invalid choice!\n");

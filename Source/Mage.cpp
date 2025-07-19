@@ -302,7 +302,7 @@ void Mage::addItem(Item it)
 	Character::addItem(it);
 }
 
-void Character::unlockAbilitiesByLevel()
+void Mage::unlockAbilitiesByLevel()
 {
 	if (level == 5)
 	{
