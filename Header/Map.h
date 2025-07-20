@@ -11,8 +11,10 @@ class Combat;
 
 struct MapSnapshot
 {
-    int rows, cols;
-    int playerX, playerY;
+    int rows = 0;
+    int cols = 0;
+    int playerX = 0;
+    int playerY = 0;
 
     vector<string> rowsData;
 };

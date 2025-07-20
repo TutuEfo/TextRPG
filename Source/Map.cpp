@@ -358,6 +358,11 @@ void Map::triggerTile(char tile)
 
 void Map::shopMenu(Character *player)
 {
+    if (player == nullptr)
+    {
+        return;
+    }
+
     int choice = 0;
 
     string name = player->getNickName();

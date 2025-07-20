@@ -572,21 +572,7 @@ int main()
         }
         else if (in == 'q' || in == 'Q')
         {
-            int qChoice;
-            cout << "Active Quests: " << player->getQuestCount() << endl;
-            cout << ">> 1) Request a new quest" << endl;
-            cout << ">> 2) Display active quests" << endl;
-            cout << ">> Enter your choice: ";
-            cin >> qChoice;
-
-            if (qChoice == 1)
-            {
-                player->requestQuest();
-            }
-            else if (qChoice == 2)
-            {
-                player->displayQuests();
-            }
+            player->displayQuests();
 
             cout << ">> Press Enter to return the menu";
             cin.ignore();

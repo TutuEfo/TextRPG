@@ -20,5 +20,5 @@ struct Item {
 	ItemType type;
 	string name;
 	string description;
-	int bonusStat;
+	int bonusStat = 0;
 };
