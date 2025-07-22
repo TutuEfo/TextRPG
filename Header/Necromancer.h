@@ -4,9 +4,19 @@
 
 #include <string>
 #include <iostream>
+#include <vector>
 #include "Character.h"
+#include "Ability.h"
+#include "Item.h"
 
 using namespace std;
+
+struct Minion {
+	string name;
+	int health;
+	int damage;
+	int remainingTurns;
+};
 
 class Necromancer : public Character {
 private:
@@ -17,12 +27,12 @@ private:
 	int summonPotions;
 	int minionPower;
 	int minionCounter;
+	vector<Minion> minions;
 
 	vector<Ability> unlockedAbilities;
 public:
 	Necromancer(const string& name);
 	Necromancer(const string& name, int hp, int sp, int def, int critCh);
-	int summonMinion(int choice);
 	void addManaPotion(int amount);
 	void displayCharacter() const override;
 	void levelUp() override;
@@ -34,12 +44,14 @@ public:
 	void removeItemBonus(const Item& it);
 	void addItem(Item it) override;
 
+	void summonMinion(const Minion& m);
+	void clearDeadMinions();
+
 	void setMana(int amount);
 	void setManaPotions(int amount);
 
 	string getClassName() const override { return "Necromancer"; }
 	int getManaPotions() const;
-	int getMinionCounter() const;
 	int getMaxMinion() const;
 	int getSummonPotions() const;
 	int getMana() const;

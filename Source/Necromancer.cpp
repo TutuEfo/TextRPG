@@ -4,10 +4,25 @@
 #include "UI.h"
 #include "Console.h"
 
-//int Necromancer::summonMinion(int choice)
-//{
-//
-//}
+Necromancer::Necromancer(const string& name) : Character(name), mana(50), maxMana(100), manaPotions(3), minionPower(12)
+{
+	strength = 0;
+	defence = 3;
+	critChance = 5;
+	maxHealth = 100;
+	health = maxHealth;
+	maxMinion = 3;
+	minionCounter = 0;
+	summonPotions = 3;
+}
+
+Necromancer::Necromancer(const string& name, int hp, int mp, int def, int critCh) : Character(name, hp, 0, def, critCh), maxMana(100 + (hp * 10)), mana(maxMana), manaPotions(3), minionPower(mp)
+{
+	strength = 0;
+	maxMinion = 3;
+	minionCounter = 0;
+	summonPotions = 3;
+}
 
 void Necromancer::addManaPotion(int amount)
 {
@@ -175,7 +190,7 @@ void Necromancer::setManaPotions(int amount)
 
 int Necromancer::getMaxMinion() const
 {
-	return minionCounter;
+	return maxMinion;
 }
 
 int Necromancer::getSummonPotions() const
