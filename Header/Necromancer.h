@@ -55,6 +55,7 @@ public:
 	int getMaxMinion() const;
 	int getSummonPotions() const;
 	int getMana() const;
+	const vector<Minion>& getMinions() const;
 };
 
 

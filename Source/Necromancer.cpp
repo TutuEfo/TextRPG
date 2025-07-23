@@ -202,3 +202,28 @@ int Necromancer::getMana() const
 {
 	return mana;
 }
+
+void Necromancer::summonMinion(const Minion& m)
+{
+	if (minionCounter >= maxMinion || mana < 25)
+	{
+		return;
+	}
+
+	minions.push_back(m);
+	mana -= 10;
+	++minionCounter;
+
+	cout << ">> Summoned " << m.name << "!\n";
+}
+
+void Necromancer::clearDeadMinions()
+{
+	minions.erase(remove_if(minions.begin(), minions.end(), [&](const Minion& m) { return m.health <= 0 || --(const_cast<Minion&>(m).remainingTurns) < 0; }), minions.end());
+	minionCounter = (int)minions.size();
+}
+
+const vector<Minion>& Necromancer::getMinions() const
+{
+	return minions;
+}
