@@ -32,7 +32,7 @@ private:
 	vector<Ability> unlockedAbilities;
 public:
 	Necromancer(const string& name);
-	Necromancer(const string& name, int hp, int sp, int def, int critCh);
+	Necromancer(const string& name, int hp, int mp, int def, int critCh);
 	void addManaPotion(int amount);
 	void displayCharacter() const override;
 	void levelUp() override;

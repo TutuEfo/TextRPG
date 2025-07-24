@@ -1,6 +1,7 @@
 #include "Character.h"
 #include "Enemy.h"
 #include "Mage.h"
+#include "Necromancer.h"
 #include "Console.h"
 #include "SaveLoad.h"
 #include "Combat.h"
@@ -432,7 +433,7 @@ int main()
 
                 cout << ">> " << name << " has been created!\n" << endl;
             }
-            else
+            else if (classChoice == 2)
             {
                 int spellPowerCounter = 0;
                 int defenceCounter = 0;
@@ -464,6 +465,41 @@ int main()
                 }
 
                 player = new Mage(name, healthCounter, spellPowerCounter, defenceCounter, critCounter);
+
+                cout << ">> " << name << " has been created!\n" << endl;
+            }
+            else if (classChoice == 3)
+            {
+                int minionPowerCounter = 0;
+                int defenceCounter = 0;
+                int critCounter = 0;
+                int healthCounter = 0;
+
+                while ((minionPowerCounter + defenceCounter + critCounter + healthCounter) != 25)
+                {
+                    cout << endl;
+                    cout << "You have 25 skill points to create your character!" << endl;
+                    cout << "1) Minion Power" << endl;
+                    cout << "2) Defence" << endl;
+                    cout << "3) Crit Chance" << endl;
+                    cout << "4) Health/Mana" << endl;
+                    cout << ">> Base stats: Health/Mana: 100, Spell Power: 0, Defence: 0, Spell Crit Chance: 0" << endl;
+                    cout << "Enter the skill point distribution (20 5 0 0): ";
+                    cin >> minionPowerCounter >> defenceCounter >> critCounter >> healthCounter;
+
+                    if (minionPowerCounter == 250 && defenceCounter == 250 && critCounter == 250 && healthCounter == 250)
+                    {
+                        // OP Necromancer Secret!
+                        break;
+                    }
+
+                    if ((minionPowerCounter + defenceCounter + critCounter + healthCounter) != 25)
+                    {
+                        cout << "Make the sum of the point distribution 15!" << endl;
+                    }
+                }
+
+                player = new Necromancer(name, healthCounter, minionPowerCounter, defenceCounter, critCounter);
 
                 cout << ">> " << name << " has been created!\n" << endl;
             }
