@@ -4,6 +4,8 @@
 #include "UI.h"
 #include "Console.h"
 
+Minion m;
+
 Necromancer::Necromancer(const string& name) : Character(name), mana(50), maxMana(100), manaPotions(3), minionPower(12)
 {
 	strength = 0;
@@ -157,10 +159,25 @@ void Necromancer::useMinionPotion()
 	cout << ">> " << getNickName() << " used a mana potion and gained 50 Mana!" << endl;
 }
 
-//void Necromancer::unlockAbilitiesByLevel()
-//{
-//	
-//}
+void Necromancer::unlockAbilitiesByLevel()
+{
+	if (level == 5)
+	{
+		unlockedAbilities.push_back({ "Bone Spear", "Hurls a jagged bone projectile at a single target", 10 * level });
+	}
+	else if (level == 10)
+	{
+		unlockedAbilities.push_back({ "Life Leech", "Drains vitality from an enemy to heal yourself.", health * 50 / 100 });
+	}
+	else if (level == 15)
+	{
+		unlockedAbilities.push_back({ "Corpse Explosion", "Causes a nearby fallen ally or enemy corpse to detonate in a burst of necrotic energy.", m.health * 30 / 100 });
+	}
+	else if (level == 20)
+	{
+		// Thinking.
+	}
+}
 
 //void Necromancer::applyItemBonus(const Item& it)
 //{

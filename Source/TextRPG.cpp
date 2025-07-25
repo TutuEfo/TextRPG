@@ -601,6 +601,18 @@ int main()
         }
         else if (in == 'e' || in == 'E')
         {
+            cout << ">> Don't forget to save your game before quit." << endl;
+            cout << ">> 1) If you didn't save" << endl;
+            cout << ">> 2) If you save your game" << endl;
+            cout << ">> ";
+            int choice;
+            cin >> choice;
+
+            if (choice == 1)
+            {
+                continue;
+            }
+
             cout << "\n>> Quitting the game!\n";
             cout << "\n>> Enemies lurk in the shadows. We need you back ASAP!\n";
 
