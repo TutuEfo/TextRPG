@@ -179,21 +179,108 @@ void Necromancer::unlockAbilitiesByLevel()
 	}
 }
 
-//void Necromancer::applyItemBonus(const Item& it)
-//{
-//
-//}
-//
+void Necromancer::applyItemBonus(const Item& it)
+{
+	switch (it.type)
+	{
+	case ItemType::Wand:
+	{
+		minionPower += it.bonusStat;
 
-//void Necromancer::removeItemBonus(const Item& it)
-//{
-//
-//}
+		break;
+	}
+	case ItemType::Shield:
+	{
+		defence += it.bonusStat;
 
-//void Necromancer::addItem(Item it)
-//{
-//
-//}
+		break;
+	}
+	case ItemType::Helmet:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Chestplate:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Leggings:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	case ItemType::Boots:
+	{
+		defence += it.bonusStat;
+
+		break;
+	}
+	default:
+		break;
+	}
+
+}
+
+
+void Necromancer::removeItemBonus(const Item& it)
+{
+	switch (it.type)
+	{
+	case ItemType::Wand:
+	{
+		minionPower -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Shield:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Helmet:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Chestplate:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Leggings:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	case ItemType::Boots:
+	{
+		defence -= it.bonusStat;
+
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void Necromancer::addItem(Item it)
+{
+	if (it.type == ItemType::Sword || it.type == ItemType::Shield)
+	{
+		cout << ">> Necromancer can't wield " << it.name << "!" << endl;
+		return;
+	}
+
+	Character::addItem(it);
+}
 
 void Necromancer::setMana(int amount)
 {
