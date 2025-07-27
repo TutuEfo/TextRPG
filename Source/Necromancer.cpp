@@ -331,3 +331,28 @@ const vector<Minion>& Necromancer::getMinions() const
 {
 	return minions;
 }
+
+void Necromancer::minionAttack(Character& target)
+{
+	if (minions.empty())
+	{
+		cout << ">> You have no minions to attack with!\n";
+		return;
+	}
+
+	cout << ">> Your minions rush forward!\n";
+
+	for (auto& m : minions)
+	{
+		if (m.health <= 0)
+		{
+			continue;
+		}
+		int damage = m.damage + minionPower;
+		cout << "   - " << m.name << " hits " << target.getNickName() << " for " << damage << " damage!\n";
+		target.takeDamage(damage);
+		--m.remainingTurns;
+	}
+
+	clearDeadMinions();
+}

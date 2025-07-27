@@ -40,6 +40,8 @@ public:
 	void useMinionPotion();
 	void unlockAbilitiesByLevel() override;
 
+	void minionAttack(Character& target);
+
 	void applyItemBonus(const Item& it);
 	void removeItemBonus(const Item& it);
 	void addItem(Item it) override;
