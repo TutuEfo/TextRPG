@@ -121,6 +121,28 @@ void Map::generateRandomMap(int x, int y)
     grid[x - 2][y - 2] = 'P';
     playerX = x - 2;
     playerY = y - 2;
+
+    //const char* roles[] = { "Elder","Blacksmith","Healer","Guard","Merchant" };
+    //const char* dialogs[] = {
+    //    ">> Hello there, traveler!",
+    //    ">> Our village needs your help!",
+    //    ">> Beware the wolves in the woods.",
+    //    ">> Please find my lost amulet."
+    //};
+    //const int  ROLENUM = sizeof(roles) / sizeof(roles[0]);
+    //const int  DLGNUM = sizeof(dialogs) / sizeof(dialogs[0]);
+
+    //int rRole = rand() % ROLENUM;
+    //int rDialog = rand() % DLGNUM;
+    //int x = std::rand() % columns();
+    //int y = std::rand() % ();
+
+    //std::string id = std::string(roles[rRole]) + "_" + std::to_string(rRole);
+
+    //NPC npc(id, roles[rRole], x, y);
+    //npc.addDialogLine(dialogs[rDialog]);
+    //npc.setQuest(player->generateRandomQuest(roles[rRole]));
+    //addNPC(npc);
 }
 
 void Map::display() const

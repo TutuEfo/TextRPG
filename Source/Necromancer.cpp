@@ -307,6 +307,11 @@ int Necromancer::getMana() const
 	return mana;
 }
 
+int Necromancer::getManaPotions() const
+{
+	return manaPotions;
+}
+
 void Necromancer::summonMinion(const Minion& m)
 {
 	if (minionCounter >= maxMinion || mana < 25)
