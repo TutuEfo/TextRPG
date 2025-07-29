@@ -361,3 +361,8 @@ void Necromancer::minionAttack(Character& target)
 
 	clearDeadMinions();
 }
+
+void Necromancer::addSummonPotions(int amount)
+{
+	summonPotions = summonPotions + amount;
+}

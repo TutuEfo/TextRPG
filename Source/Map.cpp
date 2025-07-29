@@ -6,6 +6,7 @@
 #include "Combat.h"
 #include "Enemy.h"
 #include "Console.h"
+#include "Necromancer.h"
 
 static void printTile(char tile)
 {
@@ -396,11 +397,12 @@ void Map::shopMenu(Character *player)
 
         int option, amount;
         cout << ">> Gold: " << player->getGold() << endl;
-        cout << "1) Health Potion (20 gold)" << endl;
-        cout << "2) Mana Potion (25 gold)" << endl; // For Mage Class
-        cout << "3) Strength Potion (30 gold)" << endl;
-        cout << "4) Defence Potions (30 gold)" << endl;
-        cout << "5) Exit" << endl;
+        cout << "1) Health Potion (" + to_string(20 * player->getLevel()) + " gold)" << endl;
+        cout << "2) Mana Potion (" + to_string(20 * player->getLevel()) + " gold)" << endl; // For Mage Class
+        cout << "3) Strength Potion (" + to_string(30 * player->getLevel()) + " gold)" << endl;
+        cout << "4) Defence Potion (" + to_string(30 * player->getLevel()) + " gold)" << endl;
+        cout << "5) Summon Potion (" + to_string(30 * player->getLevel()) + " gold)" << endl;
+        cout << "6) Exit" << endl;
         cout << ">> Choose an option: ";
         cin >> option;
 
@@ -425,12 +427,11 @@ void Map::shopMenu(Character *player)
             break;
 
         case 2:
-
-            cout << "Enter amount: ";
-            cin >> amount;
-            
             if (Mage* mage = dynamic_cast<Mage*>(player))
             {
+                cout << "Enter amount: ";
+                cin >> amount;
+
                 if (player->getGold() >= 25 * amount)
                 {
                     mage->addManaPotion(amount);
@@ -442,9 +443,25 @@ void Map::shopMenu(Character *player)
                     coloredPrint(Color::Red, ">> Not enough gold!\n");
                 }
             }
+            else if (Necromancer* necro = dynamic_cast<Necromancer*>(player))
+            {
+                cout << "Enter amount: ";
+                cin >> amount;
+
+                if (player->getGold() >= 25 * amount)
+                {
+                    necro->addManaPotion(amount);
+                    player->addGold(-25 * amount);
+                    coloredPrint(Color::Cyan, ">> " + name + " bought " + to_string(amount) + " Mana Potion(s)!\n");
+                }
+                else
+                {
+                    coloredPrint(Color::Red, ">> Not enough gold!\n");
+                }
+            }
             else
             {
-                coloredPrint(Color::Red, ">> Only Mages can buy a mana potions!\n");
+                coloredPrint(Color::Red, ">> Only Mages/Necromancer can buy a mana potions!\n");
             }
 
             break;
@@ -483,6 +500,29 @@ void Map::shopMenu(Character *player)
 
             break;
         case 5:
+            if (Necromancer* necro = dynamic_cast<Necromancer*>(player))
+            {
+                cout << "Enter amount: ";
+                cin >> amount;
+
+                if (player->getGold() >= 25 * amount)
+                {
+                    necro->addSummonPotions(amount);
+                    player->addGold(-25 * amount);
+                    coloredPrint(Color::Cyan, ">> " + name + " bought " + to_string(amount) + " Mana Potion(s)!\n");
+                }
+                else
+                {
+                    coloredPrint(Color::Red, ">> Not enough gold!\n");
+                }
+            }
+            else
+            {
+                coloredPrint(Color::Red, ">> Only Necromancer can buy a mana potions!\n");
+            }
+
+            break;
+        case 6:
             cout << ">> Leaving the shop..." << endl;
 
             return;

@@ -6,8 +6,6 @@
 #include <iostream>
 #include <vector>
 #include "Character.h"
-#include "Ability.h"
-#include "Item.h"
 
 using namespace std;
 
@@ -51,6 +49,7 @@ public:
 
 	void setMana(int amount);
 	void setManaPotions(int amount);
+	void addSummonPotions(int amount);
 
 	string getClassName() const override { return "Necromancer"; }
 	int getManaPotions() const;
