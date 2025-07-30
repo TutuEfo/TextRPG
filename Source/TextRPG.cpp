@@ -546,11 +546,10 @@ int main()
     }
 
     Map map(player);
-
-    NPC villageElder("elder001", "Elder", 5, 5);
-    villageElder.addDialogLine(">> Ah, adventurer! Our town has so much monsters, can you help us with that?");
-    villageElder.setQuest(player->generateRandomQuest("Elder"));
-    map.addNPC(villageElder);
+    //NPC villageElder("elder001", "Elder", 5, 5);
+    //villageElder.addDialogLine(">> Ah, adventurer! Our town has so much monsters, can you help us with that?");
+    //villageElder.setQuest(player->generateRandomQuest("Elder"));
+    //map.addNPC(villageElder);
 
     if (mapWasLoaded)
     {

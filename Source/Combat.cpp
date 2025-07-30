@@ -4,6 +4,8 @@
 #include <iostream>
 #include <limits>
 
+#include "Necromancer.h"
+
 Combat::Combat(Character& player, Enemy& enemy) : cPlayer(player), cEnemy(enemy){
 }
 
@@ -53,6 +55,7 @@ void Combat::displayStats() const
 int Combat::chooseAction() const
 {
 	Mage* magePtr = dynamic_cast<Mage*>(&cPlayer);
+	Necromancer* necroPtr = dynamic_cast<Necromancer*>(&cPlayer);
 	
 	int choice = 0;
 
@@ -65,7 +68,16 @@ int Combat::chooseAction() const
 			std::cout << "1) Cast Spell" << endl;
 			std::cout << "2) Defend" << endl;
 			std::cout << "3) Use Item" << endl;
-			std::cout << "4) Escape" << endl;
+			std::cout << "4) Abilities" << endl;
+			std::cout << "5) Escape" << endl;
+		}
+		else if (necroPtr)
+		{
+			std::cout << "1) Minion Menu" << endl;
+			std::cout << "2) Defend" << endl;
+			std::cout << "3) Use Item" << endl;
+			std::cout << "4) Abilities" << endl;
+			std::cout << "5) Escape" << endl;
 		}
 		else
 		{
@@ -98,6 +110,7 @@ int Combat::chooseAction() const
 void Combat::performAction(int choice)
 {
 	Mage* magePtr = dynamic_cast<Mage*>(&cPlayer);
+	Necromancer* necroPtr = dynamic_cast<Necromancer*>(&cPlayer);
 
 	switch (choice)
 	{
@@ -114,6 +127,10 @@ void Combat::performAction(int choice)
 			playerCastSpell(spellChoice);
 			
 			break;
+		}
+		else if (necroPtr)
+		{
+			// minionMenu();
 		}
 
 		playerAttack();
@@ -132,24 +149,17 @@ void Combat::performAction(int choice)
 
 	case 4:
 	{
-		if (magePtr)
+		if (!cPlayer.abilities())
 		{
-			playerEscape();
+			break;
 		}
-		else
-		{
-			if (!cPlayer.abilities())
-			{
-				break;
-			}
 
-			int choice;
+		int choice;
 
-			cout << "Choose an ability to use: ";
-			cin >> choice;
+		cout << "Choose an ability to use: ";
+		cin >> choice;
 
-			cPlayer.useAbility(choice - 1, cEnemy);
-		}
+		cPlayer.useAbility(choice - 1, cEnemy);
 
 		break;
 	}

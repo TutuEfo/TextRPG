@@ -225,7 +225,6 @@ void Necromancer::applyItemBonus(const Item& it)
 
 }
 
-
 void Necromancer::removeItemBonus(const Item& it)
 {
 	switch (it.type)
@@ -353,6 +352,7 @@ void Necromancer::minionAttack(Character& target)
 		{
 			continue;
 		}
+
 		int damage = m.damage + minionPower;
 		cout << "   - " << m.name << " hits " << target.getNickName() << " for " << damage << " damage!\n";
 		target.takeDamage(damage);
