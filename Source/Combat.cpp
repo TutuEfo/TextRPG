@@ -382,6 +382,7 @@ void Combat::enemyTurn()
 int Combat::promptPotionMenu() const
 {
 	Mage* magePtr = dynamic_cast<Mage*>(&cPlayer);
+	Necromancer* necroPtr = dynamic_cast<Necromancer*>(&cPlayer);
 
 	int choice = 0;
 
@@ -391,6 +392,8 @@ int Combat::promptPotionMenu() const
 		std::cout << "1) Health (" << cPlayer.getHealthPotions() << ")" << endl;
 		std::cout << "2) Strength (" << cPlayer.getStrengthPotions() << ")" << endl;
 		std::cout << "3) Defence (" << cPlayer.getDefencePotions() << ")" << endl;
+		std::cout << "4) Mana (" << magePtr->getManaPotions() << ")" << endl;
+		std::cout << "5) Summon (" << necroPtr->getSummonPotions() << ")" << endl;
 
 		if (magePtr)
 		{
@@ -406,9 +409,10 @@ int Combat::promptPotionMenu() const
 
 		if (cin >> choice)
 		{
-			bool valid = magePtr ? (choice >= 1 && choice <= 5) : (choice >= 1 && choice <= 4);
+			bool validMage = magePtr ? (choice >= 1 && choice <= 4) : (choice <= 1 && choice >= 4);
+			bool validNecro = necroPtr ? (choice >= 1 && choice <= 5) : (choice <= 1 && choice >= 5);
 
-			if (valid)
+			if (validMage || validNecro)
 			{
 				break;
 			}
