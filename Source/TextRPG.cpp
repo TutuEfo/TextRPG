@@ -484,7 +484,7 @@ int main()
                     cout << "2) Defence" << endl;
                     cout << "3) Crit Chance" << endl;
                     cout << "4) Health/Mana" << endl;
-                    cout << ">> Base stats: Health/Mana: 100, Spell Power: 0, Defence: 0, Spell Crit Chance: 0" << endl;
+                    cout << ">> Base stats: Health/Mana: 100, Minion Power: 0, Defence: 0, Minion Crit Chance: 0" << endl;
                     cout << "Enter the skill point distribution (20 5 0 0): ";
                     cin >> minionPowerCounter >> defenceCounter >> critCounter >> healthCounter;
 

@@ -344,17 +344,19 @@ void Necromancer::minionAttack(Character& target)
 		return;
 	}
 
+
+
 	cout << ">> Your minions rush forward!\n";
 
 	for (auto& m : minions)
 	{
-		if (m.health <= 0)
+		if (m.health <= 0 && m.remainingTurns <= 0)
 		{
 			continue;
 		}
 
 		int damage = m.damage + minionPower;
-		cout << "   - " << m.name << " hits " << target.getNickName() << " for " << damage << " damage!\n";
+		cout << ">> Minion" << m.name << " hits " << target.getNickName() << " for " << damage << " damage!\n";
 		target.takeDamage(damage);
 		--m.remainingTurns;
 	}
